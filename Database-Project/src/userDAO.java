@@ -298,7 +298,7 @@ public class userDAO
 		    			"('angelo@gmail.com', 'Angelo', 'Francis','angelo1234', '2021-06-14', '4680', 'egypt street', 'lolas', 'DT', '13579','290', '8'),"+
 		    			"('rudy@gmail.com', 'Rudy', 'Smith','rudy1234', '1706-06-05', '1234', 'sign street', 'samo ne tu','MH', '09876','900', '9'),"+
 		    			"('jeannette@gmail.com', 'Jeannette ', 'Stone','jeannette1234', '2001-04-24', '0981', 'snoop street', 'kojik', 'HW', '87654','944', '10'),"+
-		    			"('root', 'default', 'default','pass1234', '0000-00-00', '0000', 'Default', 'Default', '0', '00000','983','11');")
+		    			"('root', 'default', 'default','pass1234', '1111-11-11', '0000', 'Default', 'Default', '0', '00000','983','11');")
 		    			};
         
         //for loop to put these in database
