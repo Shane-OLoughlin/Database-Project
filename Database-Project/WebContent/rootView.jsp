@@ -27,9 +27,9 @@
                 <th>Last name</th>
                 <th>Adress</th>
                 <th>Password</th>
-                <th>Birthday</th>
-                <th>cash_bal($)</th>
-                <th>PPS_bal</th>
+                <th>Credit Card Info</th>
+                <th>Phone Number</th>
+                <th>ClientID</th>
             </tr>
             <c:forEach var="users" items="${listUser}">
                 <tr style="text-align:center">
