@@ -109,7 +109,7 @@ public class ControlServlet extends HttpServlet {
 				 session.setAttribute("username", email);
 				 rootPage(request, response, "");
 	    	 }
-	    	 else if (email.equals("David Smith") && password.equals("david1234")) {
+	    	 else if (email.equals("dsmith@gmail.com") && password.equals("david1234")) {
 				 System.out.println("Login Successful! Redirecting to David Smith");
 				 session = request.getSession();
 				 session.setAttribute("username", email);
