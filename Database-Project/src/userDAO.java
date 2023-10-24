@@ -298,6 +298,7 @@ public class userDAO
 		    			"('angelo@gmail.com', 'Angelo', 'Francis','angelo1234', '2021-06-14', '4680', 'egypt street', 'lolas', 'DT', '13579','290', '8'),"+
 		    			"('rudy@gmail.com', 'Rudy', 'Smith','rudy1234', '1706-06-05', '1234', 'sign street', 'samo ne tu','MH', '09876','900', '9'),"+
 		    			"('jeannette@gmail.com', 'Jeannette ', 'Stone','jeannette1234', '2001-04-24', '0981', 'snoop street', 'kojik', 'HW', '87654','944', '10'),"+
+		    			"('dsmith@gmail.com', 'David ', 'Smith','david1234', '2001-05-24', '0941', 'snoop street', 'kojik', 'HW', '87644','934', '12'),"+
 		    			"('root', 'default', 'default','pass1234', '1111-11-11', '0000', 'Default', 'Default', '0', '00000','983','11');")
 		    			};
         
