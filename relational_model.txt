@@ -1,0 +1,112 @@
+CREATE TABLE  Client (
+clientid integer,
+firstname VARCHAR(50),
+lastname VARCHAR(50),
+address VARCHAR(100),
+email VARCHAR(50),
+phonenumber CHAR(10),
+creditcardinfo CHAR(16),
+primary key(clientid),
+unique(email),
+unique(clientid)
+)
+
+CREATE TABLE QuoteRequest(
+quoterequestid integer,
+quotenote VARCHAR(1000),
+primary key (quoterequestid)
+)
+
+CREATE TABLE Tree (
+treeid integer,
+size double,
+height double,
+location VARCHAR(100),
+proximitytohouse double,
+picture1 VARCHAR(100),
+picture2 VARCHAR(100),
+picture3 VARCHAR(100),
+quoterequestid integer NOT NULL,
+primary key(treeid),
+foreign key(quoterequestid) references QuoteRequest
+)
+
+CREATE TABLE DavidSmith(
+davidsmithid integer,
+orderofworkid integer NOT NULL,
+primary key(davidsmithid),
+foreign key(orderofworkid) references OrderOfWork
+)
+
+CREATE TABLE ReportOfRevenue (
+reportofrevenueid integer,
+report VARCHAR(1000), 
+davidsmithid integer NOT NULL,
+primary key(reportofrevenueid),
+foreign key(davidsmithid) references DavidSmith
+)
+
+CREATE TABLE Respond(
+davidsmithid integer,
+quotereponseid integer,
+primary key(davidsmithid, quotereponseid),
+foreign key(davidsmithid) references DavidSmith,
+foreign key(quotereponseid) references QuoteResponse
+)
+
+CREATE TABLE QuoteResponse(
+quoteresponseid integer,
+initialprice double,
+timewindow VARCHAR(100),
+primary key(quoteresponseid)
+)
+
+CREATE TABLE Accept (
+clientid integer,
+quoteresponseid integer,
+orderofworkid integer,
+primary key(clientid, quoteresponseid, orderofworkid),
+foreign key(clientid) references Client,
+foreign key(quoteresponseid) references QuoteResponse,
+foreign key(orderofworkid) references OrderOfWork
+)
+
+CREATE TABLE OrderOfWork (
+orderofworkid integer,
+work VARCHAR(1000),
+primary key(orderofworkid)
+)
+
+CREATE TABLE BillRequest (
+billrequestid integer,
+billnote VARCHAR(1000),
+studentid integer NOT NULL,
+primary key(billrequestid),
+foreign key(orderofworkid) references OrderOfWork(orderofworkid),
+unique(orderofworkid)
+)
+
+CREATE TABLE Send (
+clientid integer,
+billrequestid integer,
+primary key(clientid, billrequestid),
+foreign key(clientid) references Client,
+foreign key(billrequestid) references BillRequest
+)
+
+CREATE TABLE Pay (
+clientid integer,
+billrequestid integer,
+primary key(clientid, billrequestid),
+foreign key(clientid) references Client,
+foreign key(billrequestid) references BillRequest
+)
+
+CREATE TABLE RejectBill (
+clientid integer,
+billrequestid integer,
+clientnote VARCHAR(1000),
+primary key(clientid, billrequestid),
+foreign key(clientid) references Client,
+foreign key(billrequestid) references BillRequest
+)
