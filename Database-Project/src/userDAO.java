@@ -505,7 +505,11 @@ public class userDAO
                 "('10', 'Tree maintenance for side yard trees.');")
         				};
         
+<<<<<<< HEAD
         String[] TUPLES10 = {("INSERT INTO BillRequest(billrequestid, billnote, orderofworkid)"+
+=======
+        String[] TUPLES10 = {("INSERT INTO BillRequest(billrequestid, billnote, studentid)"+
+>>>>>>> branch 'main' of https://github.com/Shane-OLoughlin/Database-Project.git
         		"VALUES('1', 'The bill for tree trimming in the front yard is $53', '1'),"+
                 "('2', 'The bill for tree removal in the back yard is $533', '2'),"+
                 "('3', 'Bill for tree maintenance in the side yard is $232', '3'),"+
