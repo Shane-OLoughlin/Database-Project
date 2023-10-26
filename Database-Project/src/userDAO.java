@@ -506,16 +506,16 @@ public class userDAO
         				};
         
         String[] TUPLES10 = {("INSERT INTO BillRequest(billrequestid, billnote, studentid)"+
-        		"VALUES('1', 'Bill for tree trimming in the front yard.', '1'),"+
-                "('2', 'Bill for tree removal in the back yard.', '2'),"+
-                "('3', 'Bill for tree maintenance in the side yard.', '3'),"+
-                "('4', 'Bill for tree pruning in the front yard.', '4'),"+
-                "('5', 'Bill for tree removal and cleanup in the back yard.', '5'),"+
-                "('6', 'Bill for tree trimming in the front yard.', '6'),"+
-                "('7', 'Bill for tree maintenance in the side yard.', '7'),"+
-                "('8', 'Bill for tree removal and cleanup in the back yard.', '8'),"+
-                "('9', 'Bill for tree trimming in the front yard.', '9'),"+
-                "('10', 'Bill for tree maintenance in the side yard.', '10');")
+        		"VALUES('1', 'The bill for tree trimming in the front yard is $53', '1'),"+
+                "('2', 'The bill for tree removal in the back yard is $533', '2'),"+
+                "('3', 'Bill for tree maintenance in the side yard is $232', '3'),"+
+                "('4', 'Bill for tree pruning in the front yard is $232.', '4'),"+
+                "('5', 'Bill for tree removal and cleanup in the back yard is $900.', '5'),"+
+                "('6', 'Bill for tree trimming in the front yard is $242.', '6'),"+
+                "('7', 'Bill for tree maintenance in the side yard is $535.', '7'),"+
+                "('8', 'Bill for tree removal and cleanup in the back yard is $444.', '8'),"+
+                "('9', 'Your concern is unfounded; bill for tree trimming in the front yard is $442.', '9'),"+
+                "('10', 'Discount for bill for tree maintenance in the side yard.', '10');")
                 };
         		
         String[] TUPLES11 = {("INSERT INTO Send(clientid, billrequestid)"+
