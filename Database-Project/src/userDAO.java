@@ -515,7 +515,7 @@ public class userDAO
                 "('7', 'Bill for tree maintenance in the side yard is $535.', '7'),"+
                 "('8', 'Bill for tree removal and cleanup in the back yard is $444.', '8'),"+
                 "('9', 'Your concern is unfounded; bill for tree trimming in the front yard is $442.', '9'),"+
-                "('10', 'Discount for bill for tree maintenance in the side yard.', '10');")
+                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '10');")
                 };
         		
         String[] TUPLES11 = {("INSERT INTO Send(clientid, billrequestid)"+
