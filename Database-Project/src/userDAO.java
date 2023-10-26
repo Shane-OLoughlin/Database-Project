@@ -267,7 +267,6 @@ public class userDAO
     public void init() throws SQLException, FileNotFoundException, IOException{
     	connect_func();
         statement =  (Statement) connect.createStatement();
-        
         String[] INITIAL = {"drop database if exists testdb; ",
 					        "create database testdb; ",
 					        "use testdb; ",
