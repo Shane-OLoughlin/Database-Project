@@ -284,7 +284,7 @@ public class userDAO
 					            "adress_zip_code VARCHAR(5),"+ 
 					            "cash_bal DECIMAL(13,2),"+ 
 					            "PPS_bal DECIMAL(13,2),"+
-					            "PRIMARY KEY (email)" +
+					            "PRIMARY KEY (PPS_bal)" +
 					        ");",
 					        "DROP TABLE IF EXISTS QuoteRequest;",
 					        "CREATE TABLE IF NOT EXISTS QuoteRequest ( " +
@@ -309,9 +309,7 @@ public class userDAO
 					        "DROP TABLE IF EXISTS DavidSmith;",
 					        "CREATE TABLE IF NOT EXISTS DavidSmith ( " +
 					            "davidsmithid INTEGER NOT NULL, " +
-					            "orderofworkid INTEGER NOT NULL, " +
-					            "PRIMARY KEY (davidsmithid), " +
-					            "FOREIGN KEY (orderofworkid) REFERENCES OrderOfWork (orderofworkid)" +
+					            "PRIMARY KEY (davidsmithid)" +
 					        ");",
 					        "DROP TABLE IF EXISTS ReportOfRevenue;",
 					        "CREATE TABLE IF NOT EXISTS ReportOfRevenue ( " +
@@ -321,14 +319,6 @@ public class userDAO
 					            "PRIMARY KEY (reportofrevenueid), " +
 					            "FOREIGN KEY (davidsmithid) REFERENCES DavidSmith (davidsmithid)" +
 					        ");",
-					        "DROP TABLE IF EXISTS Respond;",
-					        "CREATE TABLE IF NOT EXISTS Respond ( " +
-					            "davidsmithid INTEGER NOT NULL, " +
-					            "quotereponseid INTEGER NOT NULL, " +
-					            "PRIMARY KEY (davidsmithid, quotereponseid), " +
-					            "FOREIGN KEY (davidsmithid) REFERENCES DavidSmith (davidsmithid), " +
-					            "FOREIGN KEY (quotereponseid) REFERENCES QuoteResponse (quoteresponseid)" +
-					        ");",
 					        "DROP TABLE IF EXISTS QuoteResponse;",
 					        "CREATE TABLE IF NOT EXISTS QuoteResponse ( " +
 					            "quoteresponseid INTEGER NOT NULL, " +
@@ -336,15 +326,11 @@ public class userDAO
 					            "timewindow VARCHAR(100), " +
 					            "PRIMARY KEY (quoteresponseid)" +
 					        ");",
-				        "DROP TABLE IF EXISTS Accept;",
-					        "CREATE TABLE IF NOT EXISTS Accept ( " +
-					            "PPS_bal DECIMAL(13,2) NOT NULL, " +
-					            "quoteresponseid INTEGER NOT NULL, " +
-					            "orderofworkid INTEGER NOT NULL, " +
-					            "PRIMARY KEY (PPS_bal, quoteresponseid, orderofworkid), " +
-					            "FOREIGN KEY (PPS_bal) REFERENCES User (PPS_bal), " +
-					            "FOREIGN KEY (quoteresponseid) REFERENCES QuoteResponse (quoteresponseid), " +
-					            "FOREIGN KEY (orderofworkid) REFERENCES OrderOfWork (orderofworkid)" +
+					        "DROP TABLE IF EXISTS Respond;",
+					        "CREATE TABLE IF NOT EXISTS Respond ( " +
+					            "davidsmithid INTEGER NOT NULL, " +
+					            "quotereponseid INTEGER NOT NULL, " +
+					            "PRIMARY KEY (davidsmithid, quotereponseid) " +
 					        ");",
 					        "DROP TABLE IF EXISTS OrderOfWork;",
 					        "CREATE TABLE IF NOT EXISTS OrderOfWork ( " +
@@ -352,40 +338,39 @@ public class userDAO
 					            "work VARCHAR(1000), " +
 					            "PRIMARY KEY (orderofworkid)" +
 					        ");",
+					        "DROP TABLE IF EXISTS Accept;",
+					        "CREATE TABLE IF NOT EXISTS Accept ( " +
+					            "PPS_bal DECIMAL(13,2) NOT NULL, " +
+					            "quoteresponseid INTEGER NOT NULL, " +
+					            "orderofworkid INTEGER NOT NULL, " +
+					            "PRIMARY KEY (PPS_bal, quoteresponseid, orderofworkid) " +
+					        ");",
 					        "DROP TABLE IF EXISTS BillRequest;",
 					        "CREATE TABLE IF NOT EXISTS BillRequest ( " +
 					            "billrequestid INTEGER NOT NULL, " +
 					            "billnote VARCHAR(1000), " +
 					            "orderofworkid INTEGER NOT NULL, " +
 					            "PRIMARY KEY (billrequestid), " +
-					            "FOREIGN KEY (orderofworkid) REFERENCES OrderOfWork (orderofworkid), " +
 					            "UNIQUE (billrequestid)" +
 					        ");",
-					        
 					        "DROP TABLE IF EXISTS Send;",
 					        "CREATE TABLE IF NOT EXISTS Send ( " +
 					            "PPS_bal DECIMAL(13,2) NOT NULL, " +
 					            "billrequestid INTEGER NOT NULL, " +
-					            "PRIMARY KEY (PPS_bal, billrequestid), " +
-					            "FOREIGN KEY (PPS_bal) REFERENCES User (PPS_bal), " +
-					            "FOREIGN KEY (billrequestid) REFERENCES BillRequest (billrequestid)" +
+					            "PRIMARY KEY (PPS_bal, billrequestid) " +
 					        ");",
 					        "DROP TABLE IF EXISTS Pay;",
 					        "CREATE TABLE IF NOT EXISTS Pay ( " +
 					            "PPS_bal DECIMAL(13,2) NOT NULL, " +
 					            "billrequestid INTEGER NOT NULL, " +
-					            "PRIMARY KEY (PPS_bal, billrequestid), " +
-					            "FOREIGN KEY (PPS_bal) REFERENCES User (PPS_bal), " +
-					            "FOREIGN KEY (billrequestid) REFERENCES BillRequest (billrequestid)" +
+					            "PRIMARY KEY (PPS_bal, billrequestid) " +
 					        ");",
 					        "DROP TABLE IF EXISTS RejectBill;",
 					        "CREATE TABLE IF NOT EXISTS RejectBill ( " +
 					            "PPS_bal DECIMAL(13,2) NOT NULL, " +
 					            "billrequestid INTEGER NOT NULL, " +
 					            "clientnote VARCHAR(1000), " +
-					            "PRIMARY KEY (PPS_bal, billrequestid), " +
-					            "FOREIGN KEY (PPS_bal) REFERENCES User (PPS_bal), " +
-					            "FOREIGN KEY (billrequestid) REFERENCES BillRequest (billrequestid)" +
+					            "PRIMARY KEY (PPS_bal, billrequestid) " +
 					        ");"
 					    };
         
@@ -430,17 +415,17 @@ public class userDAO
         	        	"('10', '18.5', '7.7', 'Side Yard', '13.5', 'tree28.jpg', 'tree29.jpg', 'tree30.jpg', '10');")
         				};
         
-        String[] TUPLES4 = {("INSERT INTO DavidSmith(davidsmithid, orderofworkid)"+
-                "values ('1', '1'),"+
-                "('2', '2'),"+
-                "('3', '3'),"+
-                "('4', '4'),"+
-                "('5', '5'),"+
-                "('6', '6'),"+
-                "('7', '7'),"+
-                "('8', '8'),"+
-                "('9', '9'),"+
-                "('10', '10');")
+        String[] TUPLES4 = {("INSERT INTO DavidSmith(davidsmithid)"+
+                "VALUES ('1'),"+
+                "('2'),"+
+                "('3'),"+
+                "('4'),"+
+                "('5'),"+
+                "('6'),"+
+                "('7'),"+
+                "('8'),"+
+                "('9'),"+
+                "('10');")
     					};
         String[] TUPLES5 = {("INSERT INTO ReportOfRevenue(reportofrevenueid, report, davidsmithid)"+
                 "VALUES ('1', 'Generated $500', '1'),"+
@@ -479,20 +464,7 @@ public class userDAO
                 "('10', '170.00', '2024-10-15');")
         				};
         
-        String[] TUPLES8 = {("INSERT INTO Accept(PPS_bal, quoteresponseid, orderofworkid)"+
-                "VALUES('1', '1', '1'),"+
-                "('2', '2', '2'),"+
-                "('3', '3', '3'),"+
-                "('4', '4', '4'),"+
-                "('5', '5', '5'),"+
-                "('6', '6', '6'),"+
-                "('7', '7', '7'),"+
-                "('8', '8', '8'),"+
-                "('9', '9', '9'),"+
-                "('10', '10', '10');")
-        				};
-        
-        String[] TUPLES9 = {("INSERT INTO OrderOfWork(orderofworkid, work)"+
+        String[] TUPLES8 = {("INSERT INTO OrderOfWork(orderofworkid, work)"+
                 "VALUES('1', 'Trim and prune trees in the front yard.'),"+
                 "('2', 'Remove dead branches and trim trees in the back yard.'),"+
                 "('3', 'Tree maintenance for side yard trees.'),"+
@@ -503,6 +475,19 @@ public class userDAO
                 "('8', 'Tree removal and cleanup in the back yard.'),"+
                 "('9', 'Tree trimming and shaping in the front yard.'),"+
                 "('10', 'Tree maintenance for side yard trees.');")
+        				};
+        
+        String[] TUPLES9 = {("INSERT INTO Accept(PPS_bal, quoteresponseid, orderofworkid)"+
+                "VALUES('1', '1', '1'),"+
+                "('2', '2', '2'),"+
+                "('3', '3', '3'),"+
+                "('4', '4', '4'),"+
+                "('5', '5', '5'),"+
+                "('6', '6', '6'),"+
+                "('7', '7', '7'),"+
+                "('8', '8', '8'),"+
+                "('9', '9', '9'),"+
+                "('10', '10', '10');")
         				};
         
         String[] TUPLES10 = {("INSERT INTO BillRequest(billrequestid, billnote, orderofworkid)"+
@@ -556,7 +541,54 @@ public class userDAO
                 		"('9', '9', 'Disputed charges on the bill.'),"+
         				"('10', '10', 'Work was incomplete.');")
         				};
-
+        String[] FOREIGNKEYS = {"ALTER TABLE Accept " +
+			            "ADD CONSTRAINT fk_Accept_User " +
+			            "FOREIGN KEY (PPS_bal) " +
+			            "REFERENCES User (PPS_bal);",
+			            "ALTER TABLE Accept " +
+			            "ADD CONSTRAINT fk_Accept_QuoteResponse " +
+			            "FOREIGN KEY (quoteresponseid) " +
+			            "REFERENCES QuoteResponse (quoteresponseid);",
+			            "ALTER TABLE Accept " +
+			            "ADD CONSTRAINT fk_Accept_OrderOfWork " +
+			            "FOREIGN KEY (orderofworkid) " +
+			            "REFERENCES OrderOfWork (orderofworkid);",
+			            "ALTER TABLE Respond " +
+        "ADD CONSTRAINT fk_Respond_DavidSmith " +
+        "FOREIGN KEY (davidsmithid) " +
+        "REFERENCES DavidSmith (davidsmithid);",
+        "ALTER TABLE Respond " +
+        "ADD CONSTRAINT fk_Respond_QuoteResponse " +
+        "FOREIGN KEY (quotereponseid) " +
+        "REFERENCES QuoteResponse (quoteresponseid);",
+        "ALTER TABLE Send " +
+        "ADD CONSTRAINT fk_Send_User " +
+        "FOREIGN KEY (PPS_bal) " +
+        "REFERENCES User (PPS_bal);",
+        "ALTER TABLE Send " +
+        "ADD CONSTRAINT fk_Send_BillRequest " +
+        "FOREIGN KEY (billrequestid) " +
+        "REFERENCES BillRequest (billrequestid);",
+        "ALTER TABLE Pay " +
+        "ADD CONSTRAINT fk_Pay_User " +
+        "FOREIGN KEY (PPS_bal) " +
+        "REFERENCES User (PPS_bal);",
+        "ALTER TABLE Pay " +
+        "ADD CONSTRAINT fk_Pay_BillRequest " +
+        "FOREIGN KEY (billrequestid) " +
+        "REFERENCES BillRequest (billrequestid);",
+        "ALTER TABLE RejectBill " +
+        "ADD CONSTRAINT fk_RejectBill_User " +
+        "FOREIGN KEY (PPS_bal) " +
+        "REFERENCES User (PPS_bal);",
+        "ALTER TABLE RejectBill " +
+        "ADD CONSTRAINT fk_RejectBill_BillRequest " +
+        "FOREIGN KEY (billrequestid) " +
+        "REFERENCES BillRequest (billrequestid);",
+        "ALTER TABLE BillRequest " +
+        "ADD CONSTRAINT fk_BillRequest_OrderOfWork " +
+        "FOREIGN KEY (orderofworkid) " +
+        "REFERENCES OrderOfWork (orderofworkid);"};
         //for loop to put these in database
         for (int i = 0; i < INITIAL.length; i++)
         	statement.execute(INITIAL[i]);
@@ -575,7 +607,7 @@ public class userDAO
         for (int i = 0; i < TUPLES7.length; i++)	
         	statement.execute(TUPLES7[i]);
         for (int i = 0; i < TUPLES8.length; i++)	
-        	statement.execute(TUPLES8[i]);
+        	statement.execute(TUPLES8[i]); 
         for (int i = 0; i < TUPLES9.length; i++)	
         	statement.execute(TUPLES9[i]);
         for (int i = 0; i < TUPLES10.length; i++)	
@@ -586,6 +618,8 @@ public class userDAO
         	statement.execute(TUPLES12[i]);
         for (int i = 0; i < TUPLES13.length; i++)	
         	statement.execute(TUPLES13[i]);
+        for (int i = 0; i < FOREIGNKEYS.length; i++)	
+        	statement.execute(FOREIGNKEYS[i]);
         disconnect();
     }
 }
