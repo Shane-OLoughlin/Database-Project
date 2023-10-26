@@ -282,8 +282,8 @@ public class userDAO
 					            "adress_city VARCHAR(20)," + 
 					            "adress_state VARCHAR(2),"+ 
 					            "adress_zip_code VARCHAR(5),"+ 
-					            "cash_bal DECIMAL(13,2) DEFAULT 1000,"+ 
-					            "PPS_bal DECIMAL(13,2) DEFAULT 0,"+
+					            "cash_bal INTEGER,"+ 
+					            "PPS_bal INTEGER,"+
 					            "PRIMARY KEY (email)" +
 					        ");",
 					        "DROP TABLE IF EXISTS QuoteRequest;",
@@ -305,8 +305,8 @@ public class userDAO
 					            "quoterequestid INTEGER NOT NULL, " +
 					            "PRIMARY KEY (treeid), " +
 					            "FOREIGN KEY (quoterequestid) REFERENCES QuoteRequest (quoterequestid)" +
-					        ");"//,
-					        /*"DROP TABLE IF EXISTS DavidSmith;",
+					        ");",
+					        "DROP TABLE IF EXISTS DavidSmith;",
 					        "CREATE TABLE IF NOT EXISTS DavidSmith ( " +
 					            "davidsmithid INTEGER NOT NULL, " +
 					            "orderofworkid INTEGER NOT NULL, " +
@@ -338,11 +338,11 @@ public class userDAO
 					        ");",
 				        "DROP TABLE IF EXISTS Accept;",
 					        "CREATE TABLE IF NOT EXISTS Accept ( " +
-					            "clientid INTEGER NOT NULL, " +
+					            "PPS_bal INTEGER NOT NULL, " +
 					            "quoteresponseid INTEGER NOT NULL, " +
 					            "orderofworkid INTEGER NOT NULL, " +
-					            "PRIMARY KEY (clientid, quoteresponseid, orderofworkid), " +
-					            "FOREIGN KEY (clientid) REFERENCES Client (clientid), " +
+					            "PRIMARY KEY (PPS_bal, quoteresponseid, orderofworkid), " +
+					            "FOREIGN KEY (PPS_bal) REFERENCES User (PPS_bal), " +
 					            "FOREIGN KEY (quoteresponseid) REFERENCES QuoteResponse (quoteresponseid), " +
 					            "FOREIGN KEY (orderofworkid) REFERENCES OrderOfWork (orderofworkid)" +
 					        ");",
@@ -364,29 +364,29 @@ public class userDAO
 					        
 					        "DROP TABLE IF EXISTS Send;",
 					        "CREATE TABLE IF NOT EXISTS Send ( " +
-					            "clientid INTEGER NOT NULL, " +
+					            "PPS_bal INTEGER NOT NULL, " +
 					            "billrequestid INTEGER NOT NULL, " +
-					            "PRIMARY KEY (clientid, billrequestid), " +
-					            "FOREIGN KEY (clientid) REFERENCES Client (clientid), " +
+					            "PRIMARY KEY (PPS_bal, billrequestid), " +
+					            "FOREIGN KEY (PPS_bal) REFERENCES User (PPS_bal), " +
 					            "FOREIGN KEY (billrequestid) REFERENCES BillRequest (billrequestid)" +
 					        ");",
 					        "DROP TABLE IF EXISTS Pay;",
 					        "CREATE TABLE IF NOT EXISTS Pay ( " +
-					            "clientid INTEGER NOT NULL, " +
+					            "PPS_bal INTEGER NOT NULL, " +
 					            "billrequestid INTEGER NOT NULL, " +
-					            "PRIMARY KEY (clientid, billrequestid), " +
-					            "FOREIGN KEY (clientid) REFERENCES Client (clientid), " +
+					            "PRIMARY KEY (PPS_bal, billrequestid), " +
+					            "FOREIGN KEY (PPS_bal) REFERENCES User (PPS_bal), " +
 					            "FOREIGN KEY (billrequestid) REFERENCES BillRequest (billrequestid)" +
 					        ");",
 					        "DROP TABLE IF EXISTS RejectBill;",
 					        "CREATE TABLE IF NOT EXISTS RejectBill ( " +
-					            "clientid INTEGER NOT NULL, " +
+					            "PPS_bal INTEGER NOT NULL, " +
 					            "billrequestid INTEGER NOT NULL, " +
 					            "clientnote VARCHAR(1000), " +
-					            "PRIMARY KEY (clientid, billrequestid), " +
-					            "FOREIGN KEY (clientid) REFERENCES Client (clientid), " +
+					            "PRIMARY KEY (PPS_bal, billrequestid), " +
+					            "FOREIGN KEY (PPS_bal) REFERENCES User (PPS_bal), " +
 					            "FOREIGN KEY (billrequestid) REFERENCES BillRequest (billrequestid)" +
-					        ");" */
+					        ");"
 					    };
         
         String[] TUPLES = {("insert into User(email, firstName, lastName, password, birthday, adress_street_num, adress_street, adress_city, adress_state, adress_zip_code, cash_bal, PPS_bal)"+
@@ -430,8 +430,8 @@ public class userDAO
         	        	"('10', '18.5', '7.7', 'Side Yard', '13.5', 'tree28.jpg', 'tree29.jpg', 'tree30.jpg', '10');")
         				};
         
-        /*String[] TUPLES4 = {("INSERT INTO DavidSmith(davidsmithid, orderofworkid)"+
-                "VALUES ('1', '1'),"+
+        String[] TUPLES4 = {("INSERT INTO DavidSmith(davidsmithid, orderofworkid)"+
+                "values ('1', '1'),"+
                 "('2', '2'),"+
                 "('3', '3'),"+
                 "('4', '4'),"+
@@ -479,7 +479,7 @@ public class userDAO
                 "('10', '170.00', '2024-10-15');")
         				};
         
-        String[] TUPLES8 = {("INSERT INTO Accept(clientid, quoteresponseid, orderofworkid)"+
+        String[] TUPLES8 = {("INSERT INTO Accept(PPS_bal, quoteresponseid, orderofworkid)"+
                 "VALUES('1', '1', '1'),"+
                 "('2', '2', '2'),"+
                 "('3', '3', '3'),"+
@@ -505,20 +505,20 @@ public class userDAO
                 "('10', 'Tree maintenance for side yard trees.');")
         				};
         
-        String[] TUPLES10 = {("INSERT INTO BillRequest(billrequestid, billnote, studentid)"+
-        		"VALUES('1', 'Bill for tree trimming in the front yard.', '1'),"+
-                "('2', 'Bill for tree removal in the back yard.', '2'),"+
-                "('3', 'Bill for tree maintenance in the side yard.', '3'),"+
-                "('4', 'Bill for tree pruning in the front yard.', '4'),"+
-                "('5', 'Bill for tree removal and cleanup in the back yard.', '5'),"+
-                "('6', 'Bill for tree trimming in the front yard.', '6'),"+
-                "('7', 'Bill for tree maintenance in the side yard.', '7'),"+
-                "('8', 'Bill for tree removal and cleanup in the back yard.', '8'),"+
-                "('9', 'Bill for tree trimming in the front yard.', '9'),"+
-                "('10', 'Bill for tree maintenance in the side yard.', '10');")
+        String[] TUPLES10 = {("INSERT INTO BillRequest(billrequestid, billnote, orderofworkid)"+
+        		"VALUES('1', 'The bill for tree trimming in the front yard is $53', '1'),"+
+                "('2', 'The bill for tree removal in the back yard is $533', '2'),"+
+                "('3', 'Bill for tree maintenance in the side yard is $232', '3'),"+
+                "('4', 'Bill for tree pruning in the front yard is $232.', '4'),"+
+                "('5', 'Bill for tree removal and cleanup in the back yard is $900.', '5'),"+
+                "('6', 'Bill for tree trimming in the front yard is $242.', '6'),"+
+                "('7', 'Bill for tree maintenance in the side yard is $535.', '7'),"+
+                "('8', 'Bill for tree removal and cleanup in the back yard is $444.', '8'),"+
+                "('9', 'Your concern is unfounded; bill for tree trimming in the front yard is $442.', '9'),"+
+                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '10');")
                 };
         		
-        String[] TUPLES11 = {("INSERT INTO Send(clientid, billrequestid)"+
+        String[] TUPLES11 = {("INSERT INTO Send(PPS_bal, billrequestid)"+
                 "VALUES('1', '1'),"+
                 "('2', '2'),"+
                 "('3', '3'),"+
@@ -531,7 +531,7 @@ public class userDAO
                 "('10', '10');")
         				};
         
-        String[] TUPLES12 = {("INSERT INTO Pay(clientid, billrequestid)"+
+        String[] TUPLES12 = {("INSERT INTO Pay(PPS_bal, billrequestid)"+
                 "VALUES('1', '1'),"+
                 "('2', '2'),"+
                 "('3', '3'),"+
@@ -544,7 +544,7 @@ public class userDAO
                 "('10', '10');")
         				};
 
-        String[] TUPLES13 = {("INSERT INTO RejectBill(clientid, billrequestid, clientnote)"+
+        String[] TUPLES13 = {("INSERT INTO RejectBill(PPS_bal, billrequestid, clientnote)"+
         		"VALUES('1', '1', 'Bill is incorrect.'),"+
                 		"('2', '2', 'Service was not satisfactory.'),"+
                 		"('3', '3', 'Overcharged for the work.'),"+
@@ -556,7 +556,7 @@ public class userDAO
                 		"('9', '9', 'Disputed charges on the bill.'),"+
         				"('10', '10', 'Work was incomplete.');")
         				};
-*/
+
         //for loop to put these in database
         for (int i = 0; i < INITIAL.length; i++)
         	statement.execute(INITIAL[i]);
@@ -566,7 +566,7 @@ public class userDAO
         	statement.execute(TUPLES2[i]);
         for (int i = 0; i < TUPLES3.length; i++)	
         	statement.execute(TUPLES3[i]);
- /*       for (int i = 0; i < TUPLES4.length; i++)	
+       for (int i = 0; i < TUPLES4.length; i++)	
         	statement.execute(TUPLES4[i]);
        for (int i = 0; i < TUPLES5.length; i++)	
         	statement.execute(TUPLES5[i]);
@@ -586,7 +586,6 @@ public class userDAO
         	statement.execute(TUPLES12[i]);
         for (int i = 0; i < TUPLES13.length; i++)	
         	statement.execute(TUPLES13[i]);
-        	*/
         disconnect();
     }
     
