@@ -282,8 +282,8 @@ public class userDAO
 					            "adress_city VARCHAR(20)," + 
 					            "adress_state VARCHAR(2),"+ 
 					            "adress_zip_code VARCHAR(5),"+ 
-					            "cash_bal INTEGER,"+ 
-					            "PPS_bal INTEGER,"+
+					            "cash_bal DECIMAL(13,2),"+ 
+					            "PPS_bal DECIMAL(13,2),"+
 					            "PRIMARY KEY (email)" +
 					        ");",
 					        "DROP TABLE IF EXISTS QuoteRequest;",
@@ -338,7 +338,7 @@ public class userDAO
 					        ");",
 				        "DROP TABLE IF EXISTS Accept;",
 					        "CREATE TABLE IF NOT EXISTS Accept ( " +
-					            "PPS_bal INTEGER NOT NULL, " +
+					            "PPS_bal DECIMAL(13,2) NOT NULL, " +
 					            "quoteresponseid INTEGER NOT NULL, " +
 					            "orderofworkid INTEGER NOT NULL, " +
 					            "PRIMARY KEY (PPS_bal, quoteresponseid, orderofworkid), " +
@@ -364,7 +364,7 @@ public class userDAO
 					        
 					        "DROP TABLE IF EXISTS Send;",
 					        "CREATE TABLE IF NOT EXISTS Send ( " +
-					            "PPS_bal INTEGER NOT NULL, " +
+					            "PPS_bal DECIMAL(13,2) NOT NULL, " +
 					            "billrequestid INTEGER NOT NULL, " +
 					            "PRIMARY KEY (PPS_bal, billrequestid), " +
 					            "FOREIGN KEY (PPS_bal) REFERENCES User (PPS_bal), " +
@@ -372,7 +372,7 @@ public class userDAO
 					        ");",
 					        "DROP TABLE IF EXISTS Pay;",
 					        "CREATE TABLE IF NOT EXISTS Pay ( " +
-					            "PPS_bal INTEGER NOT NULL, " +
+					            "PPS_bal DECIMAL(13,2) NOT NULL, " +
 					            "billrequestid INTEGER NOT NULL, " +
 					            "PRIMARY KEY (PPS_bal, billrequestid), " +
 					            "FOREIGN KEY (PPS_bal) REFERENCES User (PPS_bal), " +
@@ -380,7 +380,7 @@ public class userDAO
 					        ");",
 					        "DROP TABLE IF EXISTS RejectBill;",
 					        "CREATE TABLE IF NOT EXISTS RejectBill ( " +
-					            "PPS_bal INTEGER NOT NULL, " +
+					            "PPS_bal DECIMAL(13,2) NOT NULL, " +
 					            "billrequestid INTEGER NOT NULL, " +
 					            "clientnote VARCHAR(1000), " +
 					            "PRIMARY KEY (PPS_bal, billrequestid), " +
@@ -588,15 +588,4 @@ public class userDAO
         	statement.execute(TUPLES13[i]);
         disconnect();
     }
-    
-    
-   
-    
-    
-    
-    
-    
-	
-	
-
 }
