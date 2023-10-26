@@ -272,7 +272,7 @@ public class userDAO
 					        "create database testdb; ",
 					        "use testdb; ",
 					        "drop table if exists User; ",
-					        ("CREATE TABLE if not exists User( " +
+					        "CREATE TABLE if not exists User( " +
 					            "email VARCHAR(50) NOT NULL, " + 
 					            "firstName VARCHAR(10) NOT NULL, " +
 					            "lastName VARCHAR(10) NOT NULL, " +
@@ -285,8 +285,111 @@ public class userDAO
 					            "adress_zip_code VARCHAR(5),"+ 
 					            "cash_bal DECIMAL(13,2) DEFAULT 1000,"+ 
 					            "PPS_bal DECIMAL(13,2) DEFAULT 0,"+
-					            "PRIMARY KEY (email) "+"); ")
-        					};
+					            "PRIMARY KEY (email)" +
+					        ");",
+					        "DROP TABLE IF EXISTS QuoteRequest;",
+					        "CREATE TABLE IF NOT EXISTS QuoteRequest ( " +
+					            "quoterequestid INTEGER NOT NULL, " +
+					            "quotenote VARCHAR(1000), " +
+					            "PRIMARY KEY (quoterequestid)" +
+					        ");",
+					        "DROP TABLE IF EXISTS Tree;",
+					        "CREATE TABLE IF NOT EXISTS Tree ( " +
+					            "treeid INTEGER NOT NULL, " +
+					            "size DOUBLE, " +
+					            "height DOUBLE, " +
+					            "location VARCHAR(100), " +
+					            "proximitytohouse DOUBLE, " +
+					            "picture1 VARCHAR(100), " +
+					            "picture2 VARCHAR(100), " +
+					            "picture3 VARCHAR(100), " +
+					            "quoterequestid INTEGER NOT NULL, " +
+					            "PRIMARY KEY (treeid), " +
+					            "FOREIGN KEY (quoterequestid) REFERENCES QuoteRequest (quoterequestid)" +
+					        ");"//,
+					        /*"DROP TABLE IF EXISTS DavidSmith;",
+					        "CREATE TABLE IF NOT EXISTS DavidSmith ( " +
+					            "davidsmithid INTEGER NOT NULL, " +
+					            "orderofworkid INTEGER NOT NULL, " +
+					            "PRIMARY KEY (davidsmithid), " +
+					            "FOREIGN KEY (orderofworkid) REFERENCES OrderOfWork (orderofworkid)" +
+					        ");",
+					        "DROP TABLE IF EXISTS ReportOfRevenue;",
+					        "CREATE TABLE IF NOT EXISTS ReportOfRevenue ( " +
+					            "reportofrevenueid INTEGER NOT NULL, " +
+					            "report VARCHAR(1000), " +
+					            "davidsmithid INTEGER NOT NULL, " +
+					            "PRIMARY KEY (reportofrevenueid), " +
+					            "FOREIGN KEY (davidsmithid) REFERENCES DavidSmith (davidsmithid)" +
+					        ");",
+					        "DROP TABLE IF EXISTS Respond;",
+					        "CREATE TABLE IF NOT EXISTS Respond ( " +
+					            "davidsmithid INTEGER NOT NULL, " +
+					            "quotereponseid INTEGER NOT NULL, " +
+					            "PRIMARY KEY (davidsmithid, quotereponseid), " +
+					            "FOREIGN KEY (davidsmithid) REFERENCES DavidSmith (davidsmithid), " +
+					            "FOREIGN KEY (quotereponseid) REFERENCES QuoteResponse (quoteresponseid)" +
+					        ");",
+					        "DROP TABLE IF EXISTS QuoteResponse;",
+					        "CREATE TABLE IF NOT EXISTS QuoteResponse ( " +
+					            "quoteresponseid INTEGER NOT NULL, " +
+					            "initialprice DOUBLE, " +
+					            "timewindow VARCHAR(100), " +
+					            "PRIMARY KEY (quoteresponseid)" +
+					        ");",
+				        "DROP TABLE IF EXISTS Accept;",
+					        "CREATE TABLE IF NOT EXISTS Accept ( " +
+					            "clientid INTEGER NOT NULL, " +
+					            "quoteresponseid INTEGER NOT NULL, " +
+					            "orderofworkid INTEGER NOT NULL, " +
+					            "PRIMARY KEY (clientid, quoteresponseid, orderofworkid), " +
+					            "FOREIGN KEY (clientid) REFERENCES Client (clientid), " +
+					            "FOREIGN KEY (quoteresponseid) REFERENCES QuoteResponse (quoteresponseid), " +
+					            "FOREIGN KEY (orderofworkid) REFERENCES OrderOfWork (orderofworkid)" +
+					        ");",
+					        "DROP TABLE IF EXISTS OrderOfWork;",
+					        "CREATE TABLE IF NOT EXISTS OrderOfWork ( " +
+					            "orderofworkid INTEGER NOT NULL, " +
+					            "work VARCHAR(1000), " +
+					            "PRIMARY KEY (orderofworkid)" +
+					        ");",
+					        "DROP TABLE IF EXISTS BillRequest;",
+					        "CREATE TABLE IF NOT EXISTS BillRequest ( " +
+					            "billrequestid INTEGER NOT NULL, " +
+					            "billnote VARCHAR(1000), " +
+					            "orderofworkid INTEGER NOT NULL, " +
+					            "PRIMARY KEY (billrequestid), " +
+					            "FOREIGN KEY (orderofworkid) REFERENCES OrderOfWork (orderofworkid), " +
+					            "UNIQUE (billrequestid)" +
+					        ");",
+					        
+					        "DROP TABLE IF EXISTS Send;",
+					        "CREATE TABLE IF NOT EXISTS Send ( " +
+					            "clientid INTEGER NOT NULL, " +
+					            "billrequestid INTEGER NOT NULL, " +
+					            "PRIMARY KEY (clientid, billrequestid), " +
+					            "FOREIGN KEY (clientid) REFERENCES Client (clientid), " +
+					            "FOREIGN KEY (billrequestid) REFERENCES BillRequest (billrequestid)" +
+					        ");",
+					        "DROP TABLE IF EXISTS Pay;",
+					        "CREATE TABLE IF NOT EXISTS Pay ( " +
+					            "clientid INTEGER NOT NULL, " +
+					            "billrequestid INTEGER NOT NULL, " +
+					            "PRIMARY KEY (clientid, billrequestid), " +
+					            "FOREIGN KEY (clientid) REFERENCES Client (clientid), " +
+					            "FOREIGN KEY (billrequestid) REFERENCES BillRequest (billrequestid)" +
+					        ");",
+					        "DROP TABLE IF EXISTS RejectBill;",
+					        "CREATE TABLE IF NOT EXISTS RejectBill ( " +
+					            "clientid INTEGER NOT NULL, " +
+					            "billrequestid INTEGER NOT NULL, " +
+					            "clientnote VARCHAR(1000), " +
+					            "PRIMARY KEY (clientid, billrequestid), " +
+					            "FOREIGN KEY (clientid) REFERENCES Client (clientid), " +
+					            "FOREIGN KEY (billrequestid) REFERENCES BillRequest (billrequestid)" +
+					        ");" */
+					    };
+        
         String[] TUPLES = {("insert into User(email, firstName, lastName, password, birthday, adress_street_num, adress_street, adress_city, adress_state, adress_zip_code, cash_bal, PPS_bal)"+
     			"values ('susie@gmail.com', 'Susie ', 'Guzman', 'susie1234', '2000-06-27', '1234', 'whatever street', 'detroit', 'MI', '48202','123', '1'),"+
 		    		 	"('don@gmail.com', 'Don', 'Cummings','don123', '1969-03-20', '1000', 'hi street', 'mama', 'MO', '12345','124', '2'),"+
@@ -302,11 +405,189 @@ public class userDAO
 		    			"('root', 'default', 'default','pass1234', '1111-11-11', '0000', 'Default', 'Default', '0', '00000','983','11');")
 		    			};
         
+        String[] TUPLES2 = {("insert into QuoteRequest(quoterequestid, quotenote)"+
+    			"values ('1', 'Make sure all branches are removed.'),"+
+		    		 	"('2', 'Move date to 9/23/2024.'),"+
+		    	 	 	"('3', 'Make the price $149.'),"+
+		    		 	"('4', 'Avoid dog. He bites.'),"+
+		    		 	"('5', 'Ring doorbell when you are here.'),"+
+		    		 	"('6', 'Make the price $260.'),"+
+		    			"('7', 'Move date to 2/27/2024.'),"+
+		    			"('8', 'Knock when you are here.'),"+
+		    			"('9', 'Make the price $181.'),"+
+		    			"('10', 'Move date to 1/03/2025.');")
+		    			};
+        
+        String[] TUPLES3 = {("INSERT INTO Tree(treeid, size, height, location, proximitytohouse, picture1, picture2, picture3, quoterequestid)"+
+        		 "values ('1', '15.5', '6.2', 'Front Yard', '10.3', 'tree1.jpg', 'tree2.jpg', 'tree3.jpg', '1'),"+
+        	        	"('2', '10.2', '4.8', 'Back Yard', '5.7', 'tree4.jpg', 'tree5.jpg', 'tree6.jpg', '2'),"+
+        	        	"('3', '8.7', '3.5', 'Side Yard', '8.1', 'tree7.jpg', 'tree8.jpg', 'tree9.jpg', '3'),"+
+        	        	"('4', '12.1', '5.9', 'Front Yard', '9.4', 'tree10.jpg', 'tree11.jpg', 'tree12.jpg', '4'),"+
+        	        	"('5', '17.3', '7.2', 'Back Yard', '12.8', 'tree13.jpg', 'tree14.jpg', 'tree15.jpg', '5'),"+
+        	        	"('6', '14.8', '6.0', 'Front Yard', '10.7', 'tree16.jpg', 'tree17.jpg', 'tree18.jpg', '6'),"+
+        	        	"('7', '9.5', '4.1', 'Side Yard', '7.3', 'tree19.jpg', 'tree20.jpg', 'tree21.jpg', '7'),"+
+        	        	"('8', '11.9', '5.6', 'Back Yard', '11.2', 'tree22.jpg', 'tree23.jpg', 'tree24.jpg', '8'),"+
+        	        	"('9', '13.2', '6.8', 'Front Yard', '10.9', 'tree25.jpg', 'tree26.jpg', 'tree27.jpg', '9'),"+
+        	        	"('10', '18.5', '7.7', 'Side Yard', '13.5', 'tree28.jpg', 'tree29.jpg', 'tree30.jpg', '10');")
+        				};
+        
+        /*String[] TUPLES4 = {("INSERT INTO DavidSmith(davidsmithid, orderofworkid)"+
+                "VALUES ('1', '1'),"+
+                "('2', '2'),"+
+                "('3', '3'),"+
+                "('4', '4'),"+
+                "('5', '5'),"+
+                "('6', '6'),"+
+                "('7', '7'),"+
+                "('8', '8'),"+
+                "('9', '9'),"+
+                "('10', '10');")
+    					};
+        String[] TUPLES5 = {("INSERT INTO ReportOfRevenue(reportofrevenueid, report, davidsmithid)"+
+                "VALUES ('1', 'Generated $500', '1'),"+
+                "('2', 'Generated $1500', '2'),"+
+                "('3', 'Generated $3000', '3'),"+
+                "('4', 'Generated $800', '4'),"+
+                "('5', 'Generated $10000', '5'),"+
+                "('6', 'Generated $1700', '6'),"+
+                "('7', 'Generated $8000', '7'),"+
+                "('8', 'Generated $6300', '8'),"+
+                "('9', 'Generated $5500', '9'),"+
+                "('10', 'Generated $5000', '10');")
+    					};
+        String[] TUPLES6 = {("INSERT INTO Respond(davidsmithid, quotereponseid)"+
+                "VALUES ('1', '1'),"+
+                "('2', '2'),"+
+                "('3', '3'),"+
+                "('4', '4'),"+
+                "('5', '5'),"+
+                "('6', '6'),"+
+                "('7', '7'),"+
+                "('8', '8'),"+
+                "('9', '9'),"+
+                "('10', '10');")
+        				};
+        String[] TUPLES7 = {("INSERT INTO QuoteResponse(quoteresponseid, initialprice, timewindow)"+
+                "VALUES('1', '150.00', '2024-01-15'),"+
+                "('2', '170.00', '2024-02-20'),"+
+                "('3', '140.00', '2024-03-10'),"+
+                "('4', '160.00', '2024-04-05'),"+
+                "('5', '180.00', '2024-05-30'),"+
+                "('6', '175.00', '2024-06-15'),"+
+                "('7', '155.00', '2024-07-20'),"+
+                "('8', '165.00', '2024-08-10'),"+
+                "('9', '185.00', '2024-09-05'),"+
+                "('10', '170.00', '2024-10-15');")
+        				};
+        
+        String[] TUPLES8 = {("INSERT INTO Accept(clientid, quoteresponseid, orderofworkid)"+
+                "VALUES('1', '1', '1'),"+
+                "('2', '2', '2'),"+
+                "('3', '3', '3'),"+
+                "('4', '4', '4'),"+
+                "('5', '5', '5'),"+
+                "('6', '6', '6'),"+
+                "('7', '7', '7'),"+
+                "('8', '8', '8'),"+
+                "('9', '9', '9'),"+
+                "('10', '10', '10');")
+        				};
+        
+        String[] TUPLES9 = {("INSERT INTO OrderOfWork(orderofworkid, work)"+
+                "VALUES('1', 'Trim and prune trees in the front yard.'),"+
+                "('2', 'Remove dead branches and trim trees in the back yard.'),"+
+                "('3', 'Tree maintenance for side yard trees.'),"+
+                "('4', 'Tree trimming and shaping in the front yard.'),"+
+                "('5', 'Tree removal in the back yard.'),"+
+                "('6', 'Tree pruning in the front yard.'),"+
+                "('7', 'Tree maintenance for side yard trees.'),"+
+                "('8', 'Tree removal and cleanup in the back yard.'),"+
+                "('9', 'Tree trimming and shaping in the front yard.'),"+
+                "('10', 'Tree maintenance for side yard trees.');")
+        				};
+        
+        String[] TUPLES10 = {("INSERT INTO BillRequest(billrequestid, billnote, studentid)"+
+        		"VALUES('1', 'Bill for tree trimming in the front yard.', '1'),"+
+                "('2', 'Bill for tree removal in the back yard.', '2'),"+
+                "('3', 'Bill for tree maintenance in the side yard.', '3'),"+
+                "('4', 'Bill for tree pruning in the front yard.', '4'),"+
+                "('5', 'Bill for tree removal and cleanup in the back yard.', '5'),"+
+                "('6', 'Bill for tree trimming in the front yard.', '6'),"+
+                "('7', 'Bill for tree maintenance in the side yard.', '7'),"+
+                "('8', 'Bill for tree removal and cleanup in the back yard.', '8'),"+
+                "('9', 'Bill for tree trimming in the front yard.', '9'),"+
+                "('10', 'Bill for tree maintenance in the side yard.', '10');")
+                };
+        		
+        String[] TUPLES11 = {("INSERT INTO Send(clientid, billrequestid)"+
+                "VALUES('1', '1'),"+
+                "('2', '2'),"+
+                "('3', '3'),"+
+                "('4', '4'),"+
+                "('5', '5'),"+
+                "('6', '6'),"+
+                "('7', '7'),"+
+                "('8', '8'),"+
+                "('9', '9'),"+
+                "('10', '10');")
+        				};
+        
+        String[] TUPLES12 = {("INSERT INTO Pay(clientid, billrequestid)"+
+                "VALUES('1', '1'),"+
+                "('2', '2'),"+
+                "('3', '3'),"+
+                "('4', '4'),"+
+                "('5', '5'),"+
+                "('6', '6'),"+
+                "('7', '7'),"+
+                "('8', '8'),"+
+                "('9', '9'),"+
+                "('10', '10');")
+        				};
+
+        String[] TUPLES13 = {("INSERT INTO RejectBill(clientid, billrequestid, clientnote)"+
+        		"VALUES('1', '1', 'Bill is incorrect.'),"+
+                		"('2', '2', 'Service was not satisfactory.'),"+
+                		"('3', '3', 'Overcharged for the work.'),"+
+                		"('4', '4', 'Not what was expected.'),"+
+                		"('5', '5', 'Did not complete the job.'),"+
+                		"('6', '6', 'Bill does not match the quote.'),"+
+                		"('7', '7', 'Not happy with the service.'),"+
+                		"('8', '8', 'Quality of work is poor.'),"+
+                		"('9', '9', 'Disputed charges on the bill.'),"+
+        				"('10', '10', 'Work was incomplete.');")
+        				};
+*/
         //for loop to put these in database
         for (int i = 0; i < INITIAL.length; i++)
         	statement.execute(INITIAL[i]);
         for (int i = 0; i < TUPLES.length; i++)	
         	statement.execute(TUPLES[i]);
+        for (int i = 0; i < TUPLES2.length; i++)	
+        	statement.execute(TUPLES2[i]);
+        for (int i = 0; i < TUPLES3.length; i++)	
+        	statement.execute(TUPLES3[i]);
+ /*       for (int i = 0; i < TUPLES4.length; i++)	
+        	statement.execute(TUPLES4[i]);
+       for (int i = 0; i < TUPLES5.length; i++)	
+        	statement.execute(TUPLES5[i]);
+        for (int i = 0; i < TUPLES6.length; i++)	
+        	statement.execute(TUPLES6[i]);
+        for (int i = 0; i < TUPLES7.length; i++)	
+        	statement.execute(TUPLES7[i]);
+        for (int i = 0; i < TUPLES8.length; i++)	
+        	statement.execute(TUPLES8[i]);
+        for (int i = 0; i < TUPLES9.length; i++)	
+        	statement.execute(TUPLES9[i]);
+        for (int i = 0; i < TUPLES10.length; i++)	
+        	statement.execute(TUPLES10[i]);
+        for (int i = 0; i < TUPLES11.length; i++)	
+        	statement.execute(TUPLES11[i]);
+        for (int i = 0; i < TUPLES12.length; i++)	
+        	statement.execute(TUPLES12[i]);
+        for (int i = 0; i < TUPLES13.length; i++)	
+        	statement.execute(TUPLES13[i]);
+        	*/
         disconnect();
     }
     
