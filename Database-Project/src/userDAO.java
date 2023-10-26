@@ -620,6 +620,6 @@ public class userDAO
         	statement.execute(TUPLES13[i]);
         for (int i = 0; i < FOREIGNKEYS.length; i++)	
         	statement.execute(FOREIGNKEYS[i]);
-        disconnect();
+        disconnect()
     }
 }
