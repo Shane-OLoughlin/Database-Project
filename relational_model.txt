@@ -1,5 +1,5 @@
-CREATE TABLE  Client (
-clientid integer,
+CREATE TABLE Client (
+clientid integer NOT NULL,
 firstname VARCHAR(50),
 lastname VARCHAR(50),
 address VARCHAR(100),
@@ -12,13 +12,13 @@ unique(clientid)
 )
 
 CREATE TABLE QuoteRequest(
-quoterequestid integer,
+quoterequestid integer NOT NULL,
 quotenote VARCHAR(1000),
-primary key (quoterequestid)
+primary key(quoterequestid)
 )
 
 CREATE TABLE Tree (
-treeid integer,
+treeid integer NOT NULL,
 size double,
 height double,
 location VARCHAR(100),
@@ -32,14 +32,12 @@ foreign key(quoterequestid) references QuoteRequest
 )
 
 CREATE TABLE DavidSmith(
-davidsmithid integer,
-orderofworkid integer NOT NULL,
+davidsmithid integer NOT NULL,
 primary key(davidsmithid),
-foreign key(orderofworkid) references OrderOfWork
 )
 
 CREATE TABLE ReportOfRevenue (
-reportofrevenueid integer,
+reportofrevenueid integer NOT NULL,
 report VARCHAR(1000), 
 davidsmithid integer NOT NULL,
 primary key(reportofrevenueid),
@@ -47,24 +45,24 @@ foreign key(davidsmithid) references DavidSmith
 )
 
 CREATE TABLE Respond(
-davidsmithid integer,
-quotereponseid integer,
+davidsmithid integer NOT NULL,
+quotereponseid integer NOT NULL,
 primary key(davidsmithid, quotereponseid),
 foreign key(davidsmithid) references DavidSmith,
 foreign key(quotereponseid) references QuoteResponse
 )
 
 CREATE TABLE QuoteResponse(
-quoteresponseid integer,
+quoteresponseid integer NOT NULL,
 initialprice double,
 timewindow VARCHAR(100),
 primary key(quoteresponseid)
 )
 
 CREATE TABLE Accept (
-clientid integer,
-quoteresponseid integer,
-orderofworkid integer,
+clientid integer NOT NULL,
+quoteresponseid integer NOT NULL,
+orderofworkid integer NOT NULL,
 primary key(clientid, quoteresponseid, orderofworkid),
 foreign key(clientid) references Client,
 foreign key(quoteresponseid) references QuoteResponse,
@@ -72,39 +70,39 @@ foreign key(orderofworkid) references OrderOfWork
 )
 
 CREATE TABLE OrderOfWork (
-orderofworkid integer,
+orderofworkid integer NOT NULL,
 work VARCHAR(1000),
 primary key(orderofworkid)
 )
 
 CREATE TABLE BillRequest (
-billrequestid integer,
+billrequestid integer NOT NULL,
 billnote VARCHAR(1000),
-studentid integer NOT NULL,
+orderofworkid integer NOT NULL,
 primary key(billrequestid),
 foreign key(orderofworkid) references OrderOfWork(orderofworkid),
 unique(orderofworkid)
 )
 
 CREATE TABLE Send (
-clientid integer,
-billrequestid integer,
+clientid integer NOT NULL,
+billrequestid integer NOT NULL,
 primary key(clientid, billrequestid),
 foreign key(clientid) references Client,
 foreign key(billrequestid) references BillRequest
 )
 
 CREATE TABLE Pay (
-clientid integer,
-billrequestid integer,
+clientid integer NOT NULL,
+billrequestid integer NOT NULL,
 primary key(clientid, billrequestid),
 foreign key(clientid) references Client,
 foreign key(billrequestid) references BillRequest
 )
 
 CREATE TABLE RejectBill (
-clientid integer,
-billrequestid integer,
+clientid integer NOT NULL,
+billrequestid integer NOT NULL,
 clientnote VARCHAR(1000),
 primary key(clientid, billrequestid),
 foreign key(clientid) references Client,
