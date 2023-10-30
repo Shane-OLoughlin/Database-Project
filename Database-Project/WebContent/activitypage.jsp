@@ -8,14 +8,27 @@
 <meta charset="ISO-8859-1">
 <title>Activity page</title>
 </head>
-
+<body>
 <center><h1>Welcome! You have been successfully logged in</h1> </center>
-
- 
-	<body>
-	 <center>
-		 <a href="login.jsp"target ="_self" > logout</a><br><br> 
-		 <p> You can show all the transactions or other attributes here like balance, name of the user and others.</p>
-		 </center>
+	 	<div align="center">
+		<p> ${errorOne } </p>
+		<p> ${errorTwo } </p>
+		<form action="submitquoterequest">
+			<table border="1" cellpadding="5">
+				<tr>
+					<th>Note: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="quotenote" size="45" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="5">
+						<input type="submit" value="Submit"/>
+					</td>
+				</tr>
+			</table>
+			<a href="login.jsp" target="_self">Return to Login Page</a>
+		</form>
+	</div>
 	</body>
 </html>
