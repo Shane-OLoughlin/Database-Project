@@ -20,11 +20,18 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 
 
+
+
 public class ControlServlet extends HttpServlet {
 	    private static final long serialVersionUID = 1L;
 	    private userDAO userDAO = new userDAO();
 	    private String currentUser;
 	    private HttpSession session=null;
+	    
+	    int userCounter = 12;
+	    int phone_number_counter = 112;
+	    int otherTablesCounter = 11;
+		
 	    
 	    public ControlServlet()
 	    {
@@ -145,7 +152,9 @@ public class ControlServlet extends HttpServlet {
 	   	 	if (password.equals(confirm)) {
 	   	 		if (!userDAO.checkEmail(email)) {
 		   	 		System.out.println("Registration Successful! Added to database");
-		            user users = new user(email,firstName, lastName, password, birthday, adress_street_num,  adress_street,  adress_city,  adress_state,  adress_zip_code, 1000,0);
+		   	 		userCounter++;
+		   	 		phone_number_counter++;
+		            user users = new user(email,firstName, lastName, password, birthday, adress_street_num,  adress_street,  adress_city,  adress_state,  adress_zip_code, phone_number_counter,userCounter);
 		   	 		userDAO.insert(users);
 		   	 		response.sendRedirect("login.jsp");
 	   	 		}
@@ -174,12 +183,6 @@ public class ControlServlet extends HttpServlet {
         	}
 	
 	    
-
-	     
-        
-	    
-	    
-	    
 	    
 	    
 }
@@ -190,5 +193,4 @@ public class ControlServlet extends HttpServlet {
 	        
 	        
 	    
-
 
