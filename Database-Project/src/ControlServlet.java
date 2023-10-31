@@ -163,6 +163,10 @@ public class ControlServlet extends HttpServlet {
 	    }
 	    private void submitquoterequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	    	String quotenote = request.getParameter("quotenote");
+   	 		System.out.println("Submission Successful! Added to database");
+   	 		QuoteRequest quoterequests = new QuoteRequest(12, quotenote);
+   	 		userDAO.insert(quoterequests);
+   	 		request.getRequestDispatcher("activitypage.jsp").forward(request, response);
 	    }
 	    private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	    	currentUser = "";

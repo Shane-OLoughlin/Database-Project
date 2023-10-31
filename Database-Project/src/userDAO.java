@@ -135,7 +135,15 @@ public class userDAO
 		preparedStatement.executeUpdate();
         preparedStatement.close();
     }
-    
+    public void insert(QuoteRequest quoterequests) throws SQLException {      
+    	connect_func();
+		String sql = "insert into QuoteRequest(quoterequestid, quotenote) values (?,?)";
+		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+		preparedStatement.setInt(1, quoterequests.getQuoteRequestID());
+		preparedStatement.setString(2, quoterequests.getQuoteNote());	
+		preparedStatement.executeUpdate();
+        preparedStatement.close();
+    }
     public boolean delete(String email) throws SQLException {
         String sql = "DELETE FROM User WHERE email = ?";        
         connect_func();
@@ -386,7 +394,7 @@ public class userDAO
 		    			"('rudy@gmail.com', 'Rudy', 'Smith','rudy1234', '1706-06-05', '1234', 'sign street', 'samo ne tu','MH', '09876','900', '9'),"+
 		    			"('jeannette@gmail.com', 'Jeannette ', 'Stone','jeannette1234', '2001-04-24', '0981', 'snoop street', 'kojik', 'HW', '87654','944', '10'),"+
 		    			"('dsmith@gmail.com', 'David ', 'Smith','david1234', '2001-05-24', '0941', 'snoop street', 'kojik', 'HW', '87644','934', '12'),"+
-		    			"('root', 'default', 'default','pass1234', '1111-11-11', '0000', 'Default', 'Default', '0', '00000','983','11');")
+		    			"('root', 'default', 'default','pass1234', '1111-11-11', '1726', 'Default', 'Default', '0', '00000','983','11');")
 		    			};
         
         String[] TUPLES2 = {("insert into QuoteRequest(quoterequestid, quotenote)"+
