@@ -22,8 +22,8 @@
             </tr>
             <c:forEach var="quoterequests" items="${listQuoteRequest}">
                 <tr style="text-align:center">
-                    <td><c:out value="${quoterequests.quoterequestid}" /></td>
-                    <td><c:out value="${quoterequests.quotenote}" /></td>
+                    <td><c:out value="${quoterequests.getQuoteRequestID()}" /></td>
+                    <td><c:out value="${quoterequests.getQuoteNote()}" /></td>
             </c:forEach>
         </table>
 	</div>
