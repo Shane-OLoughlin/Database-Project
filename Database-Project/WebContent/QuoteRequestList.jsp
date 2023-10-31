@@ -15,7 +15,7 @@
 				<th>Quote Request ID</th>
                 <th>Quote Note</th>
             </tr>
-            <c:forEach var="users" items="${listUser}">
+            <c:forEach var="users" items="${listQuoteRequest}">
                 <tr style="text-align:center">
                     <td><c:out value="${quoterequests.quoterequestid}" /></td>
                     <td><c:out value="${quoterequests.quotenote}" /></td>

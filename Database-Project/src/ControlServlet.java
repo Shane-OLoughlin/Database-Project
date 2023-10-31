@@ -78,6 +78,10 @@ public class ControlServlet extends HttpServlet {
          	case "/submitquoterequest":
         		submitquoterequest(request,response);
         		break;
+         	case "/listquoterequest": 
+                System.out.println("The action is: list");
+                listQuoteRequest(request, response);           	
+                break;
 	    	}
 	    }
 	    catch(Exception ex) {
@@ -97,6 +101,18 @@ public class ControlServlet extends HttpServlet {
 	     
 	        System.out.println("listPeople finished: 111111111111111111111111111111111111");
 	    }
+	    private void listQuoteRequest(HttpServletRequest request, HttpServletResponse response)
+	            throws SQLException, IOException, ServletException {
+	        System.out.println("listQuoteRequest started: 00000000000000000000000000000000000");
+
+	     
+	        List<QuoteRequest> listQuoteRequest = userDAO.listAllQuoteRequests();
+	        request.setAttribute("listQuoteRequest", listQuoteRequest);       
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("QuoteRequestList.jsp");       
+	        dispatcher.forward(request, response);
+	     
+	        System.out.println("listQuoteRequest finished: 111111111111111111111111111111111111");
+	    }
 	    	        
 	    private void rootPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("root view");
@@ -106,6 +122,7 @@ public class ControlServlet extends HttpServlet {
 	    
 	    private void davidSmithPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("David Smith view");
+	    	request.setAttribute("listUser", userDAO.listAllQuoteRequests());
 	    	request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
 	    }
 	    
@@ -177,6 +194,7 @@ public class ControlServlet extends HttpServlet {
    	 		userDAO.insert(quoterequests);
    	 		request.getRequestDispatcher("activitypage.jsp").forward(request, response);
 	    }
+	    
 	    private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	    	currentUser = "";
         		response.sendRedirect("login.jsp");
