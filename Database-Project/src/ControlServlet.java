@@ -30,7 +30,7 @@ public class ControlServlet extends HttpServlet {
 	    
 	    int userCounter = 12;
 	    int phone_number_counter = 112;
-	    int otherTablesCounter = 11;
+	
 		
 	    
 	    public ControlServlet()
