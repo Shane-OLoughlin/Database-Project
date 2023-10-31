@@ -1,6 +1,6 @@
 public class QuoteRequest {
-    protected String quotenote;
     protected int quoterequestid;
+    protected String quotenote;
 	 
     //constructors
     public QuoteRequest() {

@@ -111,7 +111,7 @@ public class userDAO
     
     public List<QuoteRequest> listAllQuoteRequests() throws SQLException {
         List<QuoteRequest> listQuoteRequest = new ArrayList<QuoteRequest>();        
-        String sql = "SELECT * FROM User";      
+        String sql = "SELECT * FROM QuoteRequest";      
         connect_func();      
         statement = (Statement) connect.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);

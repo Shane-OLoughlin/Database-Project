@@ -122,7 +122,7 @@ public class ControlServlet extends HttpServlet {
 	    
 	    private void davidSmithPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("David Smith view");
-	    	request.setAttribute("listUser", userDAO.listAllQuoteRequests());
+	    	request.setAttribute("listQuoteRequest", userDAO.listAllQuoteRequests());
 	    	request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
 	    }
 	    
