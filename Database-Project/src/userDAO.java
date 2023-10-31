@@ -109,6 +109,25 @@ public class userDAO
         return listUser;
     }
     
+    public List<QuoteRequest> listAllQuoteRequests() throws SQLException {
+        List<QuoteRequest> listQuoteRequest = new ArrayList<QuoteRequest>();        
+        String sql = "SELECT * FROM User";      
+        connect_func();      
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+         
+        while (resultSet.next()) {
+            int quoterequestid = resultSet.getInt("quoterequestid");
+            String quotenote = resultSet.getString("quotenote");
+             
+            QuoteRequest quoterequests = new QuoteRequest(quoterequestid, quotenote);
+            listQuoteRequest.add(quoterequests);
+        }        
+        resultSet.close();
+        disconnect();        
+        return listQuoteRequest;
+    }
+    
     protected void disconnect() throws SQLException {
         if (connect != null && !connect.isClosed()) {
         	connect.close();
