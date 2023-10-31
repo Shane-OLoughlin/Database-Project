@@ -30,6 +30,7 @@ public class ControlServlet extends HttpServlet {
 	    
 	    int userCounter = 12;
 	    int phone_number_counter = 112;
+	    int tablesCounter = 10;
 	
 		
 	    
@@ -190,7 +191,8 @@ public class ControlServlet extends HttpServlet {
 	    private void submitquoterequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	    	String quotenote = request.getParameter("quotenote");
    	 		System.out.println("Submission Successful! Added to database");
-   	 		QuoteRequest quoterequests = new QuoteRequest(12, quotenote);
+   	 		tablesCounter++;
+   	 		QuoteRequest quoterequests = new QuoteRequest(tablesCounter, quotenote);
    	 		userDAO.insert(quoterequests);
    	 		request.getRequestDispatcher("activitypage.jsp").forward(request, response);
 	    }
