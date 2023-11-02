@@ -19,10 +19,12 @@
             <tr>
                 <th>Quote Request ID</th>
                 <th>Quote Note</th>
+                <th>Quote Note</th>
             </tr>
             <c:forEach var="quoterequests" items="${listQuoteRequest}">
                 <tr style="text-align:center">
                     <td><c:out value="${quoterequests.getQuoteRequestID()}" /></td>
+                    <td><c:out value="${quoterequests.getQuoteNote()}" /></td>
                     <td><c:out value="${quoterequests.getQuoteNote()}" /></td>
             </c:forEach>
         </table>
