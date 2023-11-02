@@ -1,5 +1,5 @@
 # Database-Project
-Part 1 beginning -------
+---Part 1 beginning---
 Hours individually:
 Shane: 10
 Rajeev: 10
@@ -13,9 +13,9 @@ For installing, configuring and running project:
 
 Install Eclipse, download zip of Database-Project from our GitHub, extract into eclipse-workspace folder, use File -> Import   -> Project from Folder or Archive in Eclipse, configure Java Compiler and Project Facets if needed, switch passwords in userDAO for user john if necessary, to run: right click on jsp page and Run As -> Run on Server, make further changes if desired to make it run differently.
 
-Part 1 end ---
+--- Part 1 end ---
 
-Part 2 beginning ---
+--- Part 2 beginning ---
 
 Hours individually:
 Shane: 12
@@ -23,6 +23,6 @@ Rajeev: 12
 
 Hours together: 17
 
-Rajeev: did Part 2 README, implemented working clientID for User table.
+Rajeev: did Part 2 README, implemented working clientID for User table, implemented working Quote Request ID for Quote Requests table for David Smith.
 
-Part 2 end ----
+--- Part 2 end ----
