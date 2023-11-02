@@ -23,6 +23,6 @@ Rajeev: 12
 
 Hours together: 17
 
-Rajeev: did Part 2 README, implemented working clientID for User table, implemented working Quote Request ID for Quote Requests table for David Smith, implemented time-window initializations for Quote Reponse.
+Rajeev: did Part 2 README, implemented working clientID for User table, implemented working Quote Request ID for Quote Requests table for David Smith, implemented time-window initializations for the Quote Reponse table.
 
 --- Part 2 end ----
