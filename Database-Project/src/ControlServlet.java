@@ -30,7 +30,8 @@ public class ControlServlet extends HttpServlet {
 	    
 	    int userCounter = 12;
 	    int phone_number_counter = 112;
-	    int tablesCounter = 10;
+	    int quoteRequestCounter = 10;
+	    int quoteResponseCounter = 10;
 	
 		
 	    
@@ -80,10 +81,17 @@ public class ControlServlet extends HttpServlet {
         		submitquoterequest(request,response);
         		break;
          	case "/listquoterequest": 
-                System.out.println("The action is: list");
+                System.out.println("The action is: list quote request");
                 listQuoteRequest(request, response);           	
                 break;
-	    	}
+         	case "/submitquoteresponse":
+        		submitquoteresponse(request,response);
+        		break;
+            case "/listquoteresponse": 
+            	System.out.println("The action is: list quote response");
+            	listQuoteResponse(request, response);           	
+            	break;
+        	}
 	    }
 	    catch(Exception ex) {
         	System.out.println(ex.getMessage());
@@ -102,6 +110,7 @@ public class ControlServlet extends HttpServlet {
 	     
 	        System.out.println("listPeople finished: 111111111111111111111111111111111111");
 	    }
+	    
 	    private void listQuoteRequest(HttpServletRequest request, HttpServletResponse response)
 	            throws SQLException, IOException, ServletException {
 	        System.out.println("listQuoteRequest started: 00000000000000000000000000000000000");
@@ -114,6 +123,19 @@ public class ControlServlet extends HttpServlet {
 	     
 	        System.out.println("listQuoteRequest finished: 111111111111111111111111111111111111");
 	    }
+	    
+	    private void listQuoteResponse(HttpServletRequest request, HttpServletResponse response)
+	            throws SQLException, IOException, ServletException {
+	        System.out.println("listQuoteResponse started: 00000000000000000000000000000000000");
+
+	     
+	        List<QuoteResponse> listQuoteResponse = userDAO.listAllQuoteResponses();
+	        request.setAttribute("listQuoteResponse", listQuoteResponse);       
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("QuoteResponseList.jsp");       
+	        dispatcher.forward(request, response);
+	     
+	        System.out.println("listQuoteResponse finished: 111111111111111111111111111111111111");
+	    }     
 	    	        
 	    private void rootPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("root view");
@@ -125,6 +147,12 @@ public class ControlServlet extends HttpServlet {
 	    	System.out.println("David Smith view");
 	    	request.setAttribute("listQuoteRequest", userDAO.listAllQuoteRequests());
 	    	request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
+	    }
+	    
+	    private void clientPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
+	    	System.out.println("Client view");
+	    	request.setAttribute("listQuoteResponses", userDAO.listAllQuoteResponses());
+	    	request.getRequestDispatcher("activitypage.jsp").forward(request, response);
 	    }
 	    
 	    protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -146,7 +174,9 @@ public class ControlServlet extends HttpServlet {
 	    	 else if(userDAO.isValid(email, password)) { 
 			 	 currentUser = email;
 				 System.out.println("Login Successful! Redirecting");
-				 request.getRequestDispatcher("activitypage.jsp").forward(request, response);	 			 			 
+				 session = request.getSession();
+				 session.setAttribute("username", email);
+				 clientPage(request, response, "");		 			 
 	    	 }
 	    	 else {
 	    		 request.setAttribute("loginStr","Login Failed: Please check your credentials.");
@@ -191,10 +221,19 @@ public class ControlServlet extends HttpServlet {
 	    private void submitquoterequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	    	String quotenote = request.getParameter("quotenote");
    	 		System.out.println("Submission Successful! Added to database");
-   	 		tablesCounter++;
-   	 		QuoteRequest quoterequests = new QuoteRequest(tablesCounter, quotenote);
+   	 		quoteRequestCounter++;
+   	 		QuoteRequest quoterequests = new QuoteRequest(quoteRequestCounter, quotenote);
    	 		userDAO.insert(quoterequests);
    	 		request.getRequestDispatcher("activitypage.jsp").forward(request, response);
+	    }
+	    private void submitquoteresponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	    	double initialprice = Double.parseDouble(request.getParameter("initialprice"));
+	    	String timewindow = request.getParameter("timewindow");
+   	 		System.out.println("Submission Successful! Added to database");
+   	 		quoteResponseCounter++;
+   	 		QuoteResponse quoteresponses = new QuoteResponse(quoteResponseCounter, initialprice, timewindow);
+   	 		userDAO.insert(quoteresponses);
+   	 		request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
 	    }
 	    
 	    private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {

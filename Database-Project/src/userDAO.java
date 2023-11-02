@@ -128,6 +128,27 @@ public class userDAO
         return listQuoteRequest;
     }
     
+    public List<QuoteResponse> listAllQuoteResponses() throws SQLException {
+        List<QuoteResponse> listQuoteResponses = new ArrayList<QuoteResponse>();        
+        String sql = "SELECT * FROM QuoteResponse";      
+        connect_func();      
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+         
+        while (resultSet.next()) {
+            int quoteresponseid = resultSet.getInt("quoteresponseid");
+            double initialprice = Double.parseDouble(resultSet.getString("initialprice"));
+            String timewindow = resultSet.getString("timewindow");
+             
+            QuoteResponse quoteresponses = new QuoteResponse(quoteresponseid, initialprice, timewindow);
+            listQuoteResponses.add(quoteresponses);
+        }        
+        resultSet.close();
+        disconnect();        
+        return listQuoteResponses;
+    }
+    
+    
     protected void disconnect() throws SQLException {
         if (connect != null && !connect.isClosed()) {
         	connect.close();
@@ -160,6 +181,16 @@ public class userDAO
 		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
 		preparedStatement.setInt(1, quoterequests.getQuoteRequestID());
 		preparedStatement.setString(2, quoterequests.getQuoteNote());	
+		preparedStatement.executeUpdate();
+        preparedStatement.close();
+    }
+    public void insert(QuoteResponse quoteresponses) throws SQLException {      
+    	connect_func();
+		String sql = "insert into QuoteResponse(quoteresponseid, initialprice, timewindow) values (?,?,?)";
+		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+		preparedStatement.setInt(1, quoteresponses.getQuoteResponseID());
+		preparedStatement.setDouble(2, quoteresponses.getInitialPrice());	
+		preparedStatement.setString(3, quoteresponses.getTimeWindow());	
 		preparedStatement.executeUpdate();
         preparedStatement.close();
     }
