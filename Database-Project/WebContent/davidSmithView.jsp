@@ -26,8 +26,9 @@
                 <tr style="text-align:center">
                     <td><c:out value="${quoterequests.getQuoteRequestID()}" /></td>
                     <td><c:out value="${quoterequests.getQuoteNote()}" /></td>
-                    <td><c:out value="" /></td>
-                    <td><c:out value="" /></td>
+                    <td><a href=reject?id="${quoterequests.getQuoteRequestID()}">Reject</a></td>
+                    <td><a href=respond>Respond</a></td>
+                    <td>
             </c:forEach>
         </table>
 	</div>
