@@ -109,6 +109,31 @@ public class userDAO
         return listUser;
     }
     
+    public QuoteRequest GetQuoteRequest(String id) throws SQLException {
+        QuoteRequest quoteRequest = null;        
+        String sql = "select * from QuoteRequest where quoterequestid = " + id;      
+        connect_func();      
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+         
+        while (resultSet.next()) {
+            int quoterequestid = resultSet.getInt("quoterequestid");
+            String quotenote = resultSet.getString("quotenote");
+            quoteRequest = new QuoteRequest(quoterequestid, quotenote);
+        }
+        
+        resultSet.close();
+        disconnect();        
+        return quoteRequest;
+    }
+    
+    public void UpdateQuoteRequestNote(String id, String note) throws SQLException {
+        String sql = "update QuoteRequest set quotenote = " + note + "where quoterequestid = " + id;      
+        connect_func();      
+        statement = (Statement) connect.createStatement();
+        statement.executeUpdate(sql);
+    }
+    
     public List<QuoteRequest> listAllQuoteRequests() throws SQLException {
         List<QuoteRequest> listQuoteRequest = new ArrayList<QuoteRequest>();        
         String sql = "SELECT * FROM QuoteRequest";      
@@ -349,6 +374,7 @@ public class userDAO
 					            "quoterequestid INTEGER NOT NULL, " +
 					            "quotenote VARCHAR(1000), " +
 					            "PRIMARY KEY (quoterequestid)" +
+					            "isrejected Boolean" +
 					        ");",
 					        "DROP TABLE IF EXISTS Tree;",
 					        "CREATE TABLE IF NOT EXISTS Tree ( " +
