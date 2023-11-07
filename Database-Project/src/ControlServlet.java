@@ -87,10 +87,17 @@ public class ControlServlet extends HttpServlet {
          	case "/submitquoteresponse":
         		submitquoteresponse(request,response);
         		break;
+         	case "/reject":
+         		submitquoterejection(request,response);
+        		break;
             case "/listquoteresponse": 
             	System.out.println("The action is: list quote response");
             	listQuoteResponse(request, response);           	
             	break;
+            case "/rejected":
+            	reject(request, response);
+            	break;
+            	
         	}
 	    }
 	    catch(Exception ex) {
@@ -226,6 +233,7 @@ public class ControlServlet extends HttpServlet {
    	 		userDAO.insert(quoterequests);
    	 		request.getRequestDispatcher("activitypage.jsp").forward(request, response);
 	    }
+	    
 	    private void submitquoteresponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	    	double initialprice = Double.parseDouble(request.getParameter("initialprice"));
 	    	String timewindow = request.getParameter("timewindow");
@@ -234,6 +242,23 @@ public class ControlServlet extends HttpServlet {
    	 		QuoteResponse quoteresponses = new QuoteResponse(quoteResponseCounter, initialprice, timewindow);
    	 		userDAO.insert(quoteresponses);
    	 		request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
+	    }
+	    
+	    private void submitquoterejection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+   	 		System.out.println("In Submit Quote Rejection");
+
+	    	String id = request.getParameter("id");
+	    	QuoteRequest quoteRequest = userDAO.GetQuoteRequest(id);
+	    	request.setAttribute("quoteRequest", quoteRequest);
+   	 		request.getRequestDispatcher("reject.jsp").forward(request, response);
+	    }
+	    
+	    private void reject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+   	 		System.out.println("Quote has been rejected");
+	    	String rejectionNote = request.getParameter("rejectionNote");
+	    	String id = request.getParameter("id");
+	    	userDAO.UpdateQuoteRequestNote(id, rejectionNote);
+    		response.sendRedirect("login.jsp");
 	    }
 	    
 	    private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -251,4 +276,3 @@ public class ControlServlet extends HttpServlet {
 	        
 	        
 	    
-
