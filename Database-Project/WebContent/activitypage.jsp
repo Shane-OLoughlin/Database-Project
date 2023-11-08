@@ -43,6 +43,7 @@
                     <td><c:out value="${quoteresponses.getQuoteResponseID()}" /></td>
                     <td><c:out value="${quoteresponses.getInitialPrice()}" /></td>
                     <td><c:out value="${quoteresponses.getTimeWindow()}" /></td>
+                    </tr>
             </c:forEach>
         </table>
 	</div>

@@ -32,6 +32,7 @@ public class ControlServlet extends HttpServlet {
 	    int phone_number_counter = 112;
 	    int quoteRequestCounter = 10;
 	    int quoteResponseCounter = 10;
+	    int treeCounter = 10;
 	
 		
 	    
@@ -97,7 +98,9 @@ public class ControlServlet extends HttpServlet {
             case "/rejected":
             	reject(request, response);
             	break;
-            	
+         	case "/submittree":
+        		submittree(request,response);
+        		break;
         	}
 	    }
 	    catch(Exception ex) {
@@ -242,6 +245,20 @@ public class ControlServlet extends HttpServlet {
    	 		QuoteResponse quoteresponses = new QuoteResponse(quoteResponseCounter, initialprice, timewindow);
    	 		userDAO.insert(quoteresponses);
    	 		request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
+	    }
+	    private void submittree(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	    	double size = Double.parseDouble(request.getParameter("size"));
+	    	double height = Double.parseDouble(request.getParameter("height"));
+	    	String location = request.getParameter("location");
+	    	double proximityToHouse = Double.parseDouble(request.getParameter("proximityToHouse"));
+	    	String picture1 = request.getParameter("picture1");
+	    	String picture2 = request.getParameter("picture2");
+	    	String picture3 = request.getParameter("picture3");
+   	 		System.out.println("Submission Successful! Added to database");
+   	 		treeCounter++;
+   	 		Tree trees = new Tree(treeCounter, size, height, location, proximityToHouse, picture1, picture2, picture3);
+   	 		userDAO.insert(trees);
+   	 		request.getRequestDispatcher("activitypage.jsp").forward(request, response);
 	    }
 	    
 	    private void submitquoterejection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
