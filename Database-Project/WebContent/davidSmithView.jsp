@@ -32,26 +32,6 @@
             </c:forEach>
         </table>
 	</div>
-	<!--  <h1>List all Order of Works</h1>
-    <div align="center">
-        <table border="1" cellpadding="6">
-            <caption><h2>List of Order of Works</h2></caption>
-            <tr>
-                <th>Trees</th>
-                <th>Quote Note</th>
-                <th>Price</th>
-                <th>Time Window</th>
-            </tr>
-            <c:forEach var="quoterequests" items="${listQuoteRequest}">
-                <tr style="text-align:center">
-                    <td><c:out value="Link to tree"/></td>
-                    <td><c:out value="${quoterequests.getQuoteNote()}" /></td>
-                    <td><a href=reject?id="${quoterequests.getQuoteRequestID()}">Reject</a></td>
-                    <td><a href=respond>Respond</a></td>
-                    
-            </c:forEach>
-        </table>
-	</div>-->
 	</div>
 </body>
 </html>

@@ -3,7 +3,7 @@ public class Tree {
     protected double size;
     protected double height;
     protected String location;
-    protected double proximityToHouse;
+    protected double proximitytohouse;
     protected String picture1;
     protected String picture2;
     protected String picture3;
@@ -12,13 +12,13 @@ public class Tree {
     public Tree() {
     }
  
-    public Tree(int treeid, double size, double height, String location, double proximityToHouse, String picture1, String picture2, String picture3) 
+    public Tree(int treeid, double size, double height, String location, double proximitytohouse, String picture1, String picture2, String picture3) 
     {
     	this.treeid = treeid;
         this.size = size;
         this.height = height;
         this.location = location;
-        this.proximityToHouse = proximityToHouse;
+        this.proximitytohouse = proximitytohouse;
         this.picture1 = picture1;
         this.picture2 = picture2;
         this.picture3 = picture3;
@@ -49,11 +49,11 @@ public class Tree {
     public void setLocation(String location) {
         this.location = location;
     }
-    public double getProximityToHouse() {
-        return proximityToHouse;
+    public double getproximitytohouse() {
+        return proximitytohouse;
     }
-    public void setProximityToHouse(double proximityToHouse) {
-        this.proximityToHouse = proximityToHouse;
+    public void setproximitytohouse(double proximitytohouse) {
+        this.proximitytohouse = proximitytohouse;
     }
     public String getPicture1() {
         return picture1;

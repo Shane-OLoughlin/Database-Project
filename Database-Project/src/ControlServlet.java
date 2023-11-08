@@ -29,7 +29,6 @@ public class ControlServlet extends HttpServlet {
 	    private HttpSession session=null;
 	    
 	    int userCounter = 12;
-	    int phone_number_counter = 112;
 	    int quoteRequestCounter = 10;
 	    int quoteResponseCounter = 10;
 	    int treeCounter = 10;
@@ -159,12 +158,6 @@ public class ControlServlet extends HttpServlet {
 	    	request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
 	    }
 	    
-	    private void clientPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
-	    	System.out.println("Client view");
-	    	request.setAttribute("listQuoteResponses", userDAO.listAllQuoteResponses());
-	    	request.getRequestDispatcher("activitypage.jsp").forward(request, response);
-	    }
-	    
 	    protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	    	 String email = request.getParameter("email");
 	    	 String password = request.getParameter("password");
@@ -184,9 +177,7 @@ public class ControlServlet extends HttpServlet {
 	    	 else if(userDAO.isValid(email, password)) { 
 			 	 currentUser = email;
 				 System.out.println("Login Successful! Redirecting");
-				 session = request.getSession();
-				 session.setAttribute("username", email);
-				 clientPage(request, response, "");		 			 
+				 request.getRequestDispatcher("clientView.jsp").forward(request, response);	 			 
 	    	 }
 	    	 else {
 	    		 request.setAttribute("loginStr","Login Failed: Please check your credentials.");
@@ -199,20 +190,20 @@ public class ControlServlet extends HttpServlet {
 	   	 	String firstName = request.getParameter("firstName");
 	   	 	String lastName = request.getParameter("lastName");
 	   	 	String password = request.getParameter("password");
-	   	 	String birthday = request.getParameter("birthday");
+	   	 	String creditcardinfo = request.getParameter("creditcardinfo");
 	   	 	String adress_street_num = request.getParameter("adress_street_num"); 
 	   	 	String adress_street = request.getParameter("adress_street"); 
 	   	 	String adress_city = request.getParameter("adress_city"); 
 	   	 	String adress_state = request.getParameter("adress_state"); 
-	   	 	String adress_zip_code = request.getParameter("adress_zip_code"); 	   	 	
+	   	 	String adress_zip_code = request.getParameter("adress_zip_code"); 
+	   	 	String phonenumber = request.getParameter("phonenumber");
 	   	 	String confirm = request.getParameter("confirmation");
 	   	 	
 	   	 	if (password.equals(confirm)) {
 	   	 		if (!userDAO.checkEmail(email)) {
 		   	 		System.out.println("Registration Successful! Added to database");
 		   	 		userCounter++;
-		   	 		phone_number_counter++;
-		            user users = new user(email,firstName, lastName, password, birthday, adress_street_num,  adress_street,  adress_city,  adress_state,  adress_zip_code, phone_number_counter,userCounter);
+		            user users = new user(email,firstName, lastName, password, creditcardinfo, adress_street_num,  adress_street,  adress_city,  adress_state,  adress_zip_code, phonenumber ,userCounter);
 		   	 		userDAO.insert(users);
 		   	 		response.sendRedirect("login.jsp");
 	   	 		}
@@ -234,7 +225,7 @@ public class ControlServlet extends HttpServlet {
    	 		quoteRequestCounter++;
    	 		QuoteRequest quoterequests = new QuoteRequest(quoteRequestCounter, quotenote);
    	 		userDAO.insert(quoterequests);
-   	 		request.getRequestDispatcher("activitypage.jsp").forward(request, response);
+   	 		request.getRequestDispatcher("clientView.jsp").forward(request, response);
 	    }
 	    
 	    private void submitquoteresponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -250,13 +241,13 @@ public class ControlServlet extends HttpServlet {
 	    	double size = Double.parseDouble(request.getParameter("size"));
 	    	double height = Double.parseDouble(request.getParameter("height"));
 	    	String location = request.getParameter("location");
-	    	double proximityToHouse = Double.parseDouble(request.getParameter("proximityToHouse"));
+	    	double proximitytohouse = Double.parseDouble(request.getParameter("proximitytohouse"));
 	    	String picture1 = request.getParameter("picture1");
 	    	String picture2 = request.getParameter("picture2");
 	    	String picture3 = request.getParameter("picture3");
    	 		System.out.println("Submission Successful! Added to database");
    	 		treeCounter++;
-   	 		Tree trees = new Tree(treeCounter, size, height, location, proximityToHouse, picture1, picture2, picture3);
+   	 		Tree trees = new Tree(treeCounter, size, height, location, proximitytohouse, picture1, picture2, picture3);
    	 		userDAO.insert(trees);
    	 		request.getRequestDispatcher("tree.jsp").forward(request, response);
 	    }

@@ -17,9 +17,9 @@
                 <th>Last name</th>
                 <th>Adress</th>
                 <th>Password</th>
-                <th>Birthday</th>
-                <th>cash_bal($)</th>
-                <th>PPS_bal</th>
+                <th>creditcardinfo</th>
+                <th>phonenumber($)</th>
+                <th>clientid</th>
 
             </tr>
             <c:forEach var="users" items="${listUser}">
@@ -29,9 +29,9 @@
                     <td><c:out value="${users.lastName}" /></td>
                     <td><c:out value= "${users.adress_street_num} ${users.adress_street} ${users.adress_city} ${users.adress_state} ${users.adress_zip_code}" /></td>
                     <td><c:out value="${users.password}" /></td>
-                    <td><c:out value="${users.birthday}" /></td>
-                    <td><c:out value="${users.cash_bal}"/></td>
-                    <td><c:out value="${users.PPS_bal}" /></td>
+                    <td><c:out value="${users.creditcardinfo}" /></td>
+                    <td><c:out value="${users.phonenumber}"/></td>
+                    <td><c:out value="${users.clientid}" /></td>
                 </tr>
             </c:forEach>
         </table>

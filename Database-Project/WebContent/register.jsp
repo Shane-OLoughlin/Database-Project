@@ -28,11 +28,46 @@
 					</td>
 				</tr>
 				<tr>
-					<th>Birthday: </th>
+					<th>Credit Card Info: </th>
 					<td align="center" colspan="3">
-						<input type="text" name="birthday" size="45" value="YYYY-MM-DD" onfocus="this.value=''">
+						<input type="text" name="creditcardinfo" size="45" value="1234567812345678" onfocus="this.value=''">
 					</td>
-	
+				</tr>
+				<tr>
+					<th>Phone Number: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="phonenumber" size="45" value="1234567890" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
+					<th>Street Number: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="adress_street_num" size="45" value="161" onfocus="this.value=''">
+					</td>
+				</tr>
+				<tr>
+					<th>Street: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="adress_street" size="45" value="street" onfocus="this.value=''">
+					</td>
+				</tr>
+								<tr>
+					<th>City: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="adress_city" size="45" value="Detroit" onfocus="this.value=''">
+					</td>
+				</tr>
+											<tr>
+					<th>State: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="adress_state" size="45" value="MI" onfocus="this.value=''">
+					</td>
+				</tr>
+											<tr>
+					<th>Zip Code: </th>
+					<td align="center" colspan="3">
+						<input type="text" name="adress_zip_code" size="45" value="18782" onfocus="this.value=''">
+					</td>
 				</tr>
 				<tr>
 					<th>Password: </th>
