@@ -258,7 +258,7 @@ public class ControlServlet extends HttpServlet {
    	 		treeCounter++;
    	 		Tree trees = new Tree(treeCounter, size, height, location, proximityToHouse, picture1, picture2, picture3);
    	 		userDAO.insert(trees);
-   	 		request.getRequestDispatcher("activitypage.jsp").forward(request, response);
+   	 		request.getRequestDispatcher("tree.jsp").forward(request, response);
 	    }
 	    
 	    private void submitquoterejection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
