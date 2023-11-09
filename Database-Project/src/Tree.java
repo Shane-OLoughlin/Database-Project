@@ -65,7 +65,7 @@ public class Tree {
         return picture2;
     }
     public void setPicture2(String picture2) {
-        this.picture1 = picture2;
+        this.picture2 = picture2;
     }
     public String getPicture3() {
         return picture3;
