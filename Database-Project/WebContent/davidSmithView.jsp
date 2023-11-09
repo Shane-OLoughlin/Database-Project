@@ -28,7 +28,23 @@
                     <td><c:out value="${quoterequests.getQuoteNote()}" /></td>
                     <td><a href=reject?id="${quoterequests.getQuoteRequestID()}">Reject</a></td>
                     <td><a href=respond>Respond</a></td>
-                    
+            </c:forEach>
+        </table>
+	</div>
+			<h1>List all quote responses</h1>
+    <div align="center">
+        <table border="1" cellpadding="6">
+            <caption><h2>List of Quote Responses</h2></caption>
+            <tr>
+                <th>Quote Response ID</th>
+                <th>Initial Price</th>
+                <th>Time Window</th>
+            </tr>
+            <c:forEach var="quoteresponses" items="${listQuoteResponse}">
+                <tr style="text-align:center">
+                    <td><c:out value="${quoteresponses.getQuoteResponseID()}" /></td>
+                    <td><c:out value="${quoteresponses.getInitialPrice()}" /></td>
+                    <td><c:out value="${quoteresponses.getTimeWindow()}" /></td>
             </c:forEach>
         </table>
 	</div>

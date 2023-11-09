@@ -155,6 +155,7 @@ public class ControlServlet extends HttpServlet {
 	    private void davidSmithPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("David Smith view");
 	    	request.setAttribute("listQuoteRequest", userDAO.listAllQuoteRequests());
+	    	request.setAttribute("listQuoteResponse", userDAO.listAllQuoteResponses());
 	    	request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
 	    }
 	    

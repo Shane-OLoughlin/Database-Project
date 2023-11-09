@@ -416,7 +416,6 @@ public class userDAO
 					        "DROP TABLE IF EXISTS OrderOfWork;",
 					        "CREATE TABLE IF NOT EXISTS OrderOfWork ( " +
 					            "orderofworkid INTEGER NOT NULL, " +
-					            "work VARCHAR(1000), " +
 					            "quoteresponseid INTEGER NOT NULL, " +
 					            "PRIMARY KEY (orderofworkid)" +
 					        ");",
