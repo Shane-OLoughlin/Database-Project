@@ -13,11 +13,11 @@
      <tr style="text-align:center">
          <td>RequestId: ${quoteRequest.getQuoteRequestID()}</td>
       </tr>
-      <tr>
-         <td>QuoteNote: ${quoteRequest.getQuoteNote()}</td>
+      <tr style="text-align:center">
+         <td>Email: ${quoteRequest.getemailquoterequest()}</td>
       </tr>
       <tr>
-         <td>Rejection Note: <input name="rejectionNote" type = text/></td>
+         <td>Rejection Note: <input name="quoterejectnote" type = text/></td>
      </tr>
      <tr>
 		<td><a href="rejected?id=${quoteRequest.getQuoteRequestID()}">Reject!</a></td>

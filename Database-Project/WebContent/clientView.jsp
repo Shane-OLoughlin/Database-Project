@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Activity page</title>
+<title>Client View</title>
 </head>
 <body>
 <center><h1>Welcome! You have been successfully logged in</h1> </center>
@@ -19,9 +19,9 @@
 				<tr>
 					<th>Note: </th>
 					<td align="center" colspan="3">
-						<input type="text" name="quotenote" size="45" onfocus="this.value=''">
+						<input type="text" name="quotenote" size="45" value = "note" onfocus="this.value=''">
 					</td>
-				</tr>
+				</tr>															
 				<tr>
 					<td align="center" colspan="5">
 						<input type="submit" value="Submit"/>

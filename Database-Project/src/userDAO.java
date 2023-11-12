@@ -119,19 +119,13 @@ public class userDAO
         while (resultSet.next()) {
             int quoterequestid = resultSet.getInt("quoterequestid");
             String quotenote = resultSet.getString("quotenote");
-            quoteRequest = new QuoteRequest(quoterequestid, quotenote);
+	    	String emailquoterequest = resultSet.getString("emailquoterequest");
+            quoteRequest = new QuoteRequest(quoterequestid, quotenote, emailquoterequest);
         }
         
         resultSet.close();
         disconnect();        
         return quoteRequest;
-    }
-    
-    public void UpdateQuoteRequestNote(String id, String note) throws SQLException {
-        String sql = "update QuoteRequest set quotenote = " + note + "where quoterequestid = " + id;      
-        connect_func();      
-        statement = (Statement) connect.createStatement();
-        statement.executeUpdate(sql);
     }
     
     public List<QuoteRequest> listAllQuoteRequests() throws SQLException {
@@ -144,13 +138,40 @@ public class userDAO
         while (resultSet.next()) {
             int quoterequestid = resultSet.getInt("quoterequestid");
             String quotenote = resultSet.getString("quotenote");
+            String emailquoterequest = resultSet.getString("emailquoterequest");
              
-            QuoteRequest quoterequests = new QuoteRequest(quoterequestid, quotenote);
+            QuoteRequest quoterequests = new QuoteRequest(quoterequestid, quotenote, emailquoterequest);
             listQuoteRequest.add(quoterequests);
         }        
         resultSet.close();
         disconnect();        
         return listQuoteRequest;
+    }
+    public List<Tree> listAllTrees() throws SQLException {
+        List<Tree> listTree = new ArrayList<Tree>();        
+        String sql = "SELECT * FROM Tree";      
+        connect_func();      
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+         
+        while (resultSet.next()) {
+            int treeid = resultSet.getInt("treeid");
+	    	double size = resultSet.getDouble("size");
+	    	double height = resultSet.getDouble("height");
+	    	String location = resultSet.getString("location");
+	    	double proximitytohouse = resultSet.getDouble("proximitytohouse");
+	    	String picture1 = resultSet.getString("picture1");
+	    	String picture2 = resultSet.getString("picture2");
+	    	String picture3 = resultSet.getString("picture3");
+	    	int quoterequestid = resultSet.getInt("quoterequestid");
+	    	String email = resultSet.getString("email");
+             
+            Tree trees = new Tree(treeid, size, height, location, proximitytohouse, picture1, picture2, picture3, quoterequestid, email);
+            listTree.add(trees);
+        }        
+        resultSet.close();
+        disconnect();        
+        return listTree;
     }
     
     public List<QuoteResponse> listAllQuoteResponses() throws SQLException {
@@ -164,8 +185,10 @@ public class userDAO
             int quoteresponseid = resultSet.getInt("quoteresponseid");
             double initialprice = Double.parseDouble(resultSet.getString("initialprice"));
             String timewindow = resultSet.getString("timewindow");
+            int quoterequestid = resultSet.getInt("quoterequestid");
+            String email = resultSet.getString("email");
              
-            QuoteResponse quoteresponses = new QuoteResponse(quoteresponseid, initialprice, timewindow);
+            QuoteResponse quoteresponses = new QuoteResponse(quoteresponseid, initialprice, timewindow, quoterequestid, email);
             listQuoteResponses.add(quoteresponses);
         }        
         resultSet.close();
@@ -173,6 +196,26 @@ public class userDAO
         return listQuoteResponses;
     }
     
+    public List<QuoteReject> listAllQuoteRejects() throws SQLException {
+        List<QuoteReject> listQuoteRejects = new ArrayList<QuoteReject>();        
+        String sql = "SELECT * FROM QuoteReject";      
+        connect_func();      
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+         
+        while (resultSet.next()) {
+            int quoterejectid = resultSet.getInt("quoterejectid");
+            String quoterejectnote = resultSet.getString("quoterejectnote");
+            int quoterequestid = resultSet.getInt("quoterequestid");
+            String email = resultSet.getString("email");
+             
+            QuoteReject quoterejects = new QuoteReject(quoterejectid, quoterejectnote, quoterequestid, email);
+            listQuoteRejects.add(quoterejects);
+        }        
+        resultSet.close();
+        disconnect();        
+        return listQuoteRejects;
+    }
     
     protected void disconnect() throws SQLException {
         if (connect != null && !connect.isClosed()) {
@@ -182,7 +225,7 @@ public class userDAO
     
     public void insert(user users) throws SQLException {
     	connect_func("root","pass1234");         
-		String sql = "insert into User(email, firstName, lastName, password, creditcardinfo,adress_street_num, adress_street,adress_city,adress_state,adress_zip_code,phonenumber,clientid) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)";
+		String sql = "insert into User(email, firstName, lastName, password, creditcardinfo, adress_street_num, adress_street,adress_city,adress_state,adress_zip_code,phonenumber,clientid) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)";
 		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
 			preparedStatement.setString(1, users.getEmail());
 			preparedStatement.setString(2, users.getFirstName());
@@ -202,26 +245,41 @@ public class userDAO
     }
     public void insert(QuoteRequest quoterequests) throws SQLException {      
     	connect_func();
-		String sql = "insert into QuoteRequest(quoterequestid, quotenote) values (?,?)";
+		String sql = "insert into QuoteRequest(quoterequestid, quotenote, emailquoterequest) values (?,?,?)";
 		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
 		preparedStatement.setInt(1, quoterequests.getQuoteRequestID());
 		preparedStatement.setString(2, quoterequests.getQuoteNote());	
+		preparedStatement.setString(3, quoterequests.getemailquoterequest());
 		preparedStatement.executeUpdate();
         preparedStatement.close();
     }
+    
     public void insert(QuoteResponse quoteresponses) throws SQLException {      
     	connect_func();
-		String sql = "insert into QuoteResponse(quoteresponseid, initialprice, timewindow) values (?,?,?)";
+		String sql = "insert into QuoteResponse(quoteresponseid, initialprice, timewindow, quoterequestid, email) values (?,?,?,?,?)";
 		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
 		preparedStatement.setInt(1, quoteresponses.getQuoteResponseID());
 		preparedStatement.setDouble(2, quoteresponses.getInitialPrice());	
 		preparedStatement.setString(3, quoteresponses.getTimeWindow());	
+		preparedStatement.setInt(4, quoteresponses.getQuoteRequestID());	
+		preparedStatement.setString(5, quoteresponses.getEmail());	
+		preparedStatement.executeUpdate();
+        preparedStatement.close();
+    }
+    public void insert(QuoteReject quoterejects) throws SQLException {      
+    	connect_func();
+		String sql = "insert into QuoteReject(quoterejectid, quoterejectnote, quoterequestid, email) values (?,?,?,?)";
+		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
+		preparedStatement.setInt(1, quoterejects.getQuoteRejectID());	
+		preparedStatement.setString(2, quoterejects.getQuoteRejectNote());	
+		preparedStatement.setInt(3, quoterejects.getQuoteRequestID());	
+		preparedStatement.setString(4, quoterejects.getEmail());	
 		preparedStatement.executeUpdate();
         preparedStatement.close();
     }
     public void insert(Tree trees) throws SQLException {      
     	connect_func();
-		String sql = "insert into QuoteResponse(treeid, size, height, location, proximitytohouse, picture1, picture2, picture3) values (?,?,?,?,?,?,?,?)";
+		String sql = "insert into QuoteResponse(treeid, size, height, location, proximitytohouse, picture1, picture2, picture3, quoterequestid) values (?,?,?,?,?,?,?,?,?,?)";
 		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
 		preparedStatement.setInt(1, trees.getTreeID());
 		preparedStatement.setDouble(2, trees.getSize());	
@@ -231,6 +289,8 @@ public class userDAO
 		preparedStatement.setString(6, trees.getPicture1());
 		preparedStatement.setString(7, trees.getPicture2());
 		preparedStatement.setString(8, trees.getPicture3());
+		preparedStatement.setInt(9, trees.getQuoteRequestID());
+		preparedStatement.setString(10, trees.getEmail());
 		preparedStatement.executeUpdate();
         preparedStatement.close();
     }
@@ -388,9 +448,8 @@ public class userDAO
 					        "CREATE TABLE IF NOT EXISTS QuoteRequest ( " +
 					            "quoterequestid INTEGER NOT NULL, " +
 					            "quotenote VARCHAR(1000), " +
-					            "PRIMARY KEY (quoterequestid)," +
-					            "clientid INTEGER," +
-					            "isRejected Boolean" +
+					            "emailquoterequest VARCHAR(50)," +
+					            "PRIMARY KEY (quoterequestid)" +
 					        ");",
 					        "DROP TABLE IF EXISTS Tree;",
 					        "CREATE TABLE IF NOT EXISTS Tree ( " +
@@ -403,6 +462,7 @@ public class userDAO
 					            "picture2 VARCHAR(100), " +
 					            "picture3 VARCHAR(100), " +
 					            "quoterequestid INTEGER NOT NULL, " +
+					            "email VARCHAR(50) NOT NULL, " +
 					            "PRIMARY KEY (treeid) " +
 					        ");",
 					        "DROP TABLE IF EXISTS QuoteResponse;",
@@ -411,12 +471,22 @@ public class userDAO
 					            "initialprice DOUBLE, " +
 					            "timewindow VARCHAR(100), " +
 					            "quoterequestid INTEGER NOT NULL, " +
+					            "email VARCHAR(50) NOT NULL, " +
 					            "PRIMARY KEY (quoteresponseid)" +
+					        ");",
+					        "DROP TABLE IF EXISTS QuoteReject;",
+					        "CREATE TABLE IF NOT EXISTS QuoteReject ( " +
+					            "quoterejectid INTEGER NOT NULL, " +
+					            "quoterejectnote VARCHAR(1000), " +
+					            "quoterequestid INTEGER NOT NULL, " +
+					            "email VARCHAR(50) NOT NULL, " +
+					            "PRIMARY KEY (quoterejectid)" +
 					        ");",
 					        "DROP TABLE IF EXISTS OrderOfWork;",
 					        "CREATE TABLE IF NOT EXISTS OrderOfWork ( " +
 					            "orderofworkid INTEGER NOT NULL, " +
 					            "quoteresponseid INTEGER NOT NULL, " +
+					            "email VARCHAR(50) NOT NULL, " +
 					            "PRIMARY KEY (orderofworkid)" +
 					        ");",
 					        "DROP TABLE IF EXISTS BillRequest;",
@@ -425,17 +495,25 @@ public class userDAO
 					            "billnote VARCHAR(1000), " +
 					            "billamount DOUBLE NOT NULL," +
 					            "orderofworkid INTEGER NOT NULL," +
-					            "PRIMARY KEY (billrequestid), " +
-					            "UNIQUE (billrequestid)," +
-					            "isAccepted Boolean" +
+					            "email VARCHAR(50) NOT NULL, " +
+					            "PRIMARY KEY (billrequestid)" +
 					        ");",
 					        "DROP TABLE IF EXISTS ReportOfRevenue;",
 					        "CREATE TABLE IF NOT EXISTS ReportOfRevenue ( " +
 					            "reportofrevenueid INTEGER NOT NULL, " +
-					            "clientid INTEGER NOT NULL, " +
-					            "billamount DOUBLE NOT NULL," +
+					            "paymentamount DOUBLE NOT NULL," +
+					            "billrequestid INTEGER NOT NULL," +
+					            "email VARCHAR(50) NOT NULL, " +
 					            "PRIMARY KEY (reportofrevenueid) " +
-					        ");"
+					        ");",
+					        "DROP TABLE IF EXISTS BillReject;",
+					        "CREATE TABLE IF NOT EXISTS BillReject ( " +
+					            "billrejectid INTEGER NOT NULL, " +
+					            "billrejectnote VARCHAR(1000), " +
+					            "billrequestid INTEGER NOT NULL," +
+					            "email VARCHAR(50) NOT NULL, " +
+					            "PRIMARY KEY (billrejectid)" +
+					        ");",
 					    };
         
         String[] TUPLES = {("insert into User(email, firstName, lastName, password, creditcardinfo, adress_street_num, adress_street, adress_city, adress_state, adress_zip_code, phonenumber, clientid)"+
@@ -453,82 +531,106 @@ public class userDAO
 		    			"('root', 'default', 'default','pass1234', '1111111111111144', '1726', 'Default', 'Default', '0', '00000','1232883883','11');")
 		    			};
         
-        String[] TUPLES2 = {("insert into QuoteRequest(quoterequestid, quotenote)"+
-    			"values ('1', 'Make sure all branches are removed.'),"+
-		    		 	"('2', 'Move date to 9/23/2024.'),"+
-		    	 	 	"('3', 'Make the price $149.'),"+
-		    		 	"('4', 'Avoid dog. He bites.'),"+
-		    		 	"('5', 'Ring doorbell when you are here.'),"+
-		    		 	"('6', 'Make the price $260.'),"+
-		    			"('7', 'Move date to 2/27/2024.'),"+
-		    			"('8', 'Knock when you are here.'),"+
-		    			"('9', 'Make the price $181.'),"+
-		    			"('10', 'Move date to 1/03/2025.');")
+        String[] TUPLES2 = {("insert into QuoteRequest(quoterequestid, quotenote, emailquoterequest)"+
+    			"values ('1', 'Make sure all branches are removed.', 'susie@gmail.com'),"+
+		    		 	"('2', 'Move date to 9/23/2024.', 'don@gmail.com'),"+
+		    	 	 	"('3', 'Make the price $149.', 'margarita@gmail.com'),"+
+		    		 	"('4', 'Avoid dog. He bites.', 'jo@gmail.com'),"+
+		    		 	"('5', 'Ring doorbell when you are here.', 'wallace@gmail.com'),"+
+		    		 	"('6', 'Make the price $260.', 'amelia@gmail.com'),"+
+		    			"('7', 'Move date to 2/27/2024.', 'sophie@gmail.com'),"+
+		    			"('8', 'Knock when you are here.','angelo@gmail.com'),"+
+		    			"('9', 'Make the price $181.', 'rudy@gmail.com'),"+
+		    			"('10', 'Move date to 1/03/2025.', 'jeannette@gmail.com');")
 		    			};
         
-        String[] TUPLES3 = {("INSERT INTO Tree(treeid, size, height, location, proximitytohouse, picture1, picture2, picture3, quoterequestid)"+
-        		 "values ('1', '15.5', '6.2', 'Front Yard', '10.3', 'tree1.jpg', 'tree2.jpg', 'tree3.jpg', 1),"+
-        	        	"('2', '10.2', '4.8', 'Back Yard', '5.7', 'tree4.jpg', 'tree5.jpg', 'tree6.jpg', 2),"+
-        	        	"('3', '8.7', '3.5', 'Side Yard', '8.1', 'tree7.jpg', 'tree8.jpg', 'tree9.jpg', 2),"+
-        	        	"('4', '12.1', '5.9', 'Front Yard', '9.4', 'tree10.jpg', 'tree11.jpg', 'tree12.jpg', 3),"+
-        	        	"('5', '17.3', '7.2', 'Back Yard', '12.8', 'tree13.jpg', 'tree14.jpg', 'tree15.jpg', 3),"+
-        	        	"('6', '14.8', '6.0', 'Front Yard', '10.7', 'tree16.jpg', 'tree17.jpg', 'tree18.jpg', 3),"+
-        	        	"('7', '9.5', '4.1', 'Side Yard', '7.3', 'tree19.jpg', 'tree20.jpg', 'tree21.jpg', 4),"+
-        	        	"('8', '11.9', '5.6', 'Back Yard', '11.2', 'tree22.jpg', 'tree23.jpg', 'tree24.jpg', 5),"+
-        	        	"('9', '13.2', '6.8', 'Front Yard', '10.9', 'tree25.jpg', 'tree26.jpg', 'tree27.jpg', 6),"+
-        	        	"('10', '18.5', '7.7', 'Side Yard', '13.5', 'tree28.jpg', 'tree29.jpg', 'tree30.jpg', 6);")
-        				};
+        String[] TUPLES3 = {("INSERT INTO Tree(treeid, size, height, location, proximitytohouse, picture1, picture2, picture3, quoterequestid, email)"+
+          		 "values ('1', '15.5', '6.2', 'Front Yard', '10.3', 'tree1.jpg', 'tree2.jpg', 'tree3.jpg', '1', 'susie@gmail.com'),"+
+          	        	"('2', '10.2', '4.8', 'Back Yard', '5.7', 'tree4.jpg', 'tree5.jpg', 'tree6.jpg', '2', 'don@gmail.com'),"+
+          	        	"('3', '8.7', '3.5', 'Side Yard', '8.1', 'tree7.jpg', 'tree8.jpg', 'tree9.jpg', '3', 'margarita@gmail.com'),"+
+          	        	"('4', '12.1', '5.9', 'Front Yard', '9.4', 'tree10.jpg', 'tree11.jpg', 'tree12.jpg', '4', 'jo@gmail.com'),"+
+          	        	"('5', '17.3', '7.2', 'Back Yard', '12.8', 'tree13.jpg', 'tree14.jpg', 'tree15.jpg', '5', 'wallace@gmail.com'),"+
+          	        	"('6', '14.8', '6.0', 'Front Yard', '10.7', 'tree16.jpg', 'tree17.jpg', 'tree18.jpg', '6', 'amelia@gmail.com'),"+
+          	        	"('7', '9.5', '4.1', 'Side Yard', '7.3', 'tree19.jpg', 'tree20.jpg', 'tree21.jpg', '7', 'sophie@gmail.com'),"+
+          	        	"('8', '11.9', '5.6', 'Back Yard', '11.2', 'tree22.jpg', 'tree23.jpg', 'tree24.jpg', '8', 'angelo@gmail.com'),"+
+          	        	"('9', '13.2', '6.8', 'Front Yard', '10.9', 'tree25.jpg', 'tree26.jpg', 'tree27.jpg', '9', 'rudy@gmail.com'),"+
+          	        	"('10', '18.5', '7.7', 'Side Yard', '13.5', 'tree28.jpg', 'tree29.jpg', 'tree30.jpg', '10', 'jeannette@gmail.com');")
+          				};
 
-        String[] TUPLES4 = {("INSERT INTO QuoteResponse(quoteresponseid, initialprice, timewindow, quoterequestid)"+
-                "VALUES('1', '150.00', '2024-01-15 to 2024-02-05', '1'),"+
-                "('2', '170.00', '2024-02-20 to 2024-03-24', '2'),"+
-                "('3', '140.00', '2024-03-10 to 2024-4-10', '3'),"+
-                "('4', '160.00', '2024-04-05 to 2024-05-13', '4'),"+
-                "('5', '180.00', '2024-05-30 to 2024-06-17', '5'),"+
-                "('6', '175.00', '2024-06-15 to 2024-07-13', '6'),"+
-                "('7', '155.00', '2024-07-20 to 2024-08-13', '7'),"+
-                "('8', '165.00', '2024-08-10 to 2024-09-13', '8'),"+
-                "('9', '185.00', '2024-09-05 to 2024-10-24', '9'),"+
-                "('10', '170.00', '2024-10-15 to 2024-11-13', '10');")
+        String[] TUPLES4 = {("INSERT INTO QuoteResponse(quoteresponseid, initialprice, timewindow, quoterequestid, email)"+
+                "VALUES('1', '150.00', '2024-01-15 to 2024-02-05', '1', 'susie@gmail.com'),"+
+                "('2', '170.00', '2024-02-20 to 2024-03-24', '2', 'don@gmail.com'),"+
+                "('3', '140.00', '2024-03-10 to 2024-4-10', '3', 'margarita@gmail.com'),"+
+                "('4', '160.00', '2024-04-05 to 2024-05-13', '4', 'jo@gmail.com'),"+
+                "('5', '180.00', '2024-05-30 to 2024-06-17', '5', 'wallace@gmail.com'),"+
+                "('6', '175.00', '2024-06-15 to 2024-07-13', '6', 'amelia@gmail.com'),"+
+                "('7', '155.00', '2024-07-20 to 2024-08-13', '7', 'sophie@gmail.com'),"+
+                "('8', '165.00', '2024-08-10 to 2024-09-13', '8', 'angelo@gmail.com'),"+
+                "('9', '185.00', '2024-09-05 to 2024-10-24', '9', 'rudy@gmail.com'),"+
+                "('10', '170.00', '2024-10-15 to 2024-11-13', '10', 'jeannette@gmail.com');")
+        				};
+        String[] TUPLES5 = {("INSERT INTO QuoteReject(quoterejectid, quoterejectnote, quoterequestid, email)"+
+                "VALUES('1', 'note', '1', 'susie@gmail.com'),"+
+                "('2', 'note', '2', 'don@gmail.com'),"+
+                "('3', 'note', '3', 'margarita@gmail.com'),"+
+                "('4', 'note', '4', 'jo@gmail.com'),"+
+                "('5', 'note', '5', 'wallace@gmail.com'),"+
+                "('6', 'note', '6', 'amelia@gmail.com'),"+
+                "('7', 'note', '7', 'sophie@gmail.com'),"+
+                "('8', 'note', '8', 'angelo@gmail.com'),"+
+                "('9', 'note', '9', 'rudy@gmail.com'),"+
+                "('10', 'note', '10', 'jeannette@gmail.com');")
         				};
         
-        String[] TUPLES5 = {("INSERT INTO OrderOfWork(orderofworkid, quoteresponseid)"+
-                "VALUES('1', '1'),"+
-                "('2', '2'),"+
-                "('3','3'),"+
-                "('4', '4'),"+
-                "('5', '5'),"+
-                "('6', '6'),"+
-                "('7', '7'),"+
-                "('8', '8'),"+
-                "('9', '9'),"+
-                "('10', '10');")
+        String[] TUPLES6 = {("INSERT INTO OrderOfWork(orderofworkid, quoteresponseid, email)"+
+                "VALUES('1', '1', 'susie@gmail.com'),"+
+                "('2', '2', 'don@gmail.com'),"+
+                "('3','3', 'margarita@gmail.com'),"+
+                "('4', '4', 'jo@gmail.com'),"+
+                "('5', '5', 'wallace@gmail.com'),"+
+                "('6', '6', 'amelia@gmail.com'),"+
+                "('7', '7', 'sophie@gmail.com'),"+
+                "('8', '8', 'angelo@gmail.com'),"+
+                "('9', '9', 'rudy@gmail.com'),"+
+                "('10', '10', 'jeannette@gmail.com');")
         				};
         
-        String[] TUPLES6 = {("INSERT INTO BillRequest(billrequestid, billnote, billamount, orderofworkid)"+
-        		"VALUES('1', 'The bill for tree trimming in the front yard is $53', '53.0', '1'),"+
-                "('2', 'The bill for tree removal in the back yard is $533.', '533.0', '2'),"+
-                "('3', 'Bill for tree maintenance in the side yard is $232.', '232.0', '3'),"+
-                "('4', 'Bill for tree pruning in the front yard is $232.', '232.0', '4'),"+
-                "('5', 'Bill for tree removal and cleanup in the back yard is $900.', '900.0', '5'),"+
-                "('6', 'Bill for tree trimming in the front yard is $242.', '242.0', '6'),"+
-                "('7', 'Bill for tree maintenance in the side yard is $535.', '535.0', '7'),"+
-                "('8', 'Bill for tree removal and cleanup in the back yard is $444.', '444.0', '8'),"+
-                "('9', 'Your concern is unfounded; bill for tree trimming in the front yard is $442.', '442.0', '9'),"+
-                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '344.0', '10');")
+        String[] TUPLES7 = {("INSERT INTO BillRequest(billrequestid, billnote, billamount, orderofworkid, email)"+
+        		"VALUES('1', 'The bill for tree trimming in the front yard is $53', '53.0', '1', 'susie@gmail.com'),"+
+                "('2', 'The bill for tree removal in the back yard is $533.', '533.0', '2', 'don@gmail.com'),"+
+                "('3', 'Bill for tree maintenance in the side yard is $232.', '232.0', '3', 'margarita@gmail.com'),"+
+                "('4', 'Bill for tree pruning in the front yard is $232.', '232.0', '4', 'jo@gmail.com'),"+
+                "('5', 'Bill for tree removal and cleanup in the back yard is $900.', '900.0', '5', 'wallace@gmail.com'),"+
+                "('6', 'Bill for tree trimming in the front yard is $242.', '242.0', '6', 'amelia@gmail.com'),"+
+                "('7', 'Bill for tree maintenance in the side yard is $535.', '535.0', '7', 'sophie@gmail.com'),"+
+                "('8', 'Bill for tree removal and cleanup in the back yard is $444.', '444.0', '8', 'angelo@gmail.com'),"+
+                "('9', 'Your concern is unfounded; bill for tree trimming in the front yard is $442.', '442.0', '9', 'rudy@gmail.com'),"+
+                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '344.0', '10', 'jeannette@gmail.com');")
                 };
-        /*String[] TUPLES5 = {("INSERT INTO ReportOfRevenue(reportofrevenueid, billamount, clientid)"+
-                "VALUES ('1', '10.0', '1'),"+
-                "('2', '10.0', '2'),"+
-                "('3', '10.0', '3'),"+
-                "('4', '10.0', '4'),"+
-                "('5', '10.0', '5'),"+
-                "('6', '10.0', '6'),"+
-                "('7', '10.0', '7'),"+
-                "('8', '10.0', '8'),"+
-                "('9', '10.0', '9'),"+
-                "('10', '10.0', '10');")
-    					};*/
+        String[] TUPLES8 = {("INSERT INTO ReportOfRevenue(reportofrevenueid, paymentamount, billrequestid, email)"+
+                "VALUES ('1', '10.0', '1', 'susie@gmail.com'),"+
+                "('2', '10.0', '2', 'don@gmail.com'),"+
+                "('3', '10.0', '3', 'margarita@gmail.com'),"+
+                "('4', '10.0', '4', 'jo@gmail.com'),"+
+                "('5', '10.0', '5', 'wallace@gmail.com'),"+
+                "('6', '10.0', '6', 'amelia@gmail.com'),"+
+                "('7', '10.0', '7', 'sophie@gmail.com'),"+
+                "('8', '10.0', '8', 'angelo@gmail.com'),"+
+                "('9', '10.0', '9', 'rudy@gmail.com'),"+
+                "('10', '10.0', '10', 'jeannette@gmail.com');")
+    					};
+        String[] TUPLES9 = {("INSERT INTO BillReject(billrejectid, billrejectnote, billrequestid, email)"+
+                "VALUES ('1', 'note', '1', 'susie@gmail.com'),"+
+                "('2', 'note', '2', 'don@gmail.com'),"+
+                "('3', 'note', '3', 'margarita@gmail.com'),"+
+                "('4', 'note', '4', 'jo@gmail.com'),"+
+                "('5', 'note', '5', 'wallace@gmail.com'),"+
+                "('6', 'note', '6', 'amelia@gmail.com'),"+
+                "('7', 'note', '7', 'sophie@gmail.com'),"+
+                "('8', 'note', '8', 'angelo@gmail.com'),"+
+                "('9', 'note', '9', 'rudy@gmail.com'),"+
+                "('10', 'note', '10', 'jeannette@gmail.com');")
+    					};
         		
         String[] FOREIGNKEYS = {
         	    "ALTER TABLE Tree " +
@@ -539,6 +641,10 @@ public class userDAO
         	    "ADD CONSTRAINT fk_QuoteResponse_QuoteRequest " +
         	    "FOREIGN KEY (quoterequestid) " +
         	    "REFERENCES QuoteRequest (quoterequestid);",
+        	    "ALTER TABLE QuoteReject " +
+        	    "ADD CONSTRAINT fk_QuoteReject_QuoteRequest " +
+        	    "FOREIGN KEY (quoterequestid) " +
+        	    "REFERENCES QuoteRequest (quoterequestid);",
         	    "ALTER TABLE OrderOfWork " +
         	    "ADD CONSTRAINT fk_OrderOfWork_QuoteResponse " +
         	    "FOREIGN KEY (quoteresponseid) " +
@@ -546,7 +652,15 @@ public class userDAO
         	    "ALTER TABLE BillRequest " +
         	    "ADD CONSTRAINT fk_BillRequest_OrderOfWork " +
         	    "FOREIGN KEY (orderofworkid) " +
-        	    "REFERENCES OrderOfWork (orderofworkid);"
+        	    "REFERENCES OrderOfWork (orderofworkid);",
+        	    "ALTER TABLE ReportOfRevenue " +
+        	    "ADD CONSTRAINT fk_ReportOfRevenue_BillRequest " +
+        	    "FOREIGN KEY (billrequestid) " +
+        	    "REFERENCES BillRequest (billrequestid);",
+        	    "ALTER TABLE BillReject " +
+        	    "ADD CONSTRAINT fk_BillReject_BillRequest " +
+        	    "FOREIGN KEY (billrequestid) " +
+        	    "REFERENCES BillRequest (billrequestid);"
         	};
         //for loop to put these in database
         for (int i = 0; i < INITIAL.length; i++)
@@ -563,6 +677,12 @@ public class userDAO
         	statement.execute(TUPLES5[i]);
         for (int i = 0; i < TUPLES6.length; i++)	
         	statement.execute(TUPLES6[i]);
+        for (int i = 0; i < TUPLES7.length; i++)	
+        	statement.execute(TUPLES7[i]);
+        for (int i = 0; i < TUPLES8.length; i++)	
+        	statement.execute(TUPLES8[i]);
+        for (int i = 0; i < TUPLES9.length; i++)	
+        	statement.execute(TUPLES9[i]);
         for (int i = 0; i < FOREIGNKEYS.length; i++)	
         	statement.execute(FOREIGNKEYS[i]);
         disconnect();

@@ -1,12 +1,13 @@
 public class QuoteRequest {
     protected int quoterequestid;
     protected String quotenote;
+    protected String emailquoterequest;
 	 
     //constructors
     public QuoteRequest() {
     }
  
-    public QuoteRequest(int quoterequestid, String quotenote) 
+    public QuoteRequest(int quoterequestid, String quotenote, String emailquoterequest) 
     {
     	this.quoterequestid = quoterequestid;
         this.quotenote = quotenote;
@@ -24,5 +25,11 @@ public class QuoteRequest {
     }
     public void setQuoteNote(String quotenote) {
         this.quotenote = quotenote;
+    }
+    public String getemailquoterequest() {
+        return emailquoterequest;
+    }
+    public void setemailquoterequest(String emailquoterequest) {
+        this.emailquoterequest = emailquoterequest;
     }
 }

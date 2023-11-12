@@ -30,10 +30,9 @@ public class ControlServlet extends HttpServlet {
 	    
 	    int userCounter = 12;
 	    int quoteRequestCounter = 10;
-	    int quoteResponseCounter = 10;
 	    int treeCounter = 10;
-	
-		
+	    int quoteResponseCounter = 10;
+	    int quoteRejectCounter = 10;	
 	    
 	    public ControlServlet()
 	    {
@@ -80,26 +79,19 @@ public class ControlServlet extends HttpServlet {
          	case "/submitquoterequest":
         		submitquoterequest(request,response);
         		break;
-         	case "/listquoterequest": 
-                System.out.println("The action is: list quote request");
-                listQuoteRequest(request, response);           	
-                break;
-         	case "/submitquoteresponse":
-        		submitquoteresponse(request,response);
-        		break;
-         	case "/reject":
-         		submitquoterejection(request,response);
-        		break;
-            case "/listquoteresponse": 
-            	System.out.println("The action is: list quote response");
-            	listQuoteResponse(request, response);           	
-            	break;
-            case "/rejected":
-            	reject(request, response);
-            	break;
          	case "/submittree":
         		submittree(request,response);
         		break;
+         	case "/submitquoteresponse":
+        		submitquoteresponse(request,response);
+        		davidSmithPage(request,response, "");
+        		break;
+         	case "/reject":
+         		quoteRejectSubmissionPage(request,response);
+        		break;
+            case "/submitquotereject":
+            	submitquotereject(request, response);
+            	break;
         	}
 	    }
 	    catch(Exception ex) {
@@ -120,32 +112,6 @@ public class ControlServlet extends HttpServlet {
 	        System.out.println("listPeople finished: 111111111111111111111111111111111111");
 	    }
 	    
-	    private void listQuoteRequest(HttpServletRequest request, HttpServletResponse response)
-	            throws SQLException, IOException, ServletException {
-	        System.out.println("listQuoteRequest started: 00000000000000000000000000000000000");
-
-	     
-	        List<QuoteRequest> listQuoteRequest = userDAO.listAllQuoteRequests();
-	        request.setAttribute("listQuoteRequest", listQuoteRequest);       
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("QuoteRequestList.jsp");       
-	        dispatcher.forward(request, response);
-	     
-	        System.out.println("listQuoteRequest finished: 111111111111111111111111111111111111");
-	    }
-	    
-	    private void listQuoteResponse(HttpServletRequest request, HttpServletResponse response)
-	            throws SQLException, IOException, ServletException {
-	        System.out.println("listQuoteResponse started: 00000000000000000000000000000000000");
-
-	     
-	        List<QuoteResponse> listQuoteResponse = userDAO.listAllQuoteResponses();
-	        request.setAttribute("listQuoteResponse", listQuoteResponse);       
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("QuoteResponseList.jsp");       
-	        dispatcher.forward(request, response);
-	     
-	        System.out.println("listQuoteResponse finished: 111111111111111111111111111111111111");
-	    }     
-	    	        
 	    private void rootPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("root view");
 			request.setAttribute("listUser", userDAO.listAllUsers());
@@ -156,7 +122,16 @@ public class ControlServlet extends HttpServlet {
 	    	System.out.println("David Smith view");
 	    	request.setAttribute("listQuoteRequest", userDAO.listAllQuoteRequests());
 	    	request.setAttribute("listQuoteResponse", userDAO.listAllQuoteResponses());
+	    	request.setAttribute("listTree", userDAO.listAllTrees());
+	    	request.setAttribute("listQuoteReject", userDAO.listAllQuoteRejects());
 	    	request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
+	    }
+	    private void quoteRejectSubmissionPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+   	 		System.out.println("In Submit Quote Rejection");
+	    	String id = request.getParameter("id");
+	    	QuoteRequest quoteRequest = userDAO.GetQuoteRequest(id);
+	    	request.setAttribute("quoteRequest", quoteRequest);
+   	 		request.getRequestDispatcher("quoteRejectSubmission.jsp").forward(request, response);
 	    }
 	    
 	    protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -224,19 +199,9 @@ public class ControlServlet extends HttpServlet {
 	    	String quotenote = request.getParameter("quotenote");
    	 		System.out.println("Submission Successful! Added to database");
    	 		quoteRequestCounter++;
-   	 		QuoteRequest quoterequests = new QuoteRequest(quoteRequestCounter, quotenote);
+   	 		QuoteRequest quoterequests = new QuoteRequest(quoteRequestCounter, quotenote, currentUser);
    	 		userDAO.insert(quoterequests);
    	 		request.getRequestDispatcher("clientView.jsp").forward(request, response);
-	    }
-	    
-	    private void submitquoteresponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-	    	double initialprice = Double.parseDouble(request.getParameter("initialprice"));
-	    	String timewindow = request.getParameter("timewindow");
-   	 		System.out.println("Submission Successful! Added to database");
-   	 		quoteResponseCounter++;
-   	 		QuoteResponse quoteresponses = new QuoteResponse(quoteResponseCounter, initialprice, timewindow);
-   	 		userDAO.insert(quoteresponses);
-   	 		request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
 	    }
 	    private void submittree(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	    	double size = Double.parseDouble(request.getParameter("size"));
@@ -246,30 +211,36 @@ public class ControlServlet extends HttpServlet {
 	    	String picture1 = request.getParameter("picture1");
 	    	String picture2 = request.getParameter("picture2");
 	    	String picture3 = request.getParameter("picture3");
+	    	int quoterequestid = Integer.parseInt(request.getParameter("quoterequestid"));
    	 		System.out.println("Submission Successful! Added to database");
    	 		treeCounter++;
-   	 		Tree trees = new Tree(treeCounter, size, height, location, proximitytohouse, picture1, picture2, picture3);
+   	 		Tree trees = new Tree(treeCounter, size, height, location, proximitytohouse, picture1, picture2, picture3, quoterequestid, currentUser);
    	 		userDAO.insert(trees);
-   	 		request.getRequestDispatcher("tree.jsp").forward(request, response);
+   	 		request.getRequestDispatcher("treeSubmission.jsp").forward(request, response);
 	    }
 	    
-	    private void submitquoterejection(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-   	 		System.out.println("In Submit Quote Rejection");
-
-	    	String id = request.getParameter("id");
-	    	QuoteRequest quoteRequest = userDAO.GetQuoteRequest(id);
-	    	request.setAttribute("quoteRequest", quoteRequest);
-   	 		request.getRequestDispatcher("reject.jsp").forward(request, response);
+	    private void submitquoteresponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	    	int id = Integer.parseInt(request.getParameter("id"));
+	    	double initialprice = Double.parseDouble(request.getParameter("initialprice"));
+	    	String timewindow = request.getParameter("timewindow");
+	    	String email = request.getParameter("email");
+   	 		System.out.println("Submission Successful! Added to database");
+   	 		quoteResponseCounter++;
+   	 		QuoteResponse quoteresponses = new QuoteResponse(quoteResponseCounter, initialprice, timewindow, id, email);
+   	 		userDAO.insert(quoteresponses);
+			davidSmithPage(request, response, "");
 	    }
 	    
-	    private void reject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	    private void submitquotereject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
    	 		System.out.println("Quote has been rejected");
-	    	String rejectionNote = request.getParameter("rejectionNote");
-	    	String id = request.getParameter("id");
-	    	userDAO.UpdateQuoteRequestNote(id, rejectionNote);
-    		response.sendRedirect("login.jsp");
-	    }
-	    
+	    	int id = Integer.parseInt(request.getParameter("id"));
+	    	String quoterejectnote = request.getParameter("quoterejectnote");
+	    	String email = request.getParameter("email");
+	    	quoteRejectCounter++;
+   	 		QuoteReject quoterejects = new QuoteReject(quoteRejectCounter, quoterejectnote, id, email);
+	    	userDAO.insert(quoterejects);
+			davidSmithPage(request, response, "");
+	    }  
 	    private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	    	currentUser = "";
         		response.sendRedirect("login.jsp");
