@@ -85,7 +85,7 @@ public class ControlServlet extends HttpServlet {
                 listQuoteRequest(request, response);           	
                 break;
          	case "/submitquoteresponse":
-        		submitquoteresponse(request,response);
+         		submitquoteresponse(request, response);
         		break;
          	case "/reject":
          		submitquoterejection(request,response);
@@ -100,6 +100,9 @@ public class ControlServlet extends HttpServlet {
          	case "/submittree":
         		submittree(request,response);
         		break;
+         	case "/respond":
+         		request.getRequestDispatcher("respond.jsp").forward(request, response);
+         		break;
         	}
 	    }
 	    catch(Exception ex) {
@@ -229,14 +232,15 @@ public class ControlServlet extends HttpServlet {
 	    }
 	    
 	    private void submitquoteresponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-	    	double initialprice = Double.parseDouble(request.getParameter("initialprice"));
-	    	String timewindow = request.getParameter("timewindow");
-   	 		System.out.println("Submission Successful! Added to database");
-   	 		quoteResponseCounter++;
-   	 		QuoteResponse quoteresponses = new QuoteResponse(quoteResponseCounter, initialprice, timewindow);
-   	 		userDAO.insert(quoteresponses);
-   	 		request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
+//	    	double initialprice = Double.parseDouble(request.getParameter("initialprice"));
+//	    	String timewindow = request.getParameter("timewindow");
+//   	 		System.out.println("Submission Successful! Added to database");
+//   	 		quoteResponseCounter++;
+//   	 		QuoteResponse quoteresponses = new QuoteResponse(quoteResponseCounter, initialprice, timewindow);
+//   	 		userDAO.insert(quoteresponses);
+	    	System.out.println("In the quote response method");
 	    }
+	    
 	    private void submittree(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	    	double size = Double.parseDouble(request.getParameter("size"));
 	    	double height = Double.parseDouble(request.getParameter("height"));
