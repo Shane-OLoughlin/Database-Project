@@ -25,7 +25,7 @@
 				</tr>
 				<tr>
 					<td align="center" colspan="5">
-						<input type="submit" value="Submit"/>
+						<input type="submit" value="submitquoteresponse"/>
 					</td>
 				</tr>
 			</table>
