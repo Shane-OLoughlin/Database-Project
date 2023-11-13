@@ -77,7 +77,6 @@ public class Tree {
     public void setPicture3(String picture3) {
         this.picture3 = picture3;
     }
-<<<<<<< HEAD
     public int getQuoteRequestID() {
         return quoterequestid;
     }
@@ -91,6 +90,3 @@ public class Tree {
         this.email = email;
     }
 }
-=======
-}
->>>>>>> branch 'main' of https://github.com/Shane-OLoughlin/Database-Project.git
