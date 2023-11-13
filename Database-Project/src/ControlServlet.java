@@ -82,9 +82,11 @@ public class ControlServlet extends HttpServlet {
          	case "/submittree":
         		submittree(request,response);
         		break;
+         	case "/respond":
+         		request.getRequestDispatcher("quoteResponseSubmission.jsp").forward(request, response);
+         		break;
          	case "/submitquoteresponse":
         		submitquoteresponse(request,response);
-        		davidSmithPage(request,response, "");
         		break;
          	case "/reject":
          		quoteRejectSubmissionPage(request,response);
@@ -121,9 +123,13 @@ public class ControlServlet extends HttpServlet {
 	    private void davidSmithPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{
 	    	System.out.println("David Smith view");
 	    	request.setAttribute("listQuoteRequest", userDAO.listAllQuoteRequests());
-	    	request.setAttribute("listQuoteResponse", userDAO.listAllQuoteResponses());
 	    	request.setAttribute("listTree", userDAO.listAllTrees());
+	    	request.setAttribute("listQuoteResponse", userDAO.listAllQuoteResponses());
 	    	request.setAttribute("listQuoteReject", userDAO.listAllQuoteRejects());
+	    	request.setAttribute("listOrderOfWork", userDAO.listAllOrderOfWorks());
+	    	request.setAttribute("listBillRequest", userDAO.listAllBillRequests());
+	    	request.setAttribute("listReportOfRevenue", userDAO.listAllReportOfRevenues());
+	    	request.setAttribute("listBillReject", userDAO.listAllBillRejects());
 	    	request.getRequestDispatcher("davidSmithView.jsp").forward(request, response);
 	    }
 	    private void quoteRejectSubmissionPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -220,13 +226,14 @@ public class ControlServlet extends HttpServlet {
 	    }
 	    
 	    private void submitquoteresponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-	    	int id = Integer.parseInt(request.getParameter("id"));
+	    	System.out.println("In the quote response method");
+	    	//int id = Integer.parseInt(request.getParameter("id"));
 	    	double initialprice = Double.parseDouble(request.getParameter("initialprice"));
 	    	String timewindow = request.getParameter("timewindow");
 	    	String email = request.getParameter("email");
    	 		System.out.println("Submission Successful! Added to database");
    	 		quoteResponseCounter++;
-   	 		QuoteResponse quoteresponses = new QuoteResponse(quoteResponseCounter, initialprice, timewindow, id, email);
+   	 		QuoteResponse quoteresponses = new QuoteResponse(quoteResponseCounter, initialprice, timewindow, 5, email);
    	 		userDAO.insert(quoteresponses);
 			davidSmithPage(request, response, "");
 	    }

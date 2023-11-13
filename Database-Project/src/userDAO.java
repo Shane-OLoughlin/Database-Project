@@ -119,8 +119,8 @@ public class userDAO
         while (resultSet.next()) {
             int quoterequestid = resultSet.getInt("quoterequestid");
             String quotenote = resultSet.getString("quotenote");
-	    	String emailquoterequest = resultSet.getString("emailquoterequest");
-            quoteRequest = new QuoteRequest(quoterequestid, quotenote, emailquoterequest);
+	    	String email = resultSet.getString("email");
+            quoteRequest = new QuoteRequest(quoterequestid, quotenote, email);
         }
         
         resultSet.close();
@@ -138,9 +138,9 @@ public class userDAO
         while (resultSet.next()) {
             int quoterequestid = resultSet.getInt("quoterequestid");
             String quotenote = resultSet.getString("quotenote");
-            String emailquoterequest = resultSet.getString("emailquoterequest");
+            String email = resultSet.getString("email");
              
-            QuoteRequest quoterequests = new QuoteRequest(quoterequestid, quotenote, emailquoterequest);
+            QuoteRequest quoterequests = new QuoteRequest(quoterequestid, quotenote, email);
             listQuoteRequest.add(quoterequests);
         }        
         resultSet.close();
@@ -216,6 +216,86 @@ public class userDAO
         disconnect();        
         return listQuoteRejects;
     }
+    public List<OrderOfWork> listAllOrderOfWorks() throws SQLException {
+        List<OrderOfWork> listOrderOfWorks = new ArrayList<OrderOfWork>();        
+        String sql = "SELECT * FROM OrderOfWork";      
+        connect_func();      
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+         
+        while (resultSet.next()) {
+            int orderofworkid = resultSet.getInt("orderofworkid");
+            int quoteresponseid = resultSet.getInt("quoteresponseid");
+            String email = resultSet.getString("email");
+             
+            OrderOfWork orderofworks = new OrderOfWork(orderofworkid, quoteresponseid, email);
+            listOrderOfWorks.add(orderofworks);
+        }        
+        resultSet.close();
+        disconnect();        
+        return listOrderOfWorks;
+    }
+    public List<BillRequest> listAllBillRequests() throws SQLException {
+        List<BillRequest> listBillRequests = new ArrayList<BillRequest>();        
+        String sql = "SELECT * FROM BillRequest";      
+        connect_func();      
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+         
+        while (resultSet.next()) {
+            int billrequestid = resultSet.getInt("billrequestid");
+            String billnote = resultSet.getString("billnote");
+            double billamount = resultSet.getDouble("billamount");
+            int orderofworkid = resultSet.getInt("orderofworkid");
+            String email = resultSet.getString("email");
+             
+            BillRequest billrequests = new BillRequest(billrequestid, billnote, billamount, orderofworkid, email);
+            listBillRequests.add(billrequests);
+        }        
+        resultSet.close();
+        disconnect();        
+        return listBillRequests;
+    }
+    public List<ReportOfRevenue> listAllReportOfRevenues() throws SQLException {
+        List<ReportOfRevenue> listReportOfRevenues = new ArrayList<ReportOfRevenue>();        
+        String sql = "SELECT * FROM ReportOfRevenue";      
+        connect_func();      
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+         
+        while (resultSet.next()) {
+            int reportofrevenueid = resultSet.getInt("reportofrevenueid");
+            double paymentamount = resultSet.getDouble("paymentamount");
+            int billrequestid = resultSet.getInt("billrequestid");
+            String email = resultSet.getString("email");
+             
+            ReportOfRevenue reportofrevenues = new ReportOfRevenue(reportofrevenueid, paymentamount, billrequestid, email);
+            listReportOfRevenues.add(reportofrevenues);
+        }        
+        resultSet.close();
+        disconnect();        
+        return listReportOfRevenues;
+    }
+    public List<BillReject> listAllBillRejects() throws SQLException {
+        List<BillReject> listBillRejects = new ArrayList<BillReject>();        
+        String sql = "SELECT * FROM BillReject";      
+        connect_func();      
+        statement = (Statement) connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+         
+        while (resultSet.next()) {
+            int billrejectid = resultSet.getInt("billrejectid");
+            String billrejectnote = resultSet.getString("billrejectnote");
+            int billrequestid = resultSet.getInt("billrequestid");
+            String email = resultSet.getString("email");
+             
+            BillReject billrejects = new BillReject(billrejectid, billrejectnote, billrequestid, email);
+            listBillRejects.add(billrejects);
+        }        
+        resultSet.close();
+        disconnect();        
+        return listBillRejects;
+    }
     
     protected void disconnect() throws SQLException {
         if (connect != null && !connect.isClosed()) {
@@ -245,11 +325,11 @@ public class userDAO
     }
     public void insert(QuoteRequest quoterequests) throws SQLException {      
     	connect_func();
-		String sql = "insert into QuoteRequest(quoterequestid, quotenote, emailquoterequest) values (?,?,?)";
+		String sql = "insert into QuoteRequest(quoterequestid, quotenote, email) values (?,?,?)";
 		preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
 		preparedStatement.setInt(1, quoterequests.getQuoteRequestID());
 		preparedStatement.setString(2, quoterequests.getQuoteNote());	
-		preparedStatement.setString(3, quoterequests.getemailquoterequest());
+		preparedStatement.setString(3, quoterequests.getEmail());
 		preparedStatement.executeUpdate();
         preparedStatement.close();
     }
@@ -448,7 +528,7 @@ public class userDAO
 					        "CREATE TABLE IF NOT EXISTS QuoteRequest ( " +
 					            "quoterequestid INTEGER NOT NULL, " +
 					            "quotenote VARCHAR(1000), " +
-					            "emailquoterequest VARCHAR(50)," +
+					            "email VARCHAR(50)," +
 					            "PRIMARY KEY (quoterequestid)" +
 					        ");",
 					        "DROP TABLE IF EXISTS Tree;",
@@ -531,7 +611,7 @@ public class userDAO
 		    			"('root', 'default', 'default','pass1234', '1111111111111144', '1726', 'Default', 'Default', '0', '00000','1232883883','11');")
 		    			};
         
-        String[] TUPLES2 = {("insert into QuoteRequest(quoterequestid, quotenote, emailquoterequest)"+
+        String[] TUPLES2 = {("insert into QuoteRequest(quoterequestid, quotenote, email)"+
     			"values ('1', 'Make sure all branches are removed.', 'susie@gmail.com'),"+
 		    		 	"('2', 'Move date to 9/23/2024.', 'don@gmail.com'),"+
 		    	 	 	"('3', 'Make the price $149.', 'margarita@gmail.com'),"+

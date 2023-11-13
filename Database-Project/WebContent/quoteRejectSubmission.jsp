@@ -14,7 +14,7 @@
          <td>RequestId: ${quoteRequest.getQuoteRequestID()}</td>
       </tr>
       <tr style="text-align:center">
-         <td>Email: ${quoteRequest.getemailquoterequest()}</td>
+         <td>Email: ${quoteRequest.getEmail()}</td>
       </tr>
       <tr>
          <td>Rejection Note: <input name="quoterejectnote" type = text/></td>
