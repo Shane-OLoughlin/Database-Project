@@ -86,7 +86,7 @@ public class ControlServlet extends HttpServlet {
          		request.getRequestDispatcher("quoteResponseSubmission.jsp").forward(request, response);
          		break;
          	case "/submitquoteresponse":
-        		submitquoteresponse(request,response);
+         		submitquoteresponse(request, response);
         		break;
          	case "/reject":
          		quoteRejectSubmissionPage(request,response);
