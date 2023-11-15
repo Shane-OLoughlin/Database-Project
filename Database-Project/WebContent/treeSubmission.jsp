@@ -8,9 +8,9 @@
 </head>
 <body>
 	 	<div align="center">
-		<form action="submittree">
-		<a href=logout>Log Out</a> |
+	 	<a href=logout>Log Out</a> |
 	 	<a href=client>Return to Client Page</a>
+		<form action="submittree">
 		<input type="hidden" name="quoterequestid" value="${quoteRequest.getQuoteRequestID()}">
 			<table border="1" cellpadding="5">
 			<caption><h2>Tree Submission for Quote Request ${quoteRequest.getQuoteRequestID()}</h2></caption>

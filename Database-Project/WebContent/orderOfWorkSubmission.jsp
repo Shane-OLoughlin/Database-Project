@@ -11,7 +11,7 @@
 	 	<a href=logout>Log Out</a> |
 	 	<a href=client>Return to Client Page</a>
 		<form action="submitorderofwork">
-		<input type="hidden" name="quoteresponseid" value="${quoteRequest.getQuoteResponseID()}">
+		<input type="hidden" name="quoteresponseid" value="${quoteResponse.getQuoteResponseID()}">
 			<table border="1" cellpadding="5">
 			<caption><h2>Order of Work Submission for Quote Response ${quoteResponse.getQuoteResponseID()}</h2></caption>
 				<tr>
