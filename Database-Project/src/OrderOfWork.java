@@ -1,5 +1,6 @@
 public class OrderOfWork {
     protected int orderofworkid;
+    protected String orderofworknote;
     protected int quoteresponseid;
     protected String email;
 	 
@@ -7,9 +8,10 @@ public class OrderOfWork {
     public OrderOfWork() {
     }
  
-    public OrderOfWork(int orderofworkid, int quoteresponseid, String email) 
+    public OrderOfWork(int orderofworkid, String orderofworknote, int quoteresponseid, String email) 
     {
     	this.orderofworkid = orderofworkid;
+    	this.orderofworknote = orderofworknote;
     	this.quoteresponseid = quoteresponseid;
         this.email = email;
     }
@@ -20,6 +22,12 @@ public class OrderOfWork {
     }
     public void setOrderOfWorkID(int orderofworkid) {
         this.orderofworkid = orderofworkid;
+    }
+    public String getOrderOfWorkNote() {
+        return orderofworknote;
+    }
+    public void setOrderOfWorkNote(String orderofworknote) {
+        this.orderofworknote = orderofworknote;
     }
     public int getQuoteResponseID() {
         return quoteresponseid;

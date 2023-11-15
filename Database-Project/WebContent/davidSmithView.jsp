@@ -9,9 +9,7 @@
 </head>
 <body>
 <div align = "center">
-	
-	<a href="login.jsp"target ="_self" > logout</a><br><br> 
-
+	<a href=logout>Log Out</a> 
     <div align="center">
         <table border="1" cellpadding="6">
             <caption><h2>List of Quote Requests</h2></caption>
@@ -106,14 +104,18 @@
             <caption><h2>List of Order of Works</h2></caption>
             <tr>
                 <th>Order of Work ID</th>
+                <th>Order of Work Note</th>
                 <th>Quote Response ID</th>
                 <th>Email of Client</th>
+                <th>Send Bill</th>
             </tr>
             <c:forEach var="orderofworks" items="${listOrderOfWork}">
                 <tr style="text-align:center">
                     <td><c:out value="${orderofworks.getOrderOfWorkID()}" /></td>
+                    <td><c:out value="${orderofworks.getOrderOfWorkNote()}" /></td>
                     <td><c:out value="${orderofworks.getQuoteResponseID()}" /></td>
                     <td><c:out value="${orderofworks.getEmail()}" /></td>
+                    <td><a href=sendbill?id="${orderofworks.getOrderOfWorkID()}">Send Bill</a></td>
             </c:forEach>
         </table>
 	</div>

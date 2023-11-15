@@ -4,27 +4,27 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Quote Response Submission</title>
+<title>Bill Request Submission</title>
 </head>
 <body>
 	 	<div align="center">
 	 	<a href=logout>Log Out</a>|
 	 	<a href=davidsmith>Return to David Smith Page</a>
-		<form action="submitquoteresponse">
-			<input type="hidden" name="quoterequestid" value="${quoteRequest.getQuoteRequestID()}">
-			<input type="hidden" name="email" value="${quoteRequest.getEmail()}">
+		<form action="submitbillrequest">
+		<input type="hidden" name="orderofworkid" value="${orderOfWork.getOrderOfWorkID()}">
+		<input type="hidden" name="email" value="${orderOfWork.getEmail()}">
 			<table border="1" cellpadding="5">
-				<caption><h2>Quote Response Submission for Quote Request ${quoteRequest.getQuoteRequestID()} for User ${quoteRequest.getEmail()}</h2></caption>
+				<caption><h2>Bill Request Submission for Order of Work ${orderOfWork.getOrderOfWorkID()} for User ${orderOfWork.getEmail()}</h2></caption>
 				<tr>
-					<th>Initial Price: </th>
+					<th>Bill Note: </th>
 					<td align="center" colspan="3">
-						<input type="text" name="initialprice" size="45" onfocus="this.value=''">
+						<input type="text" name="billnote" size="45" onfocus="this.value=''">
 					</td>
 				</tr>
 				<tr>
-					<th>Time Window: </th>
+					<th>Bill Amount: </th>
 					<td align="center" colspan="3">
-						<input type="text" name="timewindow" size="45" onfocus="this.value=''">
+						<input type="text" name="billamount" size="45" onfocus="this.value=''">
 					</td>
 				</tr>		
 				<tr>

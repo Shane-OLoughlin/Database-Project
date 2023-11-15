@@ -6,8 +6,14 @@
 <meta charset="ISO-8859-1">
 <title>Tree Submission</title>
 </head>
+<body>
+	 	<div align="center">
 		<form action="submittree">
+		<a href=logout>Log Out</a> |
+	 	<a href=client>Return to Client Page</a>
+		<input type="hidden" name="quoterequestid" value="${quoteRequest.getQuoteRequestID()}">
 			<table border="1" cellpadding="5">
+			<caption><h2>Tree Submission for Quote Request ${quoteRequest.getQuoteRequestID()}</h2></caption>
 				<tr>
 					<th>Size: </th>
 					<td align="center" colspan="3">
@@ -49,12 +55,6 @@
 					<td align="center" colspan="3">
 						<input type="text" name="picture3" size="45" value = "tree3.jpg" onfocus="this.value=''">
 					</td>
-				</tr>	
-				<tr>
-					<th>Quote Request ID: </th>
-					<td align="center" colspan="3">
-						<input type="text" name="quoterequestid" size="45" value = "1" onfocus="this.value=''">
-					</td>
 				</tr>																		
 				<tr>
 					<td align="center" colspan="5">
@@ -64,4 +64,5 @@
 			</table>
 		</form>
 	</div>
+	</body>
 </html>

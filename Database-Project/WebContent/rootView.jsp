@@ -11,12 +11,10 @@
 <body>
 
 <div align = "center">
-	
 	<form action = "initialize">
 		<input type = "submit" value = "Initialize the Database"/>
 	</form>
-	<a href="login.jsp"target ="_self" > logout</a><br><br> 
-
+	<a href=logout>Log Out</a> 
 <h1>List all users</h1>
     <div align="center">
         <table border="1" cellpadding="6">
@@ -25,7 +23,7 @@
                 <th>Email</th>
                 <th>First name</th>
                 <th>Last name</th>
-                <th>Adress</th>
+                <th>Address</th>
                 <th>Password</th>
                 <th>Credit Card Info</th>
                 <th>Phone Number</th>
