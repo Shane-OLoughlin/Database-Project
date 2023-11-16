@@ -34,9 +34,9 @@ public class ControlServlet extends HttpServlet {
 	    int quoteResponseCounter = 10;
 	    int quoteRejectCounter = 10;
 	    int orderOfWorkCounter = 10;
-	    int billRequestCounter = 20;
-	    int billRejectCounter = 10;
-	    int paymentCounter = 10;
+	    int billRequestCounter = 10;
+	    int billRejectCounter = 5;
+	    int paymentCounter = 5;
 	    
 	    public ControlServlet()
 	    {
