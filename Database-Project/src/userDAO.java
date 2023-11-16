@@ -976,7 +976,17 @@ public class userDAO
 		    			"('7', 'Move date to 2/27/2024.', 'sophie@gmail.com'),"+
 		    			"('8', 'Knock when you are here.','angelo@gmail.com'),"+
 		    			"('9', 'Make the price $181.', 'rudy@gmail.com'),"+
-		    			"('10', 'Move date to 1/03/2025.', 'jeannette@gmail.com');")
+		    			"('10', 'Move date to 1/03/2025.', 'jeannette@gmail.com');"+
+		    			"('11', 'Ring doorbell when here.', 'susie@gmail.com'),"+
+		    			"('12', 'Move date to 9/23/2024.', 'don@gmail.com'),"+
+		    			"('13', 'Make price $200.', 'margarita@gmail.com'),"+
+		    			"('14', 'Move date to 5/23/2024.', 'jo@gmail.com'),"+
+		    			"('15', 'Make price $250.', 'wallace@gmail.com'),"+
+		    			"('16', 'Move date to 3/21/2024.', 'amelia@gmail.com'),"+
+		    			"('17', 'Make sure all branches are removed, please.', 'sophie@gmail.com'),"+
+		    			"('18', 'Move date to 1/12/2024.', 'angelo@gmail.com'),"+
+		    			"('19', 'Please knock when you arrive.', 'rudy@gmail.com'),"+
+		    			"('20', 'Avoid my dog, she likes to bite strangers.', 'jeannette@gmail.com');")
 		    			};
         
         String[] TUPLES3 = {("INSERT INTO Tree(treeid, size, height, location, proximitytohouse, picture1, picture2, picture3, quoterequestid, email)"+
@@ -1040,7 +1050,17 @@ public class userDAO
                 "('7', 'Bill for tree maintenance in the side yard is $535.', '535.0', '7', 'sophie@gmail.com'),"+
                 "('8', 'Bill for tree removal and cleanup in the back yard is $444.', '444.0', '8', 'angelo@gmail.com'),"+
                 "('9', 'Your concern is unfounded; bill for tree trimming in the front yard is $442.', '442.0', '9', 'rudy@gmail.com'),"+
-                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '344.0', '10', 'jeannette@gmail.com');")
+                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '344.0', '10', 'jeannette@gmail.com');"+
+                "('11', 'The bill for tree removal in the back yard is $489.', '489.0', '11', 'susie@gmail.com'),"+
+                "('12', 'Bill for tree removal in the back yard is $615.', '615.0', '12', 'don@gmail.com'),"+
+                "('13', 'The bill for tree removal in the back yard is $839.', '839.0', '13', 'margarita@gmail.com'),"+
+                "('14', 'The bill for tree removal in the back yard is $345.', '345.0', '14', 'jo@gmail.com'),"+
+                "('15', 'Bill for tree removal in the back yard is $383.', '383.0', '15', 'wallace@gmail.com'),"+
+                "('16', 'The bill for tree removal in the back yard is $948.', '948.0', '16', 'amelia@gmail.com'),"+
+                "('17', 'The bill for tree removal in the back yard is $348.', '348.0', '17', 'sophie@gmail.com'),"+
+                "('18', 'Bill for tree removal in the back yard is $746.', '746.0', '18', 'angelo@gmail.com'),"+
+                "('19', 'The bill for tree removal in the back yard is $456.', '456.0', '19', 'rudy@gmail.com'),"+
+                "('20', 'The bill for tree removal in the back yard is $828.', '828.0', '20', 'jeannete@gmail.com');")
                 };
         String[] TUPLES8 = {("INSERT INTO ReportOfRevenue(reportofrevenueid, paymentamount, billrequestid, email)"+
                 "VALUES ('1', '10.0', '1', 'susie@gmail.com'),"+
