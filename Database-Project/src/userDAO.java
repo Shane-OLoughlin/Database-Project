@@ -976,7 +976,17 @@ public class userDAO
 		    			"('7', 'Move date to 2/27/2024.', 'sophie@gmail.com'),"+
 		    			"('8', 'Knock when you are here.','angelo@gmail.com'),"+
 		    			"('9', 'Make the price $181.', 'rudy@gmail.com'),"+
-		    			"('10', 'Move date to 1/03/2025.', 'jeannette@gmail.com');")
+		    			"('10', 'Move date to 1/03/2025.', 'jeannette@gmail.com');"+
+		    			"('11', 'Ring doorbell when here.', 'susie@gmail.com'),"+
+		    			"('12', 'Move date to 9/23/2024.', 'don@gmail.com'),"+
+		    			"('13', 'Make price $200.', 'margarita@gmail.com'),"+
+		    			"('14', 'Move date to 5/23/2024.', 'jo@gmail.com'),"+
+		    			"('15', 'Make price $250.', 'wallace@gmail.com'),"+
+		    			"('16', 'Move date to 3/21/2024.', 'amelia@gmail.com'),"+
+		    			"('17', 'Make sure all branches are removed, please.', 'sophie@gmail.com'),"+
+		    			"('18', 'Move date to 1/12/2024.', 'angelo@gmail.com'),"+
+		    			"('19', 'Please knock when you arrive.', 'rudy@gmail.com'),"+
+		    			"('20', 'Avoid my dog, she likes to bite strangers.', 'jeannette@gmail.com');")
 		    			};
         
         String[] TUPLES3 = {("INSERT INTO Tree(treeid, size, height, location, proximitytohouse, picture1, picture2, picture3, quoterequestid, email)"+
@@ -989,7 +999,17 @@ public class userDAO
           	        	"('7', '9.5', '4.1', 'Side Yard', '7.3', 'tree19.jpg', 'tree20.jpg', 'tree21.jpg', '7', 'sophie@gmail.com'),"+
           	        	"('8', '11.9', '5.6', 'Back Yard', '11.2', 'tree22.jpg', 'tree23.jpg', 'tree24.jpg', '8', 'angelo@gmail.com'),"+
           	        	"('9', '13.2', '6.8', 'Front Yard', '10.9', 'tree25.jpg', 'tree26.jpg', 'tree27.jpg', '9', 'rudy@gmail.com'),"+
-          	        	"('10', '18.5', '7.7', 'Side Yard', '13.5', 'tree28.jpg', 'tree29.jpg', 'tree30.jpg', '10', 'jeannette@gmail.com');")
+          	        	"('10', '18.5', '7.7', 'Side Yard', '13.5', 'tree28.jpg', 'tree29.jpg', 'tree30.jpg', '10', 'jeannette@gmail.com'),"+
+          	        	"('11', '15.5', '6.2', 'Front Yard', '10.3', 'tree1.jpg', 'tree2.jpg', 'tree3.jpg', '11', 'susie@gmail.com'),"+
+          	        	"('12', '10.2', '4.8', 'Back Yard', '5.7', 'tree4.jpg', 'tree5.jpg', 'tree6.jpg', '12', 'don@gmail.com'),"+
+          	        	"('13', '8.7', '3.5', 'Side Yard', '8.1', 'tree7.jpg', 'tree8.jpg', 'tree9.jpg', '13', 'margarita@gmail.com'),"+
+          	        	"('14', '12.1', '5.9', 'Front Yard', '9.4', 'tree10.jpg', 'tree11.jpg', 'tree12.jpg', '14', 'jo@gmail.com'),"+
+          	        	"('15', '17.3', '7.2', 'Back Yard', '12.8', 'tree13.jpg', 'tree14.jpg', 'tree15.jpg', '15', 'wallace@gmail.com'),"+
+          	        	"('16', '14.8', '6.0', 'Front Yard', '10.7', 'tree16.jpg', 'tree17.jpg', 'tree18.jpg', '16', 'amelia@gmail.com'),"+
+          	        	"('17', '9.5', '4.1', 'Side Yard', '7.3', 'tree19.jpg', 'tree20.jpg', 'tree21.jpg', '17', 'sophie@gmail.com'),"+
+          	        	"('18', '11.9', '5.6', 'Back Yard', '11.2', 'tree22.jpg', 'tree23.jpg', 'tree24.jpg', '18', 'angelo@gmail.com'),"+
+          	        	"('19', '13.2', '6.8', 'Front Yard', '10.9', 'tree25.jpg', 'tree26.jpg', 'tree27.jpg', '19', 'rudy@gmail.com'),"+
+          	        	"('20', '18.5', '7.7', 'Side Yard', '13.5', 'tree28.jpg', 'tree29.jpg', 'tree30.jpg', '20', 'jeannette@gmail.com');")
           				};
 
         String[] TUPLES4 = {("INSERT INTO QuoteResponse(quoteresponseid, initialprice, timewindow, quoterequestid, email)"+
@@ -1005,29 +1025,29 @@ public class userDAO
                 "('10', '170.00', '2024-10-15 to 2024-11-13', '10', 'jeannette@gmail.com');")
         				};
         String[] TUPLES5 = {("INSERT INTO QuoteReject(quoterejectid, quoterejectnote, quoterequestid, email)"+
-                "VALUES('1', 'note', '1', 'susie@gmail.com'),"+
-                "('2', 'note', '2', 'don@gmail.com'),"+
-                "('3', 'note', '3', 'margarita@gmail.com'),"+
-                "('4', 'note', '4', 'jo@gmail.com'),"+
-                "('5', 'note', '5', 'wallace@gmail.com'),"+
-                "('6', 'note', '6', 'amelia@gmail.com'),"+
-                "('7', 'note', '7', 'sophie@gmail.com'),"+
-                "('8', 'note', '8', 'angelo@gmail.com'),"+
-                "('9', 'note', '9', 'rudy@gmail.com'),"+
-                "('10', 'note', '10', 'jeannette@gmail.com');")
+                "VALUES('1', 'I heard this customer was difficult to work with.', '11', 'susie@gmail.com'),"+
+                "('2', 'Staggeringly high price for the job.', '12', 'don@gmail.com'),"+
+                "('3', 'Waited outside front door for 25 minutes.', '13', 'margarita@gmail.com'),"+
+                "('4', 'I heard you don't take this seriously', '14', 'jo@gmail.com'),"+
+                "('5', 'Heard from other contractors to avoid you. Sorry!', '15', 'wallace@gmail.com'),"+
+                "('6', 'Price was way too high.', '16', 'amelia@gmail.com'),"+
+                "('7', 'I heard from my contractor friends that you were one to avoid', '17', 'sophie@gmail.com'),"+
+                "('8', 'I waited outside your door at the scheduled time for 30 minutes!', '18', 'angelo@gmail.com'),"+
+                "('9', 'Price was way too high!', '19', 'rudy@gmail.com'),"+
+                "('10', 'Staggeringly high price for the job!', '20', 'jeannette@gmail.com');")
         				};
         
         String[] TUPLES6 = {("INSERT INTO OrderOfWork(orderofworkid, orderofworknote, quoteresponseid, email)"+
-                "VALUES('1', 'note', '1', 'susie@gmail.com'),"+
-                "('2', 'note', '2', 'don@gmail.com'),"+
-                "('3', 'note', '3', 'margarita@gmail.com'),"+
-                "('4', 'note', '4', 'jo@gmail.com'),"+
-                "('5', 'note', '5', 'wallace@gmail.com'),"+
-                "('6', 'note', '6', 'amelia@gmail.com'),"+
-                "('7', 'note', '7', 'sophie@gmail.com'),"+
-                "('8', 'note', '8', 'angelo@gmail.com'),"+
-                "('9', 'note', '9', 'rudy@gmail.com'),"+
-                "('10', 'note', '10', 'jeannette@gmail.com');")
+                "VALUES('1', 'Agreed! Let's do it!', '1', 'susie@gmail.com'),"+
+                "('2', 'I like your quote request.', '2', 'don@gmail.com'),"+
+                "('3', 'I approve your quote request!', '3', 'margarita@gmail.com'),"+
+                "('4', 'Thank you for your quote request.', '4', 'jo@gmail.com'),"+
+                "('5', 'This quote request feels great, like a three-pointer in basketball!', '5', 'wallace@gmail.com'),"+
+                "('6', 'This quote request feels like a well-placed serve in volleyball: great!', '6', 'amelia@gmail.com'),"+
+                "('7', 'I approve your quote request.', '7', 'sophie@gmail.com'),"+
+                "('8', 'I like your quote request!', '8', 'angelo@gmail.com'),"+
+                "('9', 'I agree with your quote request, let's do it!', '9', 'rudy@gmail.com'),"+
+                "('10', 'Thank you for your quote request.', '10', 'jeannette@gmail.com');")
         				};
         
         String[] TUPLES7 = {("INSERT INTO BillRequest(billrequestid, billnote, billamount, orderofworkid, email)"+
@@ -1040,31 +1060,41 @@ public class userDAO
                 "('7', 'Bill for tree maintenance in the side yard is $535.', '535.0', '7', 'sophie@gmail.com'),"+
                 "('8', 'Bill for tree removal and cleanup in the back yard is $444.', '444.0', '8', 'angelo@gmail.com'),"+
                 "('9', 'Your concern is unfounded; bill for tree trimming in the front yard is $442.', '442.0', '9', 'rudy@gmail.com'),"+
-                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '344.0', '10', 'jeannette@gmail.com');")
+                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '344.0', '10', 'jeannette@gmail.com');"+
+                "('11', 'The bill for tree removal in the back yard is $489.', '489.0', '11', 'susie@gmail.com'),"+
+                "('12', 'Bill for tree removal in the back yard is $615.', '615.0', '12', 'don@gmail.com'),"+
+                "('13', 'The bill for tree removal in the back yard is $839.', '839.0', '13', 'margarita@gmail.com'),"+
+                "('14', 'The bill for tree removal in the back yard is $345.', '345.0', '14', 'jo@gmail.com'),"+
+                "('15', 'Bill for tree removal in the back yard is $383.', '383.0', '15', 'wallace@gmail.com'),"+
+                "('16', 'The bill for tree removal in the back yard is $948.', '948.0', '16', 'amelia@gmail.com'),"+
+                "('17', 'The bill for tree removal in the back yard is $348.', '348.0', '17', 'sophie@gmail.com'),"+
+                "('18', 'Bill for tree removal in the back yard is $746.', '746.0', '18', 'angelo@gmail.com'),"+
+                "('19', 'The bill for tree removal in the back yard is $456.', '456.0', '19', 'rudy@gmail.com'),"+
+                "('20', 'The bill for tree removal in the back yard is $828.', '828.0', '20', 'jeannete@gmail.com');")
                 };
         String[] TUPLES8 = {("INSERT INTO ReportOfRevenue(reportofrevenueid, paymentamount, billrequestid, email)"+
-                "VALUES ('1', '10.0', '1', 'susie@gmail.com'),"+
-                "('2', '10.0', '2', 'don@gmail.com'),"+
-                "('3', '10.0', '3', 'margarita@gmail.com'),"+
-                "('4', '10.0', '4', 'jo@gmail.com'),"+
-                "('5', '10.0', '5', 'wallace@gmail.com'),"+
-                "('6', '10.0', '6', 'amelia@gmail.com'),"+
-                "('7', '10.0', '7', 'sophie@gmail.com'),"+
-                "('8', '10.0', '8', 'angelo@gmail.com'),"+
-                "('9', '10.0', '9', 'rudy@gmail.com'),"+
-                "('10', '10.0', '10', 'jeannette@gmail.com');")
+                "VALUES ('1', '53.0', '1', 'susie@gmail.com'),"+
+                "('2', '533.0', '2', 'don@gmail.com'),"+
+                "('3', '232.0', '3', 'margarita@gmail.com'),"+
+                "('4', '232.0', '4', 'jo@gmail.com'),"+
+                "('5', '900.0', '5', 'wallace@gmail.com'),"+
+                "('6', '242.0', '6', 'amelia@gmail.com'),"+
+                "('7', '535.0', '7', 'sophie@gmail.com'),"+
+                "('8', '444.0', '8', 'angelo@gmail.com'),"+
+                "('9', '442.0', '9', 'rudy@gmail.com'),"+
+                "('10', '344.0', '10', 'jeannette@gmail.com');")
     					};
         String[] TUPLES9 = {("INSERT INTO BillReject(billrejectid, billrejectnote, billrequestid, email)"+
-                "VALUES ('1', 'note', '1', 'susie@gmail.com'),"+
-                "('2', 'note', '2', 'don@gmail.com'),"+
-                "('3', 'note', '3', 'margarita@gmail.com'),"+
-                "('4', 'note', '4', 'jo@gmail.com'),"+
-                "('5', 'note', '5', 'wallace@gmail.com'),"+
-                "('6', 'note', '6', 'amelia@gmail.com'),"+
-                "('7', 'note', '7', 'sophie@gmail.com'),"+
-                "('8', 'note', '8', 'angelo@gmail.com'),"+
-                "('9', 'note', '9', 'rudy@gmail.com'),"+
-                "('10', 'note', '10', 'jeannette@gmail.com');")
+                "VALUES ('1', 'Price is too high, don't want to negotiate.', '11', 'susie@gmail.com'),"+
+                "('2', 'Never mind, don't need the cutting job now.', '12', 'don@gmail.com'),"+
+                "('3', 'David Smith is way too rude.', '13', 'margarita@gmail.com'),"+
+                "('4', 'Price is too high, don't want to negotiate.', '14', 'jo@gmail.com'),"+
+                "('5', 'I found a cheaper contractor.', '15', 'wallace@gmail.com'),"+
+                "('6', 'Never mind, I found another contractor.', '16', 'amelia@gmail.com'),"+
+                "('7', 'Price is too high, don't want to negotiate.', '17', 'sophie@gmail.com'),"+
+                "('8', 'A friend said David Smith did a shoddy job.', '18', 'angelo@gmail.com'),"+
+                "('9', 'A friend recommended another cheaper contractor, and I'm taking it.', '19', 'rudy@gmail.com'),"+
+                "('10', 'Price is too high, don't want to negotiate.', '20', 'jeannette@gmail.com');")
     					};
         		
         String[] FOREIGNKEYS = {

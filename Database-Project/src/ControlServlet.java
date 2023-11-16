@@ -29,12 +29,12 @@ public class ControlServlet extends HttpServlet {
 	    private HttpSession session=null;
 	    
 	    int userCounter = 12;
-	    int quoteRequestCounter = 10;
-	    int treeCounter = 10;
+	    int quoteRequestCounter = 20;
+	    int treeCounter = 20;
 	    int quoteResponseCounter = 10;
 	    int quoteRejectCounter = 10;
 	    int orderOfWorkCounter = 10;
-	    int billRequestCounter = 10;
+	    int billRequestCounter = 20;
 	    int billRejectCounter = 10;
 	    int paymentCounter = 10;
 	    
