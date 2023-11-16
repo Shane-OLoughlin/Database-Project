@@ -976,7 +976,7 @@ public class userDAO
 		    			"('7', 'Move date to 2/27/2024.', 'sophie@gmail.com'),"+
 		    			"('8', 'Knock when you are here.','angelo@gmail.com'),"+
 		    			"('9', 'Make the price $181.', 'rudy@gmail.com'),"+
-		    			"('10', 'Move date to 1/03/2025.', 'jeannette@gmail.com');"+
+		    			"('10', 'Move date to 1/03/2025.', 'jeannette@gmail.com'),"+
 		    			"('11', 'Ring doorbell when here.', 'susie@gmail.com'),"+
 		    			"('12', 'Move date to 9/23/2024.', 'don@gmail.com'),"+
 		    			"('13', 'Make price $200.', 'margarita@gmail.com'),"+
@@ -1060,7 +1060,7 @@ public class userDAO
                 "('7', 'Bill for tree maintenance in the side yard is $535.', '535.0', '7', 'sophie@gmail.com'),"+
                 "('8', 'Bill for tree removal and cleanup in the back yard is $444.', '444.0', '8', 'angelo@gmail.com'),"+
                 "('9', 'Your concern is unfounded; bill for tree trimming in the front yard is $442.', '442.0', '9', 'rudy@gmail.com'),"+
-                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '344.0', '10', 'jeannette@gmail.com');"+
+                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '344.0', '10', 'jeannette@gmail.com'),"+
                 "('11', 'The bill for tree removal in the back yard is $489.', '489.0', '11', 'susie@gmail.com'),"+
                 "('12', 'Bill for tree removal in the back yard is $615.', '615.0', '12', 'don@gmail.com'),"+
                 "('13', 'The bill for tree removal in the back yard is $839.', '839.0', '13', 'margarita@gmail.com'),"+
