@@ -25,6 +25,8 @@ Hours together: 23
 
 Rajeev: did Part 2 README, implemented working clientID for User table, implemented working Quote Request ID for Quote Requests table for David Smith, implemented time-window initializations for the Quote Reponse table in UserDAO.java, made changes to David Smith page to implement reject and response links for each quote, got reject button to partially work and respond button to partially work. Once all the tables were implemented, cleaned up data for all necessary tables to make everything coherent.  
 
-Shane, enter your contributions here.
+Shane, ENTER your contributions HERE.
+
+INSERT HERE: how to install, configure and run project at time of 11/16.
 
 --- Part 2 end ----
