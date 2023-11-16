@@ -19,7 +19,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 //import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 /**
  * Servlet implementation class Connect
  */
@@ -604,6 +606,125 @@ public class userDAO
     }
         
         return listBillRejects;
+    }
+    
+    public List<user> listBigClients() throws SQLException {
+        List<user> listBigClients = new ArrayList<>();
+
+        // Select users with the maximum tree count
+        String sql = "SELECT u.*, COUNT(t.email) AS tree_count " +
+                     "FROM User u " +
+                     "LEFT JOIN Tree t ON u.email = t.email " +
+                     "GROUP BY u.email, u.firstName, u.lastName, u.password, u.creditcardinfo, " +
+                     "u.adress_street_num, u.adress_street, u.adress_city, u.adress_state, " +
+                     "u.adress_zip_code, u.phonenumber, u.clientid " +
+                     "HAVING tree_count = (SELECT MAX(tree_count) FROM (SELECT COUNT(email) AS tree_count FROM Tree GROUP BY email) AS temp)";
+
+        connect_func();
+        statement = connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            String email = resultSet.getString("email");
+            String firstName = resultSet.getString("firstName");
+            String lastName = resultSet.getString("lastName");
+            String password = resultSet.getString("password");
+            String creditcardinfo = resultSet.getString("creditcardinfo");
+            String adress_street_num = resultSet.getString("adress_street_num");
+            String adress_street = resultSet.getString("adress_street");
+            String adress_city = resultSet.getString("adress_city");
+            String adress_state = resultSet.getString("adress_state");
+            String adress_zip_code = resultSet.getString("adress_zip_code");
+            String phonenumber = resultSet.getString("phonenumber");
+            int clientid = resultSet.getInt("clientid");
+
+            user user = new user(email, firstName, lastName, password, creditcardinfo, adress_street_num, adress_street, adress_city, adress_state, adress_zip_code, phonenumber, clientid);
+
+            listBigClients.add(user);
+        }
+
+        resultSet.close();
+        disconnect();
+        return listBigClients;
+    }
+    
+    public List<user> listProspectiveClients() throws SQLException {
+        List<user> listProspectiveClients = new ArrayList<>();
+
+        // Select users with email in QuoteRequest but not in OrderOfWork
+        String sql = "SELECT u.* " +
+                     "FROM User u " +
+                     "JOIN QuoteRequest qr ON u.email = qr.email " +
+                     "WHERE NOT EXISTS (SELECT 1 FROM OrderOfWork ow WHERE ow.email = u.email)";
+
+        connect_func();
+        statement = connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            String email = resultSet.getString("email");
+            String firstName = resultSet.getString("firstName");
+            String lastName = resultSet.getString("lastName");
+            String password = resultSet.getString("password");
+            String creditcardinfo = resultSet.getString("creditcardinfo");
+            String adress_street_num = resultSet.getString("adress_street_num");
+            String adress_street = resultSet.getString("adress_street");
+            String adress_city = resultSet.getString("adress_city");
+            String adress_state = resultSet.getString("adress_state");
+            String adress_zip_code = resultSet.getString("adress_zip_code");
+            String phonenumber = resultSet.getString("phonenumber");
+            int clientid = resultSet.getInt("clientid");
+
+            user user = new user(email, firstName, lastName, password, creditcardinfo, adress_street_num, adress_street, adress_city, adress_state, adress_zip_code, phonenumber, clientid);
+
+            listProspectiveClients.add(user);
+        }
+
+        resultSet.close();
+        disconnect();
+        return listProspectiveClients;
+    }
+    
+    public List<Tree> listHighestTrees() throws SQLException {
+        List<Tree> listHighestTrees = new ArrayList<>();
+
+        // Select cut trees with the largest height values
+        String sql = "SELECT t.* " +
+                "FROM Tree t " +
+                "JOIN QuoteRequest qr ON t.quoterequestid = qr.quoterequestid " +
+                "JOIN QuoteResponse qrs ON qr.quoterequestid = qrs.quoterequestid " +
+                "JOIN OrderOfWork ow ON qrs.quoteresponseid = ow.quoteresponseid " +
+                "JOIN BillRequest br ON ow.orderofworkid = br.orderofworkid " +
+                "WHERE (t.quoterequestid, t.height) IN " +
+                "    (SELECT quoterequestid, MAX(height) " +
+                "     FROM Tree " +
+                "     GROUP BY quoterequestid " +
+                "     HAVING MAX(height) IS NOT NULL)";
+
+        connect_func();
+        statement = connect.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        while (resultSet.next()) {
+            int treeId = resultSet.getInt("treeid");
+            double size = resultSet.getDouble("size");
+            double height = resultSet.getDouble("height");
+            String location = resultSet.getString("location");
+            double proximityToHouse = resultSet.getDouble("proximitytohouse");
+            String picture1 = resultSet.getString("picture1");
+            String picture2 = resultSet.getString("picture2");
+            String picture3 = resultSet.getString("picture3");
+            int quoteRequestId = resultSet.getInt("quoterequestid");
+            String email = resultSet.getString("email");
+
+            Tree tree = new Tree(treeId, size, height, location, proximityToHouse, picture1, picture2, picture3, quoteRequestId, email);
+
+            listHighestTrees.add(tree);
+        }
+
+        resultSet.close();
+        disconnect();
+        return listHighestTrees;
     }
     
     protected void disconnect() throws SQLException {
