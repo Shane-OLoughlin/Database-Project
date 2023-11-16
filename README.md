@@ -29,3 +29,4 @@ Shane: I updated the database tables, listed all the tables on the client and Da
 How to install, configure and run project at time of 11/16: Install Eclipse, download zip of Database-Project from our GitHub, extract into eclipse-workspace folder, use File -> Import   -> Project from Folder or Archive in Eclipse, configure Java Compiler and Project Facets if needed, switch passwords in userDAO for user john if necessary, to run: right click on jsp page and Run As -> Run on Server, make further changes if desired to make it run differently.
 
 --- Part 2 end ----
+https://youtu.be/qSo6hERK4ak
