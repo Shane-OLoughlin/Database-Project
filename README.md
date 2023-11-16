@@ -36,7 +36,7 @@ Hours individually:
 Shane: 
 Rajeev:
 
-Hours together: 23
+Hours together: 4
 
 Rajeev's contributions: insert here
 
