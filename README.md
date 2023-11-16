@@ -18,15 +18,14 @@ Install Eclipse, download zip of Database-Project from our GitHub, extract into 
 --- Part 2 beginning ---
 
 Hours individually:
-Shane: 12 (Shane, change this)
-Rajeev: 20
+Shane: 25 
+Rajeev: 13
 
 Hours together: 23
 
 Rajeev: did Part 2 README, implemented working clientID for User table, implemented working Quote Request ID for Quote Requests table for David Smith, implemented time-window initializations for the Quote Reponse table in UserDAO.java, made changes to David Smith page to implement reject and response links for each quote, got reject button to partially work and respond button to partially work. Once all the tables were implemented, cleaned up data for all necessary tables to make everything coherent.  
 
-Shane, ENTER your contributions HERE.
-
-INSERT HERE: how to install, configure and run project at time of 11/16.
+Shane: I updated the database tables, listed all the tables on the client and David Smith views, and implemented all the responding functionalities.
+How to install, configure and run project at time of 11/16: Install Eclipse, download zip of Database-Project from our GitHub, extract into eclipse-workspace folder, use File -> Import   -> Project from Folder or Archive in Eclipse, configure Java Compiler and Project Facets if needed, switch passwords in userDAO for user john if necessary, to run: right click on jsp page and Run As -> Run on Server, make further changes if desired to make it run differently.
 
 --- Part 2 end ----
