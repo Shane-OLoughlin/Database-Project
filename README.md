@@ -38,7 +38,7 @@ Rajeev:
 
 Hours together: 4
 
-Rajeev's contributions: insert here
+Rajeev's contributions: One Tree Quotes, helped plan for submission, helped with implementation of some other stuff.
 
 Shane's contributions: part of Big Clients, Prospective Clients done completely, working on Highest Tree 
 
