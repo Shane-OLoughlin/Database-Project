@@ -18,11 +18,13 @@ Install Eclipse, download zip of Database-Project from our GitHub, extract into 
 --- Part 2 beginning ---
 
 Hours individually:
-Shane: 12
-Rajeev: 12
+Shane: 12 (Shane, change this)
+Rajeev: 20
 
-Hours together: 17
+Hours together: 23
 
-Rajeev: did Part 2 README, implemented working clientID for User table, implemented working Quote Request ID for Quote Requests table for David Smith, implemented time-window initializations for the Quote Reponse table in UserDAO.java, made changes to David Smith page to implement reject and response links for each quote.
+Rajeev: did Part 2 README, implemented working clientID for User table, implemented working Quote Request ID for Quote Requests table for David Smith, implemented time-window initializations for the Quote Reponse table in UserDAO.java, made changes to David Smith page to implement reject and response links for each quote, got reject button to partially work and respond button to partially work. Once all the tables were implemented, cleaned up data for all necessary tables to make everything coherent.  
+
+Shane, enter your contributions here.
 
 --- Part 2 end ----
