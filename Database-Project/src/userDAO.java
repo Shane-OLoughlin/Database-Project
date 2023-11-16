@@ -1160,15 +1160,15 @@ public class userDAO
         
         String[] TUPLES6 = {("INSERT INTO OrderOfWork(orderofworkid, orderofworknote, quoteresponseid, email)"+
                 "VALUES('1', 'Agreed! Let us do it!', '1', 'susie@gmail.com'),"+
-                "('2', 'I like your quote request.', '2', 'don@gmail.com'),"+
-                "('3', 'I approve your quote request!', '3', 'margarita@gmail.com'),"+
-                "('4', 'Thank you for your quote request.', '4', 'jo@gmail.com'),"+
-                "('5', 'This quote request feels great, like a three-pointer in basketball!', '5', 'wallace@gmail.com'),"+
-                "('6', 'This quote request feels like a well-placed serve in volleyball: great!', '6', 'amelia@gmail.com'),"+
-                "('7', 'I approve your quote request.', '7', 'sophie@gmail.com'),"+
-                "('8', 'I like your quote request!', '8', 'angelo@gmail.com'),"+
-                "('9', 'I agree with your quote request, let us do it!', '9', 'rudy@gmail.com'),"+
-                "('10', 'Thank you for your quote request.', '10', 'jeannette@gmail.com');")
+                "('2', 'I like your quote response.', '2', 'don@gmail.com'),"+
+                "('3', 'I approve your quote response!', '3', 'margarita@gmail.com'),"+
+                "('4', 'Thank you for your quote response.', '4', 'jo@gmail.com'),"+
+                "('5', 'This quote response feels great, like a three-pointer in basketball!', '5', 'wallace@gmail.com'),"+
+                "('6', 'This quote response feels like a well-placed serve in volleyball: great!', '6', 'amelia@gmail.com'),"+
+                "('7', 'I approve your quote response.', '7', 'sophie@gmail.com'),"+
+                "('8', 'I like your quote response!', '8', 'angelo@gmail.com'),"+
+                "('9', 'I agree with your quote response, let us do it!', '9', 'rudy@gmail.com'),"+
+                "('10', 'Thank you for your quote response.', '10', 'jeannette@gmail.com');")
         				};
         
         String[] TUPLES7 = {("INSERT INTO BillRequest(billrequestid, billnote, billamount, orderofworkid, email)"+
@@ -1188,7 +1188,12 @@ public class userDAO
                 "('2', '533.0', '2', 'don@gmail.com'),"+
                 "('3', '232.0', '3', 'margarita@gmail.com'),"+
                 "('4', '232.0', '4', 'jo@gmail.com'),"+
-                "('5', '900.0', '5', 'wallace@gmail.com');")
+                "('5', '900.0', '5', 'wallace@gmail.com'),"+
+                "('6', '242.0', '6', 'amelia@gmail.com'),"+
+                "('7', '535.0', '7', 'sophie@gmail.com'),"+
+                "('8', '444.0', '8', 'angelo@gmail.com'),"+
+                "('9', '442.0', '9', 'rudy@gmail.com'),"+
+                "('10', '344.0', '10', 'jeannette@gmail.com');")
     					};
         String[] TUPLES9 = {("INSERT INTO BillReject(billrejectid, billrejectnote, billrequestid, email)"+
                 "VALUES ('1', 'Never mind, I found another contractor.', '6', 'amelia@gmail.com'),"+
