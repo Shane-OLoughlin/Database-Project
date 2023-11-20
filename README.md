@@ -33,13 +33,13 @@ How to install, configure and run project at time of 11/16: Install Eclipse, dow
 ---Part 3 beginning----
 
 Hours individually:
-Shane: 
-Rajeev:
+Shane: 8 
+Rajeev: 2
 
-Hours together: 4
+Hours together: 15
 
-Rajeev's contributions: One Tree Quotes, helped plan for submission, helped with implementation of some other stuff.
+Rajeev's contributions: Helped plan for submission, consulted with implementation of some stuff, scripted for recording.
 
-Shane's contributions: part of Big Clients, Prospective Clients done completely, working on Highest Tree 
+Shane's contributions: created the functions for pretty much all the lists for part 3. 
 
 How to install, configure and run project: Install Eclipse, download zip of Database-Project from our GitHub, extract into eclipse-workspace folder, use File -> Import   -> Project from Folder or Archive in Eclipse, configure Java Compiler and Project Facets if needed, switch passwords in userDAO for user john if necessary, to run: right click on jsp page and Run As -> Run on Server, make further changes if desired to make it run differently.
