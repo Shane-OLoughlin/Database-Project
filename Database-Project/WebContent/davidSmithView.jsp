@@ -16,6 +16,7 @@
             <tr>
                 <th>Quote Request ID</th>
                 <th>Quote Note</th>
+                <th>Resubmitted for Negotiations?</th>
                 <th>Email of Client</th>
                 <th>Reject</th>
                 <th>Respond</th>
@@ -24,6 +25,7 @@
                 <tr style="text-align:center">
                     <td><c:out value="${quoterequests.getQuoteRequestID()}" /></td>
                     <td><c:out value="${quoterequests.getQuoteNote()}" /></td>
+                    <td><c:out value="${quoterequests.getNegotiations()}" /></td>
                     <td><c:out value="${quoterequests.getEmail()}" /></td>
                     <td><a href=reject?id="${quoterequests.getQuoteRequestID()}">Reject</a></td>
                     <td><a href=respond?id="${quoterequests.getQuoteRequestID()}">Respond</a></td>
@@ -43,8 +45,10 @@
                 <th>Picture 1</th>
                 <th>Picture 2</th>
                 <th>Picture 3</th>
+                <th>Date Cut</th>
                 <th>Quote Request ID</th>
                 <th>Email of Client</th>
+                <th>Cut Tree</th>
             </tr>
             <c:forEach var="trees" items="${listTree}">
                 <tr style="text-align:center">
@@ -56,8 +60,10 @@
                     <td><c:out value="${trees.getPicture1()}" /></td>
                     <td><c:out value="${trees.getPicture2()}" /></td>
                     <td><c:out value="${trees.getPicture3()}" /></td>
+                    <td><c:out value="${trees.getDateCut()}" /></td>
                     <td><c:out value="${trees.getQuoteRequestID()}" /></td>
                     <td><c:out value="${trees.getEmail()}" /></td>
+                    <td><a href=cuttree?id="${trees.getTreeID()}">Cut Tree</a></td>
             </c:forEach>
         </table>
 	</div>
@@ -126,6 +132,7 @@
                 <th>Bill Request ID</th>
                 <th>Bill Note</th>
                 <th>Bill Amount</th>
+                <th>Time Generated</th>
                 <th>Order of Work ID</th>
                 <th>Email of Client</th>
             </tr>
@@ -134,6 +141,7 @@
                     <td><c:out value="${billrequests.getBillRequestID()}" /></td>
                     <td><c:out value="${billrequests.getBillNote()}" /></td>
                     <td><c:out value="${billrequests.getBillAmount()}" /></td>
+                    <td><c:out value="${billrequests.getTimeGenerated()}" /></td>
                     <td><c:out value="${billrequests.getOrderOfWorkID()}" /></td>
                     <td><c:out value="${billrequests.getEmail()}" /></td>
             </c:forEach>
@@ -163,6 +171,7 @@
             <tr>
                 <th>Payment ID</th>
                 <th>Payment Amount</th>
+                <th>Time Paid</th>
                 <th>Bill Request ID</th>
                 <th>Email of Client</th>
             </tr>
@@ -170,6 +179,7 @@
                 <tr style="text-align:center">
                     <td><c:out value="${reportofrevenues.getReportOfRevenueID()}" /></td>
                     <td><c:out value="${reportofrevenues.getPaymentAmount()}" /></td>
+                    <td><c:out value="${reportofrevenues.getTimePaid()}" /></td>
                     <td><c:out value="${reportofrevenues.getBillRequestID()}" /></td>
                     <td><c:out value="${reportofrevenues.getEmail()}" /></td>
             </c:forEach>

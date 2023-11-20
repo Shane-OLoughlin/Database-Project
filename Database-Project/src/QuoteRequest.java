@@ -1,16 +1,18 @@
 public class QuoteRequest {
     protected int quoterequestid;
     protected String quotenote;
+    protected String negotiations;
     protected String email;
 	 
     //constructors
     public QuoteRequest() {
     }
  
-    public QuoteRequest(int quoterequestid, String quotenote, String email) 
+    public QuoteRequest(int quoterequestid, String quotenote, String negotiations, String email) 
     {
     	this.quoterequestid = quoterequestid;
         this.quotenote = quotenote;
+        this.negotiations = negotiations;
         this.email = email;
     }
     
@@ -26,6 +28,12 @@ public class QuoteRequest {
     }
     public void setQuoteNote(String quotenote) {
         this.quotenote = quotenote;
+    }
+    public String getNegotiations() {
+        return negotiations;
+    }
+    public void setNegotiations(String negotiations) {
+        this.negotiations = negotiations;
     }
     public String getEmail() {
         return email;

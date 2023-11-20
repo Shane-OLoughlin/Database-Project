@@ -1,6 +1,7 @@
 public class ReportOfRevenue {
     protected int reportofrevenueid;
     protected double paymentamount;
+    protected String timepaid;
     protected int billrequestid;
     protected String email;
 	 
@@ -8,10 +9,11 @@ public class ReportOfRevenue {
     public ReportOfRevenue() {
     }
  
-    public ReportOfRevenue(int reportofrevenueid, double paymentamount, int billrequestid, String email) 
+    public ReportOfRevenue(int reportofrevenueid, double paymentamount, String timepaid, int billrequestid, String email) 
     {
     	this.reportofrevenueid = reportofrevenueid;
         this.paymentamount = paymentamount;
+        this.timepaid = timepaid;
         this.billrequestid = billrequestid;
         this.email = email;
     }
@@ -28,6 +30,12 @@ public class ReportOfRevenue {
     }
     public void setPaymentAmount(double paymentamount) {
         this.paymentamount = paymentamount;
+    }
+    public String getTimePaid() {
+        return timepaid;
+    }
+    public void setTimePaid(String timepaid) {
+        this.timepaid = timepaid;
     }
     public int getBillRequestID() {
         return billrequestid;

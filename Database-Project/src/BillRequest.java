@@ -2,6 +2,7 @@ public class BillRequest {
     protected int billrequestid;
     protected String billnote;
     protected double billamount;
+    protected String timegenerated;
     protected int orderofworkid;
     protected String email;
 	 
@@ -9,11 +10,12 @@ public class BillRequest {
     public BillRequest() {
     }
  
-    public BillRequest(int billrequestid, String billnote, double billamount, int orderofworkid, String email) 
+    public BillRequest(int billrequestid, String billnote, double billamount, String timegenerated, int orderofworkid, String email) 
     {
     	this.billrequestid = billrequestid;
     	this.billnote = billnote;
     	this.billamount = billamount;
+    	this.timegenerated = timegenerated;
     	this.orderofworkid = orderofworkid;
         this.email = email;
     }
@@ -36,6 +38,12 @@ public class BillRequest {
     }
     public void setBillAmount(double billamount) {
         this.billamount = billamount;
+    }
+    public String getTimeGenerated() {
+        return timegenerated;
+    }
+    public void setTimeGenerated(String timegenerated) {
+        this.timegenerated = timegenerated;
     }
     public int getOrderOfWorkID() {
         return orderofworkid;

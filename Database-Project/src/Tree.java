@@ -7,6 +7,7 @@ public class Tree {
     protected String picture1;
     protected String picture2;
     protected String picture3;
+    protected String datecut;
     protected int quoterequestid;
     protected String email;
 	 
@@ -14,7 +15,7 @@ public class Tree {
     public Tree() {
     }
  
-    public Tree(int treeid, double size, double height, String location, double proximitytohouse, String picture1, String picture2, String picture3, int quoterequestid, String email) 
+    public Tree(int treeid, double size, double height, String location, double proximitytohouse, String picture1, String picture2, String picture3, String datecut, int quoterequestid, String email) 
     {
     	this.treeid = treeid;
         this.size = size;
@@ -24,6 +25,7 @@ public class Tree {
         this.picture1 = picture1;
         this.picture2 = picture2;
         this.picture3 = picture3;
+        this.datecut = datecut;
         this.quoterequestid = quoterequestid;
         this.email = email;
     }
@@ -76,6 +78,12 @@ public class Tree {
     }
     public void setPicture3(String picture3) {
         this.picture3 = picture3;
+    }
+    public String getDateCut() {
+        return datecut;
+    }
+    public void setDateCut(String datecut) {
+        this.datecut = datecut;
     }
     public int getQuoteRequestID() {
         return quoterequestid;

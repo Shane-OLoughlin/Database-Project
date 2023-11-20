@@ -18,9 +18,15 @@
 				<tr>
 					<th>Note: </th>
 					<td align="center" colspan="3">
-						<input type="text" name="quotenote" size="45" value = "note" onfocus="this.value=''">
+						<input type="text" name="quotenote" size="45" onfocus="this.value=''">
 					</td>
-				</tr>															
+				</tr>		
+				<tr>
+					<th>Resubmitting for negotiations? Type "yes" if so:</th>
+					<td align="center" colspan="3">
+						<input type="text" name="negotiations" size="45" value = "no" onfocus="this.value=''">
+					</td>
+				</tr>																	
 				<tr>
 					<td align="center" colspan="5">
 						<input type="submit" value="Submit"/>
@@ -35,12 +41,14 @@
             <tr>
                 <th>Quote Request ID</th>
                 <th>Quote Note</th>
+                <th>Resubmitted for Negotiations?</th>
                 <th>Add Tree</th>
             </tr>
             <c:forEach var="quoterequests" items="${listQuoteRequest}">
                 <tr style="text-align:center">
                     <td><c:out value="${quoterequests.getQuoteRequestID()}" /></td>
                     <td><c:out value="${quoterequests.getQuoteNote()}" /></td>
+                    <td><c:out value="${quoterequests.getNegotiations()}" /></td>
                     <td><a href=addtree?id="${quoterequests.getQuoteRequestID()}">Add Tree</a></td>
             </c:forEach>
         </table>
@@ -57,6 +65,7 @@
                 <th>Picture 1</th>
                 <th>Picture 2</th>
                 <th>Picture 3</th>
+                <th>Date Cut</th>
                 <th>Quote Request ID</th>
             </tr>
             <c:forEach var="trees" items="${listTree}">
@@ -69,6 +78,7 @@
                     <td><c:out value="${trees.getPicture1()}" /></td>
                     <td><c:out value="${trees.getPicture2()}" /></td>
                     <td><c:out value="${trees.getPicture3()}" /></td>
+                    <td><c:out value="${trees.getDateCut()}" /></td>
                     <td><c:out value="${trees.getQuoteRequestID()}" /></td>
             </c:forEach>
         </table>
@@ -132,6 +142,7 @@
                 <th>Bill Request ID</th>
                 <th>Bill Note</th>
                 <th>Bill Amount</th>
+                <th>Time Generated</th>
                 <th>Order of Work ID</th>
                 <th>Reject</th>
                 <th>Pay</th>
@@ -141,6 +152,7 @@
                     <td><c:out value="${billrequests.getBillRequestID()}" /></td>
                     <td><c:out value="${billrequests.getBillNote()}" /></td>
                     <td><c:out value="${billrequests.getBillAmount()}" /></td>
+                    <td><c:out value="${billrequests.getTimeGenerated()}" /></td>
                     <td><c:out value="${billrequests.getOrderOfWorkID()}" /></td>
                     <td><a href=rejectbill?id="${billrequests.getBillRequestID()}">Reject</a></td>
                     <td><a href=pay?id="${billrequests.getBillRequestID()}">Pay</a></td>
@@ -169,12 +181,14 @@
             <tr>
                 <th>Payment ID</th>
                 <th>Payment Amount</th>
+                <th>Time Paid</th>
                 <th>Bill Request ID</th>
             </tr>
             <c:forEach var="reportofrevenues" items="${listReportOfRevenue}">
                 <tr style="text-align:center">
                     <td><c:out value="${reportofrevenues.getReportOfRevenueID()}" /></td>
                     <td><c:out value="${reportofrevenues.getPaymentAmount()}" /></td>
+                    <td><c:out value="${reportofrevenues.getTimePaid()}" /></td>
                     <td><c:out value="${reportofrevenues.getBillRequestID()}" /></td>
             </c:forEach>
         </table>

@@ -19,7 +19,8 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class ControlServlet extends HttpServlet {
@@ -28,7 +29,7 @@ public class ControlServlet extends HttpServlet {
 	    private String currentUser;
 	    private HttpSession session=null;
 	    
-	    int userCounter = 12;
+	    int userCounter = 10;
 	    int quoteRequestCounter = 20;
 	    int treeCounter = 20;
 	    int quoteResponseCounter = 10;
@@ -131,6 +132,12 @@ public class ControlServlet extends HttpServlet {
          	case "/submitpayment":
          		submitpayment(request,response);
         		break;
+            case "/cuttree":
+            	dateCutSubmissionPage(request, response);
+            	break;
+         	case "/submitdatecut":
+         		submitdatecut(request,response);
+        		break;
         	}
 	    }
 	    catch(Exception ex) {
@@ -155,14 +162,14 @@ public class ControlServlet extends HttpServlet {
 	    	System.out.println("root view");
 			request.setAttribute("listUser", userDAO.listAllUsers());
 			request.setAttribute("listBigClients", userDAO.listBigClients());
-			//request.setAttribute("listEasyClients", userDAO.listEasyClients());
-			//request.setAttribute("listOneTreeQuotes", userDAO.listOneTreeQuotes());
+			request.setAttribute("listEasyClients", userDAO.listEasyClients());
+			request.setAttribute("listOneTreeQuotes", userDAO.listOneTreeQuotes());
 			request.setAttribute("listProspectiveClients", userDAO.listProspectiveClients());
 			request.setAttribute("listHighestTrees", userDAO.listHighestTrees());
-			//request.setAttribute("listOverdueBills", userDAO.listOverdueBills());
-			//request.setAttribute("listBadClients", userDAO.listBadClients());
-			//request.setAttribute("listBadClients", userDAO.listGoodClients());
-			//request.setAttribute("listStatistics", userDAO.listStatistics());
+			request.setAttribute("listOverdueBills", userDAO.listOverdueBills());
+			request.setAttribute("listBadClients", userDAO.listBadClients());
+			request.setAttribute("listGoodClients", userDAO.listGoodClients());
+			request.setAttribute("listStatistics", userDAO.listStatistics());
 	    	request.getRequestDispatcher("rootView.jsp").forward(request, response);
 	    }
 	    
@@ -239,6 +246,13 @@ public class ControlServlet extends HttpServlet {
 	    	request.setAttribute("billRequest", billRequest);
    	 		request.getRequestDispatcher("paymentSubmission.jsp").forward(request, response);
 	    }
+	    private void dateCutSubmissionPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+   	 		System.out.println("In Submit Date Cut");
+	    	String id = request.getParameter("id");
+	    	Tree tree = userDAO.GetTree(id);
+	    	request.setAttribute("tree", tree);
+   	 		request.getRequestDispatcher("dateCutSubmission.jsp").forward(request, response);
+	    }
 	    
 	    protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	    	 String email = request.getParameter("email");
@@ -305,9 +319,10 @@ public class ControlServlet extends HttpServlet {
 	    }
 	    private void submitquoterequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	    	String quotenote = request.getParameter("quotenote");
+	    	String negotiations = request.getParameter("negotiations");
    	 		System.out.println("Quote has been submittted");
    	 		quoteRequestCounter++;
-   	 		QuoteRequest quoterequests = new QuoteRequest(quoteRequestCounter, quotenote, currentUser);
+   	 		QuoteRequest quoterequests = new QuoteRequest(quoteRequestCounter, quotenote, negotiations, currentUser);
    	 		userDAO.insert(quoterequests);
    	 		clientPage(request, response, "");	
 	    }
@@ -322,7 +337,7 @@ public class ControlServlet extends HttpServlet {
 	    	String picture3 = request.getParameter("picture3");
    	 		System.out.println("Tree has been submitted");
    	 		treeCounter++;
-   	 		Tree trees = new Tree(treeCounter, size, height, location, proximitytohouse, picture1, picture2, picture3, quoterequestid, currentUser);
+   	 		Tree trees = new Tree(treeCounter, size, height, location, proximitytohouse, picture1, picture2, picture3, "Has not been cut.", quoterequestid, currentUser);
    	 		userDAO.insert(trees);
    	 		clientPage(request, response, "");	
 	    }
@@ -364,9 +379,14 @@ public class ControlServlet extends HttpServlet {
 	    	String email = request.getParameter("email");
 	    	String billnote = request.getParameter("billnote");
 	    	double billamount = Double.parseDouble(request.getParameter("billamount"));
-   	 		System.out.println("Bill has been submitted");
+	    	
+	        // Get the current timestamp
+	        LocalDateTime timestamp = LocalDateTime.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	        String timegenerated = timestamp.format(formatter);
+	        System.out.println("Bill has been submitted at " + timegenerated);
 	    	billRequestCounter++;
-	    	BillRequest billrequests = new BillRequest(billRequestCounter, billnote, billamount, orderofworkid, email);
+	    	BillRequest billrequests = new BillRequest(billRequestCounter, billnote, billamount, timegenerated, orderofworkid, email);
 	    	userDAO.insert(billrequests);
 			davidSmithPage(request, response, "");
 	    }  
@@ -382,11 +402,22 @@ public class ControlServlet extends HttpServlet {
 	    private void submitpayment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 	    	int billrequestid = Integer.parseInt(request.getParameter("billrequestid"));
 	    	double paymentamount = Double.parseDouble(request.getParameter("paymentamount"));
-   	 		System.out.println("Payment has been submitted");
+	        // Get the current timestamp
+	        LocalDateTime timestamp = LocalDateTime.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	        String timepaid = timestamp.format(formatter);
+   	 		System.out.println("Payment has been submitted at " + timepaid);
 	    	paymentCounter++;
-	    	ReportOfRevenue payments = new ReportOfRevenue(paymentCounter, paymentamount, billrequestid, currentUser);
+	    	ReportOfRevenue payments = new ReportOfRevenue(paymentCounter, paymentamount, timepaid, billrequestid, currentUser);
 	    	userDAO.insert(payments);
 			clientPage(request, response, "");
+	    } 
+	    private void submitdatecut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	    	int treeid = Integer.parseInt(request.getParameter("treeid"));
+	    	String datecut = request.getParameter("datecut");
+   	 		System.out.println("Date Cut has been submitted");
+   	 		userDAO.updateDateCut(treeid, datecut);
+			davidSmithPage(request, response, "");
 	    }  
 	    
 	    private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
