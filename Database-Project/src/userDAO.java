@@ -798,7 +798,8 @@ public class userDAO
         List<Tree> listHighestTrees = new ArrayList<>();
 
      // Select trees with the largest height values and exclude those with datecut="Has not been cut."
-        String sql = "SELECT * FROM Tree WHERE datecut != 'Has not been cut.' AND height = (SELECT MAX(height) FROM Tree)";
+        String sql = "SELECT * FROM Tree " +
+                "WHERE datecut != 'Has not been cut.' AND height = (SELECT MAX(height) FROM Tree WHERE datecut != 'Has not been cut.')";
 
         connect_func();
         statement = connect.createStatement();
