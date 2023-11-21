@@ -38,7 +38,7 @@ Rajeev: 2
 
 Hours together: 15
 
-Rajeev's contributions: Helped plan for submission, consulted with implementation of some stuff, scripted for recording.
+Rajeev's contributions: Helped plan for submission, consulted with implementation of some stuff, scripted for recording, directed recording.
 
 Shane's contributions: created the functions for pretty much all the lists for part 3. 
 
