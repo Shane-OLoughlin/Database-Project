@@ -38,9 +38,9 @@ Rajeev: 2
 
 Hours together: 15
 
-Rajeev's contributions: Helped plan for submission, consulted with implementation of some stuff, scripted first draft for recording, directed some of final draft of recording.
+Rajeev's contributions: Drew up plan and document for submission, consulted with implementation of 6 problems, scripted first draft for recording, realized that we had it wrong, then directed final draft of recording.
 
-Shane's contributions: created the functions for pretty much all the lists for part 3. 
+Shane's contributions: physically wrote down the code for the functions for the lists for part 3 while receiving input from Rajeev for 6 problems and doing remaining problems by himself. 
 
 How to install, configure and run project: Install Eclipse, download zip of Database-Project from our GitHub, extract into eclipse-workspace folder, use File -> Import   -> Project from Folder or Archive in Eclipse, configure Java Compiler and Project Facets if needed, switch passwords in userDAO for user john if necessary, to run: right click on jsp page and Run As -> Run on Server, make further changes if desired to make it run differently.
 
