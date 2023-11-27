@@ -683,7 +683,7 @@ public class userDAO
 
             listBigClients.add(user);
         }
-
+        
         resultSet.close();
         disconnect();
         return listBigClients;
