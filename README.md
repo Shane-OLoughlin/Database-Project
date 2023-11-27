@@ -38,7 +38,7 @@ Rajeev: 2
 
 Hours together: 17.5
 
-Rajeev's contributions: Drew up plan and document for submission, gave comprehensive input for the implementation of six out of nine problems, made script for entire recording, thoroughly tested final GitHub files to see if they allowed full functionality and to determine ways around bugs.
+Rajeev's contributions: Drew up plan and document for submission, gave comprehensive input for the implementation of six out of nine problems, made script for entire recording, thoroughly tested final GitHub files to see if they allowed full functionality and to determine ways around any bugs that might appear on the grader's end.
 
 Shane's contributions: physically typed the code for the part 3 function lists, receiving comprehensive input from Rajeev for six problems, and doing remaining problems by himself. 
 
