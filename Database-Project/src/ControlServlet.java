@@ -29,9 +29,9 @@ public class ControlServlet extends HttpServlet {
 	    private String currentUser;
 	    private HttpSession session=null;
 	    
-	    int userCounter = 10;
-	    int quoteRequestCounter = 20;
-	    int treeCounter = 20;
+	    int userCounter = 11;
+	    int quoteRequestCounter = 21;
+	    int treeCounter = 21;
 	    int quoteResponseCounter = 10;
 	    int quoteRejectCounter = 10;
 	    int orderOfWorkCounter = 10;
@@ -83,10 +83,6 @@ public class ControlServlet extends HttpServlet {
         	case "/logout":
         		logout(request,response);
         		break;
-        	 case "/list": 
-                 System.out.println("The action is: list");
-                 listUser(request, response);           	
-                 break;
          	case "/submitquoterequest":
         		submitquoterequest(request,response);
         		break;
@@ -143,19 +139,6 @@ public class ControlServlet extends HttpServlet {
 	    catch(Exception ex) {
         	System.out.println(ex.getMessage());
 	    	}
-	    }
-        	
-	    private void listUser(HttpServletRequest request, HttpServletResponse response)
-	            throws SQLException, IOException, ServletException {
-	        System.out.println("listUser started: 00000000000000000000000000000000000");
-
-	     
-	        List<user> listUser = userDAO.listAllUsers();
-	        request.setAttribute("listUser", listUser);       
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("UserList.jsp");       
-	        dispatcher.forward(request, response);
-	     
-	        System.out.println("listPeople finished: 111111111111111111111111111111111111");
 	    }
 	    
 	    private void rootPage(HttpServletRequest request, HttpServletResponse response, String view) throws ServletException, IOException, SQLException{

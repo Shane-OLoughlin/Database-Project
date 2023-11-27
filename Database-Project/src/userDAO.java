@@ -1109,41 +1109,6 @@ public class userDAO
         preparedStatement.close();
     }
     
-    public boolean delete(String email) throws SQLException {
-        String sql = "DELETE FROM User WHERE email = ?";        
-        connect_func();
-        
-        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        preparedStatement.setString(1, email);
-         
-        boolean rowDeleted = preparedStatement.executeUpdate() > 0;
-        preparedStatement.close();
-        return rowDeleted;     
-    }
-     
-    public boolean update(user users) throws SQLException {
-        String sql = "update User set firstName=?, lastName =?,password = ?,creditcardinfo=?,adress_street_num =?, adress_street=?,adress_city=?,adress_state=?,adress_zip_code=?, phonenumber=?, clientid =? where email = ?";
-        connect_func();
-        
-        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        preparedStatement.setString(1, users.getEmail());
-		preparedStatement.setString(2, users.getFirstName());
-		preparedStatement.setString(3, users.getLastName());
-		preparedStatement.setString(4, users.getPassword());
-		preparedStatement.setString(5, users.getcreditcardinfo());
-		preparedStatement.setString(6, users.getAdress_street_num());		
-		preparedStatement.setString(7, users.getAdress_street());		
-		preparedStatement.setString(8, users.getAdress_city());		
-		preparedStatement.setString(9, users.getAdress_state());		
-		preparedStatement.setString(10, users.getAdress_zip_code());		
-		preparedStatement.setString(11, users.getphonenumber());		
-		preparedStatement.setInt(12, users.getclientid());
-         
-        boolean rowUpdated = preparedStatement.executeUpdate() > 0;
-        preparedStatement.close();
-        return rowUpdated;     
-    }
-    
     public void updateDateCut(int treeid, String datecut) throws SQLException {
     	connect_func();
         String sql = "UPDATE Tree SET datecut = ? WHERE treeid = ?";
@@ -1153,38 +1118,6 @@ public class userDAO
         preparedStatement.executeUpdate();
         preparedStatement.close();
         disconnect();
-    }
-    
-    public user getUser(String email) throws SQLException {
-    	user user = null;
-        String sql = "SELECT * FROM User WHERE email = ?";
-         
-        connect_func();
-         
-        preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        preparedStatement.setString(1, email);
-         
-        ResultSet resultSet = preparedStatement.executeQuery();
-         
-        if (resultSet.next()) {
-            String firstName = resultSet.getString("firstName");
-            String lastName = resultSet.getString("lastName");
-            String password = resultSet.getString("password");
-            String creditcardinfo = resultSet.getString("creditcardinfo");
-            String adress_street_num = resultSet.getString("adress_street_num"); 
-            String adress_street = resultSet.getString("adress_street"); 
-            String adress_city = resultSet.getString("adress_city"); 
-            String adress_state = resultSet.getString("adress_state"); 
-            String adress_zip_code = resultSet.getString("adress_zip_code"); 
-            String phonenumber = resultSet.getString("phonenumber");
-            int clientid = resultSet.getInt("clientid");
-            user = new user(email, firstName, lastName, password, creditcardinfo, adress_street_num,  adress_street,  adress_city,  adress_state,  adress_zip_code,phonenumber,clientid);
-        }
-         
-        resultSet.close();
-        statement.close();
-         
-        return user;
     }
     
     public boolean checkEmail(String email) throws SQLException {
@@ -1203,27 +1136,7 @@ public class userDAO
         
         System.out.println(checks);
     	return checks;
-    }
-    
-    public boolean checkPassword(String password) throws SQLException {
-    	boolean checks = false;
-    	String sql = "SELECT * FROM User WHERE password = ?";
-    	connect_func();
-    	preparedStatement = (PreparedStatement) connect.prepareStatement(sql);
-        preparedStatement.setString(1, password);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        
-        System.out.println(checks);	
-        
-        if (resultSet.next()) {
-        	checks = true;
-        }
-        
-        System.out.println(checks);
-       	return checks;
-    }
-    
-    
+    }  
     
     public boolean isValid(String email, String password) throws SQLException
     {
@@ -1257,8 +1170,8 @@ public class userDAO
 					        "drop table if exists User; ",
 					        "CREATE TABLE if not exists User( " +
 					            "email VARCHAR(50) NOT NULL, " + 
-					            "firstName VARCHAR(10) NOT NULL, " +
-					            "lastName VARCHAR(10) NOT NULL, " +
+					            "firstName VARCHAR(20) NOT NULL, " +
+					            "lastName VARCHAR(20) NOT NULL, " +
 					            "password VARCHAR(20) NOT NULL, " +
 					            "creditcardinfo CHAR(16) NOT NULL, " +
 					            "adress_street_num VARCHAR(4) , "+ 
@@ -1357,7 +1270,8 @@ public class userDAO
 		    			"('sophie@gmail.com', 'Sophie', 'Pierce','sophie1234', '1111111111111117', '2468', 'yolos street', 'ides', 'CM', '24680','9392011992', '7'),"+
 		    			"('angelo@gmail.com', 'Angelo', 'Francis','angelo1234', '1111111111111118', '4680', 'egypt street', 'lolas', 'DT', '13579','2391911812', '8'),"+
 		    			"('rudy@gmail.com', 'Rudy', 'Smith','rudy1234', '1111111111111119', '1234', 'sign street', 'samo ne tu','MH', '09876','0191911982', '9'),"+
-		    			"('jeannette@gmail.com', 'Jeannette ', 'Stone','jeannette1234', '1111111111111122', '0981', 'snoop street', 'kojik', 'HW', '87654','3334992992', '10');")
+		    			"('jeannette@gmail.com', 'Jeannette', 'Stone','jeannette1234', '1111111111111122', '0981', 'snoop street', 'kojik', 'HW', '87654','3334992992', '10'),"+
+		    			"('prospective@gmail.com', 'Prospective', 'Steve','prospective1234', '1111111111111123', '9182', 'the street', 'the city', 'NJ', '91698','0710201092', '11');")
 		    			};
         
         String[] TUPLES2 = {("insert into QuoteRequest(quoterequestid, quotenote, negotiations, email)"+
@@ -1380,7 +1294,8 @@ public class userDAO
 		    			"('17', 'Make sure all branches are removed, please.', 'no', 'sophie@gmail.com'),"+
 		    			"('18', 'Move date to 1/12/2023.', 'no', 'angelo@gmail.com'),"+
 		    			"('19', 'Please knock when you arrive.', 'no', 'rudy@gmail.com'),"+
-		    			"('20', 'Avoid my dog, she likes to bite strangers.', 'no', 'jeannette@gmail.com');")
+		    			"('20', 'Avoid my dog, she likes to bite strangers.', 'no', 'jeannette@gmail.com'),"+
+		    			"('21', 'I am prospective.', 'no', 'prospective@gmail.com');")
 		    			};
         
         String[] TUPLES3 = {("INSERT INTO Tree(treeid, size, height, location, proximitytohouse, picture1, picture2, picture3, datecut, quoterequestid, email)"+
@@ -1403,7 +1318,8 @@ public class userDAO
           	        	"('17', '9.5', '4.1', 'Side Yard', '7.3', 'tree19.jpg', 'tree20.jpg', 'tree21.jpg', 'Has not been cut.', '17', 'sophie@gmail.com'),"+
           	        	"('18', '11.9', '5.6', 'Back Yard', '11.2', 'tree22.jpg', 'tree23.jpg', 'tree24.jpg', 'Has not been cut.', '18', 'angelo@gmail.com'),"+
           	        	"('19', '13.2', '6.8', 'Front Yard', '10.9', 'tree25.jpg', 'tree26.jpg', 'tree27.jpg', 'Has not been cut.', '19', 'rudy@gmail.com'),"+
-          	        	"('20', '18.5', '7.7', 'Side Yard', '13.5', 'tree28.jpg', 'tree29.jpg', 'tree30.jpg', 'Has not been cut.', '20', 'jeannette@gmail.com');")
+          	        	"('20', '18.5', '7.7', 'Side Yard', '13.5', 'tree28.jpg', 'tree29.jpg', 'tree30.jpg', 'Has not been cut.', '20', 'jeannette@gmail.com'),"+
+          	        	"('21', '13.5', '7.4', 'Side Yard', '12.5', 'tree31.jpg', 'tree32.jpg', 'tree33.jpg', 'Has not been cut.', '21', 'prospective@gmail.com');")
           				};
 
         String[] TUPLES4 = {("INSERT INTO QuoteResponse(quoteresponseid, initialprice, timewindow, quoterequestid, email)"+
@@ -1454,7 +1370,7 @@ public class userDAO
                 "('7', 'Bill for tree maintenance in the side yard is $535.', '535.0', '2023-08-13 15:39:52', '7', 'sophie@gmail.com'),"+
                 "('8', 'Bill for tree removal and cleanup in the back yard is $444.', '444.0', '2023-09-13 15:39:52', '8', 'angelo@gmail.com'),"+
                 "('9', 'Your concern is unfounded; bill for tree trimming in the front yard is $442.', '442.0', '2023-10-24 15:39:52', '9', 'rudy@gmail.com'),"+
-                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '344.0', '2023-11-19 15:39:52', '10', 'jeannette@gmail.com');")
+                "('10', 'Discount for bill for tree maintenance in the side yard is $34; bill is $344.', '344.0', '2023-11-26 15:39:52', '10', 'jeannette@gmail.com');")
                 };
         String[] TUPLES8 = {("INSERT INTO ReportOfRevenue(reportofrevenueid, paymentamount, timepaid, billrequestid, email)"+
                 "VALUES ('1', '53.0', '2023-02-05 23:39:52', '1', 'susie@gmail.com'),"+
